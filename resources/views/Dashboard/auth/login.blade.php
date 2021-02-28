@@ -51,17 +51,13 @@
                             <input class="form-check-input" type="checkbox" name="remember"
                             id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <span>Remember me</span>
-                        </label>								
+                        </label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-round btn-block">
                         {{ __('Login') }}
                     </button>
-                    @if (Route::has('password.request'))
-                    <a class="btn btn-link" href="{{ route('admin.password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                    @endif
-                
+
+
                 </form>
             </div>
         </div>
