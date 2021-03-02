@@ -10,6 +10,7 @@
  
         handleChangeCity();
         handleChangeCategory();
+        handleProducts();
  
      };
  
@@ -56,6 +57,28 @@
             }
         })
    }
+   var handleProducts  = function () {
+    $('#category').on('change', function () {
+        var category= $(this).val();
+        console.log(category);
+        $('#product').html("");
+        $('#product').html('<option  value="0">' +'none' + '</option>');
+        products = "";
+        if (category) {
+            $.get(p_url+ category, function (data) {
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var product = data[x];
+                        products  += '<option value="' + product.id + '">' + product.name + '</option>';
+                    }
+                    $('#product').append(products);
+                }
+            }, "json");
+            console.log(products);
+        }
+    })
+}
+
 
  
  

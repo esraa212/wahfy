@@ -76,6 +76,10 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::get('dialogs','DialogController@index')->name('dialogs.index');
     //Order
     Route::resource('orders','OrdersController');
+    //banners
+    Route::resource('banners','BannersController');
+    //deals
+    Route::resource('deals','DealsController');
 
 
     //for test hyperpay 
@@ -94,8 +98,10 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
 
 //get subcategory of category
     Route::get('getSubByCategory/{category}', 'AjaxController@getSubByCategory')->name('getSubCategories');
+    Route::get('getProducts/{category}', 'AjaxController@getProductsByCategory')->name('getProducts');
 
-    
+
+    getProductsByCategory
     Route::any('/not-have-access', function () {
         return view('Dashboard::notAccess');
     });

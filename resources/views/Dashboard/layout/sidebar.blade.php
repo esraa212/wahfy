@@ -63,6 +63,12 @@
 
                     </ul>
                 </li>
+                <li class="{{ Request::segment(2) === 'deals' ? 'active open' : null }}">
+                    <a href="{{route('admin.deals.index')}}"><i class="icon-present"></i><span>Deals</span></a>
+                </li>
+                <li class="{{ Request::segment(2) === 'banners' ? 'active open' : null }}">
+                    <a href="{{route('admin.banners.index')}}"><i class="icon-paper-clip"></i><span>Banners</span></a>
+                </li>
                
                 <li class="{{ Request::segment(2) === 'advertisments' ? 'active open' : null }}">
                     <a href="{{route('admin.advertisments.index')}}"><i class="icon-film"></i><span>Advertisments</span></a>

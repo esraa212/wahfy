@@ -190,7 +190,7 @@
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td class="h2">
-                                 Feedback Reply
+                                 Feedback 
                                     </td>
 
                                 </tr>
@@ -199,6 +199,12 @@
                                     <td class="bodycopy borderbottom innerpadding" style="text-align: center;">
                                         {{$data['text']}}
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td class="h2">
+                                 Reply 
+                                    </td>
+
                                 </tr>
 
                                 <tr>
