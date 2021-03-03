@@ -29,7 +29,10 @@
                     <table class="table table-striped table-hover dataTable js-exportable">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Category Name</th>
+                                <th>Industry Name</th>
+
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -40,7 +43,9 @@
                                 
                       
                             <tr>
+                            <td>{{$category->id}}</td>
                             <td>{{$category->name}}</td>
+                            <td>{{optional($category->industry)->name}}</td>
                                 <td><a href="{{url("/dashboard/categories/{$category->id}/edit")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>
                                 <td>

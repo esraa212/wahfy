@@ -27,8 +27,9 @@
                                 <th>Supplier</th>
                                 <th>Product</th>
                                 <th>Discount Type</th>
-                                <th>Discount Value</th>
+                       
                                 <th>Price After Discount</th>
+                                <th>Active</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -39,10 +40,11 @@
                       
                             <tr>
                             <td>{{$deal->product->supplier->name}}</td>
-                            <td>{{$deal->product->name}}</td>
+                            <td>{{$deal->product->title}}</td>
                             <td>{{$deal->discount_type}}</td>
-                            <td>{{$deal->discount_value}}</td>
-                            <td>{{$deal->price_after_discount}}</td>
+                  
+                            <td>{{$deal->price_after}}</td>
+                            <td>{{$deal->active==1?'Yes':'No'}}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -52,6 +54,10 @@
                                         <div class="col-12 ml-2">
                                             <a href="{{url("/dashboard/deals/{$deal->id}/edit")}}"
                                                 ><i class="fa fa-edit"></i>Edit</a>
+                                        </div>
+                                        <div class="col-12 ml-2">
+                                            <a href="{{url("/dashboard/deals/{$deal->id}")}}"
+                                                ><i class="fa fa-eye"></i>Show</a>
                                         </div>
                                         <div class="col-12">
                                             <form action="{{url("/dashboard/deals/{$deal->id}")}}" method="post" class="delete">

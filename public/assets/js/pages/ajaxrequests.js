@@ -1,6 +1,7 @@
 
  var url=config._url+'/';
  var c_url=config.c_url+'/';
+ var p_url=config.p_url+'/';
 
  var Area = function () {
     
@@ -58,18 +59,18 @@
         })
    }
    var handleProducts  = function () {
-    $('#category').on('change', function () {
-        var category= $(this).val();
-        console.log(category);
+    $('#Supplier').on('change', function () {
+        var supplier= $(this).val();
+        console.log(supplier);
         $('#product').html("");
         $('#product').html('<option  value="0">' +'none' + '</option>');
         products = "";
-        if (category) {
-            $.get(p_url+ category, function (data) {
+        if (supplier) {
+            $.get(p_url+ supplier, function (data) {
                 if (data.length != 0) {
                     for (var x = 0; x < data.length; x++) {
                         var product = data[x];
-                        products  += '<option value="' + product.id + '">' + product.name + '</option>';
+                        products  += '<option value="' + product.id + '">' + product.title + '</option>';
                     }
                     $('#product').append(products);
                 }

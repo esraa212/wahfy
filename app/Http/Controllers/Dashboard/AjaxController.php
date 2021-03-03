@@ -99,7 +99,7 @@ class AjaxController extends Controller
         return response()->json($subCategories);
     }
     //return products of selcted category
-    public function getProductsByCategory($category_id){
+    public function getProductsByCategory($supplier_id){
         $products = Product::where('supplier_id', '=', $supplier_id)->select('*')->get()->toArray();
         return response()->json($products);
     }

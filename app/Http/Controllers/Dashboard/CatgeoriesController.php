@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Category;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
@@ -28,7 +29,9 @@ class CatgeoriesController extends Controller
      */
     public function create()
     {
-        return view('Dashboard.categories.create');
+        $industries = Industry::all();
+
+        return view('Dashboard.categories.create',compact('industries'));
     }
 
     /**
@@ -63,8 +66,9 @@ class CatgeoriesController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+        $industries = Industry::all();
 
-        return view('Dashboard.categories.edit', compact('category'));
+        return view('Dashboard.categories.edit', compact('category','industries'));
     }
 
     /**

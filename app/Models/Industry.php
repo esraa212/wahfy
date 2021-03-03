@@ -9,7 +9,10 @@ class Industry extends Model
 
     protected $fillable=['name'];
 
-    
+    public function categories()
+    {
+        return $this->hasMany('App\Models\Category');
+    }
     public function suppliers()
     {
         return $this->hasMany('App\Models\Supplier');

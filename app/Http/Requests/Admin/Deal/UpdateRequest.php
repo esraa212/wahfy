@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'discount_type' => "required",
-            'priduct_id' => "required|exists:products,id",
+            'product_id' => "required|exists:products,id",
 
         ];
     }

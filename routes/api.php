@@ -30,8 +30,16 @@ Route::group(['namespace' => 'Api'], function ($router) {
             Route::get('logout', 'CustomerAuthController@logout');
             Route::post('refresh', 'CustomerAuthController@refresh');
         });
-
+  
         Route::post('register-token', 'CustomerAuthController@RegisterToken');
     
     });
+    Route::get('/home','HomeController@home');
+    Route::post('/stores','StoresController@index');
+    Route::post('/products','ProductsController@index');
+    Route::post('/products/{id}','ProductsController@show');
+
+
+    
+
 });

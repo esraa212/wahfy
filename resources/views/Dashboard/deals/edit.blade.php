@@ -1,72 +1,83 @@
-@extends('layout.master')
+@extends('Dashboard.layout.master')
 @section('parentPageTitle', 'Dashboard')
-@section('title', 'Edit Offer')
+@section('title', 'Edit Deal')
 
 @section('content')
+<div class="row justify-content-center">
+    @if(session()->has('error'))
+    <div class="alert alert-danger" role="alert">
+        {{session('error') }}
+      </div>
+    @endif
+    @if(session()->has('success'))
+    <div class="alert alert-success" role="alert">
+        {{session('success') }}
+      </div>
+    @endif
+</div>
 <div class="row clearfix">
     <div class="col-md-12">
         <div class="card">
             <div class="header">
-                <h2>Edit Offer</h2>
+                <h2>Update Deal</h2>
             </div>
             <div class="body">
-                <form method="POST" action="{{route('admin.offers.update',['offer'=>$offer->id])}}" id="advanced-form"
-                    data-parsley-validate novalidate class="edit">
+                <form method="POST" action="{{route('admin.deals.update',['deal'=> $deal->id])}}" id="advanced-form" data-parsley-validate
+                    novalidate class="confirm">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="tax_id">Category</label>
-                                <select name="category_id" class="form-control" style="width: 100%;" data-select2-id="1"
-                                    tabindex="-1" aria-hidden="true" id="category">
-                                    <option value="">Choose Category</option>
+                                <label for="tax_id">Supplier</label>
+                                <select name="supplier_id" class="form-control" style="width: 100%;" data-select2-id="1"
+                                    tabindex="-1" aria-hidden="true" id="Supplier">
+                                    <option value="">Choose Supplier</option>
 
-                                    @foreach($categories as $category)
-                                    <option value="{{$category->id}}"
-                                        {{$offer->category_id==$category->id?'selected':''}}>{{$category->name}}
-                                    </option>
+                                    @foreach($suppliers as $supplier)
+                                    <option value="{{$supplier->id}}"{{$deal->supplier_id==$supplier->id ? 'selected':''}}>{{$supplier->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('category_id')
+                                @error('supplier_id')
                                 <small class="form-text text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="col-6">
+                            <label for="item_id">Products</label>
                             <div class="form-group">
-                                <label for="tax_id">Items</label>
-                                <select class="mul-select" multiple="true" name="item_id[]" id="item">
-                                    @foreach($items as $item)
-                                    <option value="{{$item->id}}" {{$offer->item_id==$item->id?'selected':''}}>
-                                        {{$item->name}}</option>
+                                <select class="form-control" name="product_id" id="product">
+                                    <option value="">Choose Product</option>
+
+                                    @foreach($products as $product)
+                                    <option value="{{$product->id}}"{{$deal->product_id==$product->id ? 'selected':''}}>{{$product->title}}</option>
                                     @endforeach
+
                                 </select>
-                                @error('item_id')
-                                <small class="form-text text-danger">{{ $message }}</small>
-                                @enderror
                             </div>
+
+                            @error('item_id')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label>Disccount Type</label>
                                 <select name="discount_type" class="form-control" style="width: 100%;"
                                     data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">Choose</option>
-                                    <option value="precentage" {{$offer->discount_type=='precentage'?'selected':''}}>
-                                        Precentage</option>
-                                    <option value="amount" {{$offer->discount_type=='amount'?'selected':''}}>amount
-                                    </option>
-
+                                    <option value="precentage"{{$deal->discount_type=='precentage'?'selected':''}}>Precentage</option>
+                                    <option value="amount"{{$deal->discount_type=='amount'?'selected':''}}>Amount</option>
                                 </select>
                                 @error('discount_type')
                                 <small class="form-text text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="email">Discount Value</label>
                                 <div class="input-group mb-3">
@@ -74,15 +85,57 @@
                                         <span class="input-group-text"><i class="fa fa-percent"></i></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Ex:" name="discount_value"
-                                        value="{{$offer->discount_value}}"><br>
+                                        value="{{$deal->discount_value}}"><br>
                                 </div>
 
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Active</label>
+                                <select name="active" class="form-control" style="width: 100%;"
+                                  aria-hidden="true">
+                                    <option value="">Choose</option>
+                                    <option value="1"{{$deal->active==1?'selected':''}}>Yes</option>
+                                    <option value="0"{{$deal->active==0?'selected':''}}>No</option>
+                                </select>
+                              
+                            </div>
+                        </div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email">Price Before</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Ex:" name="price_before"
+                                        value="{{$deal->price_before}}" disabled><br>
+                                </div>
 
-                    <button type="submit" class="btn btn-primary mx-auto">Update</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email">Price Atfer Discount</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Ex:" name="price_after"
+                                        value="{{$deal->price_after}}"disabled><br>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+<div class="row justify-content-center">
+    <button type="submit" class="btn btn-primary mx-auto">Update</button>
+</div>
+                   
                 </form>
             </div>
         </div>
@@ -91,41 +144,19 @@
 @stop
 
 @section('page-styles')
-<link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/parsleyjs/css/parsley.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
-<style>
-    .mul-select {
-        width: 100%;
-    }
-</style>
 @stop
 
 @section('page-script')
-<script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
 
+<script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script>
     var config ={
-    _url:"{{url('/getItemsByCategory/')}}"
+        p_url:"{{url('/dashboard/getProducts/')}}"
     }
 </script>
-<script src="{{ asset('assets/js/pages/get_items.js') }}"></script>
+<script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
 
-<script>
-    $(function() {
-    // validation needs name of the element
-    $('#food').multiselect();
 
-    // initialize after multiselect
-    $('#basic-form').parsley();
-    $(".mul-select").select2({
-                    placeholder: "select Items", //placeholder
-                    tags: true,
-                    tokenSeparators: ['/',',',';'," "]
-                });
-});
-</script>
 @stop

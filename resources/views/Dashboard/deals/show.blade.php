@@ -1,12 +1,12 @@
 @extends('Dashboard.layout.master')
 @section('parentPageTitle', 'Dashboard')
-@section('title', 'Create Deal')
+@section('title', 'Deal')
 
 @section('content')
 <div class="row justify-content-center">
-    @if(session()->has('error'))
-    <div class="alert alert-danger" role="alert">
-        {{session('error') }}
+    @if(session()->has('success'))
+    <div class="alert alert-success" role="alert">
+        {{session('success') }}
       </div>
     @endif
 </div>
@@ -14,12 +14,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="header">
-                <h2>Create New Deal</h2>
+                <h2> Deal Details</h2>
             </div>
             <div class="body">
-                <form method="POST" action="{{route('admin.deals.store')}}" id="advanced-form" data-parsley-validate
+                <form method="POST" action="" id="advanced-form" data-parsley-validate
                     novalidate class="confirm">
-                    @csrf
+               
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
@@ -28,13 +28,11 @@
                                     tabindex="-1" aria-hidden="true" id="Supplier">
                                     <option value="">Choose Supplier</option>
 
-                                    @foreach($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
-                                    @endforeach
+                               
+                                    <option value="{{$deal->supplier_id}}" selected disabled>{{$deal->product->supplier->name}}</option>
+                                 
                                 </select>
-                                @error('supplier_id')
-                                <small class="form-text text-danger">{{ $message }}</small>
-                                @enderror
+                             
                             </div>
                         </div>
                         <div class="col-6">
@@ -43,10 +41,14 @@
                                 <select class="form-control" name="product_id" id="product">
                                     <option value="">Choose Product</option>
 
+                               
+                                    <option value="{{$deal->product_id}}" selected disabled>{{$deal->product->title}}</option>
+                       
+
                                 </select>
                             </div>
 
-                          
+
                         </div>
                     </div>
 
@@ -57,12 +59,10 @@
                                 <select name="discount_type" class="form-control" style="width: 100%;"
                                     data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">Choose</option>
-                                    <option value="precentage">Precentage</option>
-                                    <option value="amount">amount</option>
+                                    <option value="precentage"{{$deal->discount_type=='precentage'?'selected':''}} disabled>Precentage</option>
+                                    <option value="amount"{{$deal->discount_type=='amount'?'selected':''}} disabled>Amount</option>
                                 </select>
-                                @error('discount_type')
-                                <small class="form-text text-danger">{{ $message }}</small>
-                                @enderror
+                             
                             </div>
                         </div>
                         <div class="col-6">
@@ -73,15 +73,15 @@
                                         <span class="input-group-text"><i class="fa fa-percent"></i></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Ex:" name="discount_value"
-                                        value="{{old('discount_value')}}"><br>
+                                        value="{{$deal->discount_value}}"><br>
                                 </div>
 
                             </div>
                         </div>
 
                     </div>
-                    <div class="row" style="display:none">
-                        <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="email">Price Before</label>
                                 <div class="input-group mb-3">
@@ -89,12 +89,12 @@
                                         <span class="input-group-text"><i class="fa fa-percent"></i></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Ex:" name="price_before"
-                                        value=""><br>
+                                        value="{{$deal->price_before}}" disabled><br>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="email">Price Atfer Discount</label>
                                 <div class="input-group mb-3">
@@ -102,15 +102,25 @@
                                         <span class="input-group-text"><i class="fa fa-percent"></i></span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Ex:" name="price_after"
-                                        value=""><br>
+                                        value="{{$deal->price_after}}"disabled><br>
                                 </div>
 
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Active</label>
+                                <select name="active" class="form-control" style="width: 100%;"
+                                  aria-hidden="true" disabled>
+                                    <option value="">Choose</option>
+                                    <option value="1"{{$deal->active==1?'selected':''}}>Yes</option>
+                                    <option value="0"{{$deal->active==0?'selected':''}}>No</option>
+                                </select>
+                              
+                            </div>
+                        </div>
                     </div>
-<div class="row justify-content-center">
-    <button type="submit" class="btn btn-primary mx-auto">Create</button>
-</div>
+
                    
                 </form>
             </div>
@@ -127,12 +137,6 @@
 
 <script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
-<script>
-    var config ={
-        p_url:"{{url('/dashboard/getProducts/')}}"
-    }
-</script>
-<script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
 
 
 @stop

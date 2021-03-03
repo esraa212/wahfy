@@ -15,7 +15,23 @@
                     data-parsley-validate novalidate>
                     @csrf
                     <div class="row justify-content-md-center">
-                        <div class="col-8">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="industry_id">Industry</label>
+                                <select name="industry_id" class="form-control select2 select2-hidden-accessible"
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                    <option value="">Choose Industry</option>
+            
+                                    @foreach($industries as $industry)
+                                    <option value="{{$industry->id}}">{{$industry->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('industry_id')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
                             <div class="form-group">
                                 <b>Category Name</b>
         

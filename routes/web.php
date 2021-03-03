@@ -98,10 +98,10 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
 
 //get subcategory of category
     Route::get('getSubByCategory/{category}', 'AjaxController@getSubByCategory')->name('getSubCategories');
-    Route::get('getProducts/{category}', 'AjaxController@getProductsByCategory')->name('getProducts');
+    Route::get('getProducts/{supplier}', 'AjaxController@getProductsByCategory')->name('getProducts');
 
 
-    getProductsByCategory
+
     Route::any('/not-have-access', function () {
         return view('Dashboard::notAccess');
     });

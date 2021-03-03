@@ -30,6 +30,9 @@
 
                     </ul>
                 </li>
+                <li class="{{ Request::segment(2) === 'Industries' ? 'active open' : null }}">
+                    <a href="{{route('admin.industries.index')}}"><i class="icon-tag"></i><span>Industries</span></a>
+                </li>
                 <li class="{{ Request::segment(2) === 'Industry Categories' ? 'active open' : null }}">
                     <a href="" class="has-arrow"><i class="icon-layers"></i><span>industry Categories</span></a>
                     <ul>
@@ -38,9 +41,7 @@
 
                     </ul>
                 </li>
-                <li class="{{ Request::segment(2) === 'Industries' ? 'active open' : null }}">
-                    <a href="{{route('admin.industries.index')}}"><i class="icon-tag"></i><span>Industries</span></a>
-                </li>
+
                 <li class="{{ Request::segment(2) === 'suppliers' ? 'active open' : null }}">
                     <a href="{{route('admin.suppliers.index')}}"><i class="icon-frame"></i><span>suppliers</span></a>
                 </li>

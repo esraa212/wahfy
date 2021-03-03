@@ -43,8 +43,10 @@ class DealsController extends Controller
      */
     public function store(CreateRequest $request)
     {
+
         $product=Product::find($request->input('product_id'));
         if(!$product){
+     
             return redirect()->back()->with('error','Error Product Not Found');
         }
         $deal=new Deal;
@@ -58,9 +60,9 @@ class DealsController extends Controller
             $deal->price_after = $product->price - $request->input('discount_value');
         }
         $deal->supplier_id = $request->input('supplier_id');
-        $deal->price_before=$
+        $deal->price_before=$product->price;
         $deal->save();
-        return redirect(route('admin.deals.index'))->with('Deal','Banner Has Been Added Successfully');
+        return redirect(route('admin.deals.show',['deal'=>$deal->id]))->with('success','Deal Has Been Added Successfully');
     }
 
     /**
@@ -71,7 +73,9 @@ class DealsController extends Controller
      */
     public function show($id)
     {
-        //
+        $deal=Deal::findOrFail($id);
+        return view('Dashboard.deals.show',compact('deal'));
+        
     }
 
     /**
@@ -84,7 +88,9 @@ class DealsController extends Controller
     {
         $deal=Deal::findOrFail($id);
         $suppliers=Supplier::all();
-        return view('Dashboard.deals.create',compact('suppliers',));
+        $products=Product::all();
+
+        return view('Dashboard.deals.edit',compact('suppliers','deal','products'));
         
     }
 
@@ -105,6 +111,7 @@ class DealsController extends Controller
         $deal->product_id = $product->id;
         $deal->discount_type = $request->input('discount_type');
         $deal->discount_value = $request->input('discount_value');
+        $deal->active = $request->input('active');
         if ($request->input('discount_type') == 'precentage') {
             $deal->price_after = $product->price - (($product->price / 100.00) * $request->input('discount_value'));
         }
@@ -112,7 +119,7 @@ class DealsController extends Controller
             $deal->price_after = $product->price - $request->input('discount_value');
         }
         $deal->supplier_id = $request->input('supplier_id');
-        $deal->price_before=$
+        $deal->price_before=$product->price;
         $deal->save();
         return redirect()->back()->with('success','Deal Has Been Updated Successfully');
     }
@@ -125,6 +132,8 @@ class DealsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deal=Deal::findOrFail($id);
+        $deal->delete();
+        return back();
     }
 }
