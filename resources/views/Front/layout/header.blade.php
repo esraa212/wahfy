@@ -79,7 +79,22 @@
 				<div class="your-fav wow   " id="your-fav" data-wow-delay="0.1s" data-wow-iteration="10">
 				<h5>Your favourite<br>categories</h5> <img src="{{url('img/general/arrow.png')}}" width="30px" height="30px" alt="arrow">
 				</div>
+		@if(Auth::guard('customers')->user())	
+		@php
+		$ids=array();
+		$ids=['a-skyblue','a-darkgreen','a-purple','a-gold','a-red','a-blue','a-lightgreen','a-skyblue'];
+		$categories=json_decode(Auth::guard('customers')->user()->categories);
+		@endphp
+		@foreach($categories as $category)
+		@php
+		$industries=App\Models\Industry::where('id',$category)->get();
+		@endphp
+	@foreach ($industries as $industry)
+	<a id="{{$ids[$category-1]}}" href="">{{$industry->name}}</a>
+	@endforeach
 				
+		@endforeach
+		@else
 		<a id="a-skyblue" href="fashion.php">Fashion</a>
 		<a id="a-darkgreen">Cars</a>
 		<a id="a-purple">Electronics</a>
@@ -87,6 +102,7 @@
 		<a id="a-red">Food</a>
 		<a id="a-blue">Furniture</a>
 		<a id="a-lightgreen">Perfumes</a>
+		@endif
 		</div>
 	</div>
 	</div>
@@ -195,10 +211,8 @@
 					</div>
 
 					<div class="form-group row mb-0">
-						<div class="col-md-8 offset-md-4">
-							<button type="submit" class="btn btn-primary">
-								{{ __('Login') }}
-							</button>
+						<div class="col-md-9 offset-md-3">
+							
 
 							@if (Route::has('password.request'))
 								<a class="btn btn-link" href="{{ route('password.request') }}">
@@ -207,7 +221,7 @@
 							@endif
 						</div>
 					</div>
-				</form>
+			
 				  
 								
 				   
@@ -215,8 +229,12 @@
 				
             </div>
             <div class="modal-footer">
+				<button type="submit" class="btn btn-primary">
+					{{ __('Login') }}
+				</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
+		</form>
         </div>
     </div>
 </div>

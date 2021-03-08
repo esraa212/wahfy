@@ -30,6 +30,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Supplier</th>
                                 <th>Category Name</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -43,6 +44,7 @@
                             <tr>
 
                             <td>{{$category->id}}</td>
+                            <td>{{optional($category->supplier)->name}}</td>
                             <td>{{$category->name}}</td>
                                 <td><a href="{{url("/dashboard/product_categories/{$category->id}/edit")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>

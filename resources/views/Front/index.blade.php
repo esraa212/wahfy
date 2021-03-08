@@ -2,7 +2,41 @@
 @section('content')
 <div class="container">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="main-slider"></div>
+    <!-- Carousel container -->
+<div id="my-pics" class="carousel slide" data-ride="carousel" style="width:100%;margin:auto;">
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+    <li data-target="#my-pics" data-slide-to="0" class="active"></li>
+    <li data-target="#my-pics" data-slide-to="1"></li>
+    <li data-target="#my-pics" data-slide-to="2"></li>
+    </ol>
+    
+    <!-- Content -->
+    <div class="carousel-inner" role="listbox">
+    
+    <!-- Slide 1 -->
+    @foreach ($banners as $banner)
+    <div class="item {{$banner->id==1?'active':''}}">
+        <img src="{{url('/')}}{{$banner->image}}" alt="{{$banner->title}}" style="width: 100%;">
+        </div>   
+    @endforeach
+
+
+    
+    </div>
+    
+    <!-- Previous/Next controls -->
+    <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
+    <span class="icon-prev" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
+    <span class="icon-next" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+    </a>
+    
+    </div>
     </div>
     
     
@@ -13,17 +47,22 @@
             
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="hot-index">
-                
+                @foreach ($hotdeals as $deal)
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <div class="item-index-side clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div class="price-offer">50 EGP</div>	<img src="img/shop/thumb_cross142.jpg" width="120px;" height="120px;"></div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><center>	<label>Special choose</label><br>
-                    <p>this is a small description about this item ..</p>
-                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></center></div>
-                </div>
-                </div>
-                </div>
+                    <div class="item-index-side clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div class="price-offer">{{$deal->product_price}} EGP</div>	<img src="img/shop/thumb_cross142.jpg" width="120px;" height="120px;"></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><center>	<label>Special choose</label><br>
+                        <p>{{  \Illuminate\Support\Str::limit($deal->product_description, $limit = 150, $end = '...')}}</p>
+                        @for($i=1;$deal->rating;$i++)
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        @endfor
+                 </center></div>
+                    </div>
+                    </div>
+                    </div>
+                @endforeach
+           
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <div class="item-index-side clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Area;
-use Illuminate\Support\Facades\Hash;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\Customer\CreateCustomerRequest;
 use App\Http\Requests\Admin\Customer\UpdateCustomerRequest;
 
@@ -33,7 +34,7 @@ class CustomersController extends Controller
      public function create()
      {
          $cities = City::all();
-         $categories = Category::all();
+         $categories = Industry::all();
 
          return view('Dashboard.customers.create', compact('cities','categories'));
      }
@@ -77,7 +78,7 @@ class CustomersController extends Controller
          $cities = City::all();
          $areas = Area::all();
          $customer = Customer::findOrFail($id);
-         $categories = Category::all();
+         $categories = Industry::all();
          return view('Dashboard.customers.show', compact('customer', 'cities', 'areas', 'categories'));
      }
  
@@ -92,7 +93,7 @@ class CustomersController extends Controller
          $cities = City::all();
          $areas = Area::all();
          $customer = Customer::findOrFail($id);
-         $categories = Category::all();
+         $categories = Industry::all();
          return view('Dashboard.customers.edit', compact('customer', 'cities', 'areas','categories'));
      }
  

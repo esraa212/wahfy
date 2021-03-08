@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Area;
-use Illuminate\Support\Facades\Hash;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Front\Customer\CreateCustomerRequest;
 use App\Http\Requests\Front\Customer\UpdateCustomerRequest;
+
 class CustomersController extends Controller
 {
     protected $redirectTo = '';
@@ -64,7 +66,7 @@ class CustomersController extends Controller
     }
     public function registerForm(){
         $cities = City::all();
-        $categories = Category::all();
+        $categories = Industry::all();
         return view('Front.customers.register',compact('cities','categories'));
     }
     public function register(CreateCustomerRequest $request){

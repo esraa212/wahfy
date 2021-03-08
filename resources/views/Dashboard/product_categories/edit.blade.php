@@ -16,7 +16,23 @@
                     @method('PUT')
                     @csrf
                     <div class="row justify-content-center">
-                        <div class="col-8">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="supplier_id">Supplier</label>
+                                <select name="supplier_id" class="form-control select2 select2-hidden-accessible"
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                    <option value="">Choose supplier</option>
+            
+                                    @foreach($suppliers as $supplier)
+                                    <option value="{{$supplier->id}}"{{$category->supplier_id==$supplier->id ? 'selected':''}}>{{$supplier->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('supplier_id')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Category Name</b>

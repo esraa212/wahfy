@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'price' => "required|numeric",
             'active' => "required",
             'image' => 'required|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'product_category_id' => "required|exists:categories,id",
+            'product_category_id' => "required|exists:product_categories,id",
             'supplier_id' => "required|exists:suppliers,id",
         ];
     }

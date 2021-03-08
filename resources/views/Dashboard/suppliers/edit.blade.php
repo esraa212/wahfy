@@ -36,7 +36,8 @@
                                         <div class="form-group">
                                             <label for="industry_id">industry</label>
                                             <select name="industry_id" class="form-control select2 select2-hidden-accessible"
-                                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" id="industry"
+                                                required>
                                                 <option value="">Choose industry</option>
             
                                                 @foreach($industries as $industry)
@@ -48,6 +49,40 @@
                                             @enderror
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="category_id">Category</label>
+                                            <select name="category_id" class="form-control select2 select2-hidden-accessible"
+                                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="category">
+                                                <option value="">Choose Category</option>
+            
+                                                @foreach($categories as $category)
+                                                <option value="{{$category->id}}"{{$category->id==$supplier->category_id?'selected':''}}>{{$category->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('category_id')
+                                            <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="tax_id">SubCategory</label>
+                                            <select name="sub_category_id" class="form-control select2 select2-hidden-accessible"
+                                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="subCategory">
+                                             <option value="">Choose SubCategory</option>
+                                             @foreach($sub_categories as $sub_category)
+                                             <option value="{{$sub_category->id}}"{{$sub_category->id==$supplier->sub_category_id?'selected':''}}>{{$sub_category->name}}</option>
+                                             @endforeach
+                                            </select>
+                                            @error('sub_category_id')
+                                            <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -158,7 +193,8 @@
 <script>
     var config ={
     _url:"{{url('/dashboard/get_areas/')}}",
-    c_url:"{{url('/dashboard/getSubByCategory/')}}"
+    c_url:"{{url('/dashboard/getSubByCategory/')}}",
+    i_url:"{{url('/dashboard/getCategoriesByIndustry/')}}"
     }
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>

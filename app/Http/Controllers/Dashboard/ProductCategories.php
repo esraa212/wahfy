@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,8 @@ class ProductCategories extends Controller
       */
      public function create()
      {
-         return view('Dashboard.product_categories.create');
+         $suppliers=Supplier::all();
+         return view('Dashboard.product_categories.create',compact('suppliers'));
      }
  
      /**
@@ -62,9 +64,10 @@ class ProductCategories extends Controller
       */
      public function edit($id)
      {
+        $suppliers=Supplier::all();
          $category = ProductCategory::findOrFail($id);
  
-         return view('Dashboard.product_categories.edit', compact('category'));
+         return view('Dashboard.product_categories.edit', compact('category','suppliers'));
      }
  
      /**

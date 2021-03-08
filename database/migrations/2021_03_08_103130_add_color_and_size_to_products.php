@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIndustryIdToCategories extends Migration
+class AddColorAndSizeToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddIndustryIdToCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('industry_id')->default(1);
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('color')->default('black');
+            $table->string('size')->default('s');
+
         });
     }
 
@@ -25,8 +27,9 @@ class AddIndustryIdToCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn('industry_id');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('color');
+            $table->dropColumn('size');
         });
     }
 }

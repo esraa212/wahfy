@@ -2,7 +2,10 @@
  var url=config._url+'/';
  var c_url=config.c_url+'/';
  var p_url=config.p_url+'/';
-
+ var s_url=config.s_url+'/';
+ var i_url=config.i_url+'/';
+ var cp_url=config.cp_url+'/';
+ 
  var Area = function () {
     
  
@@ -12,6 +15,9 @@
         handleChangeCity();
         handleChangeCategory();
         handleProducts();
+        handleChangeSupplier();
+        handleChangeIndustry();
+        handleChangeCategoryProduct();
  
      };
  
@@ -58,6 +64,28 @@
             }
         })
    }
+   var handleChangeCategoryProduct  = function () {
+    $('#product_category').on('change', function () {
+        var category= $(this).val();
+        console.log(category);
+        $('#subCategory').html("");
+        $('#subCategory').html('<option selected value="0">' +'none' + '</option>');
+        subCategories = "";
+        if (category) {
+            $.get(cp_url+ category, function (data) {
+               console.log(data);
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var sub = data[x];
+                        subCategories  += '<option value="' + sub.id + '">' + sub.name + '</option>';
+                    }
+                    $('#subCategory').append(subCategories);
+                }
+            }, "json");
+            console.log(subCategories);
+        }
+    })
+}
    var handleProducts  = function () {
     $('#Supplier').on('change', function () {
         var supplier= $(this).val();
@@ -80,7 +108,48 @@
     })
 }
 
-
+var handleChangeSupplier  = function () {
+    $('#supplier').on('change', function () {
+        var supplier= $(this).val();
+        console.log(supplier);
+        $('#category').html("");
+        $('#category').html('<option  value="0">' +'none' + '</option>');
+        categories = "";
+        if (supplier) {
+            $.get(s_url+ supplier, function (data) {
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var category = data[x];
+                        categories  += '<option value="' + category.id + '">' + category.name + '</option>';
+                    }
+                    $('#category').append(categories);
+                }
+            }, "json");
+            console.log(categories);
+        }
+    })
+}
+var handleChangeIndustry  = function () {
+    $('#industry').on('change', function () {
+        var industry= $(this).val();
+        console.log(industry);
+        $('#category').html("");
+        $('#category').html('<option  value="0">' +'none' + '</option>');
+        categories = "";
+        if (industry) {
+            $.get(i_url+ industry, function (data) {
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var category = data[x];
+                        categories  += '<option value="' + category.id + '">' + category.name + '</option>';
+                    }
+                    $('#category').append(categories);
+                }
+            }, "json");
+            console.log(categories);
+        }
+    })
+}
  
  
      return {

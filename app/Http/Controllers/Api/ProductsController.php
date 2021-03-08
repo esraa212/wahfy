@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Rating;
 use App\Models\Product;
+use App\Models\Feedback;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\ApiController;
 
 class ProductsController extends ApiController
 {
@@ -26,6 +27,12 @@ class ProductsController extends ApiController
            }   
       
          if($request->like||$request->rating_value){
+            if(Auth::guard('customer-api')->user()==null){
+                return response()->json([
+                    'status' => 1,
+                    'msg' => 'please login to rate The Product',
+                ]);
+            }
             $rating=Rating::where('product_id',$product->id)->first();
            if(!$rating){
             $rating=new Rating;
@@ -50,6 +57,24 @@ class ProductsController extends ApiController
             return response()->json([
                 'status' => 1,
                 'msg' => 'success ratting has been added successfully',
+            ]);
+        }
+        if($request->feedback){
+            if(Auth::guard('customer-api')->user()==null){
+                return response()->json([
+                    'status' => 1,
+                    'msg' => 'please login to insert your Feedback',
+                ]);
+            }
+            $feedback=new Feedback;
+            $feedback->feedback_text=$request->feedback;
+            $feedback->product_id = $product->id;
+            $feedback->customer_id=Auth::guard('customer-api')->user()->id;
+            $feedback->supplier_id=$product->supplier_id;
+            $feedback->save();
+            return response()->json([
+                'status' => 1,
+                'msg' => 'success,Feedback has been added successfully',
             ]);
         }
            return $this->successResponse($product);  

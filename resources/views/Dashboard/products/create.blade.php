@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select name="product_category_id" class="form-control select2 select2-hidden-accessible"
-                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="category">
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="product_category">
                                     <option value="">Choose Category</option>
 
                                     @foreach($categories as $category)
@@ -152,6 +152,39 @@
                     </div>
                 </div>
                </div>
+               <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="color">color</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                            </div>
+                            <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
+                                name="color" value="{{old('color')}}" required><br>
+                        </div>
+                        @error('color')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">size</label>
+                        <select name="size" class="form-control select2 select2-hidden-accessible"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="size">
+                         <option value="">Choose size</option>
+                         <option value="xs">xsmall</option> 
+                         <option value="s">small</option>
+                         <option value="m">medium</option> 
+                         <option value="l">large</option>
+                         <option value="xl">xlarge</option>
+                        </select>
+                     
+                    </div>
+                </div>
+         
+            </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn btn-primary mx-auto">Create</button>
                     </div>
@@ -177,7 +210,9 @@
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script>
     var config ={
-    c_url:"{{url('/dashboard/getSubByCategory/')}}"
+    c_url:"{{url('/dashboard/getSubByCategory/')}}",
+    s_url:"{{url('/dashboard/getCategories/')}}",
+    cp_url:"{{url('/dashboard/getProductSubByCategory/')}}"
     }
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>

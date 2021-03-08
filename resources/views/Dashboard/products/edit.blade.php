@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select name="product_category_id" class="form-control select2 select2-hidden-accessible"
-                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="category">
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="product_category">
                                     <option value="">Choose Category</option>
 
                                     @foreach($categories as $category)
@@ -192,7 +192,9 @@
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script>
     var config ={
-    c_url:"{{url('/dashboard/getSubByCategory/')}}"
+    c_url:"{{url('/dashboard/getSubByCategory/')}}",
+    s_url:"{{url('/dashboard/getCategories/')}}",
+    cp_url:"{{url('/dashboard/getProductSubByCategory/')}}"
     }
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>

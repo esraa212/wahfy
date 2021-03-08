@@ -5,12 +5,23 @@ namespace App\Http\Controllers\Api;
 use App\Models\Deal;
 use App\Models\Banner;
 use App\Models\Industry;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 
 class HomeController extends ApiController
 {
-    public function home(){
+    public function home(Request $request){
+        if($request->city_id||$request->area_id){
+            $suppliers=Supplier::where('city_id',$request->city_id)
+            ->orWhere('area_id',$request->area_id)
+            ->paginate(8);
+    
+            if ($suppliers->isEmpty()) {
+                return $this->failedResponse($suppliers, 'there is no stores for this location', 200);
+            } 
+            return $this->successResponse($suppliers);
+        }
         $data=array();
         $banners = Banner::take(3)->get();
         $industries = Industry::all();
