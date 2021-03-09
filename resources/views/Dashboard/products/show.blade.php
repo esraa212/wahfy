@@ -11,10 +11,9 @@
                 <h2>Product Info</h2>
             </div>
             <div class="body">
-                <form method="POST" enctype="multipart/form-data" action="{{route('admin.products.update',['product'=>$product->id])}}" id="advanced-form" data-parsley-validate
+                <form method="POST" enctype="multipart/form-data" action="" id="advanced-form" data-parsley-validate
                     novalidate class="confirm">
-                    @csrf
-                    @method('PUT')
+                  
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
@@ -158,7 +157,39 @@
                     </div>
                 </div>
                </div>
-                  
+               <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="color">color</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-arrow-up"></i></span>
+                            </div>
+                            <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
+                                name="color" value="{{$product->color}}" disabled><br>
+                        </div>
+                        @error('color')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">size</label>
+                        <select name="size" class="form-control select2 select2-hidden-accessible"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="size" disabled>
+                         <option value="">Choose size</option>
+                         <option value="xs"{{$product->size=='xs'?'selected':''}}>xsmall</option> 
+                         <option value="s"{{$product->size=='s'?'selected':''}}>small</option>
+                         <option value="m"{{$product->size=='m'?'selected':''}}>medium</option> 
+                         <option value="l"{{$product->size=='l'?'selected':''}}>large</option>
+                         <option value="xl"{{$product->size=='xl'?'selected':''}}>xlarge</option>
+                        </select>
+                     
+                    </div>
+                </div>
+         
+            </div> 
                
                 </form>
             </div>

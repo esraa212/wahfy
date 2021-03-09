@@ -1,77 +1,79 @@
 @extends('Front.layout.master')
 @section('content')
-<div class="container">
-    <form method="POST" action="{{route('front.register')}}" id="advanced-form" data-parsley-validate
-    novalidate class="confirm">
-    @csrf
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    
-        <div class="sidebar2 clearfix">
-            <h5>Register new account</h5>
-        
-            
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          
-               
-            
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              
-                <div class="form-group">
-                    <label for="type_id">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Your Name" name="name"
-                        value="{{old('name')}}"><br>
-                    @error('name')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    <label for="email">Email</label>
+  <div class="ps-my-account">
+            <div class="container">
+                <div class="row">
+                  
+    <form class="ps-form--account ps-tab-root mt-0" method="POST" action="{{route('front.register')}}" style="max-width:622px !important; padding-top:56px !important;">
+        @csrf
                  
-                       
-                        <input type="text" class="form-control" placeholder="Ex: example@example.com"
-                            name="email" value="{{old('email')}}"><br>
-                 
-                    @error('email')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <div class="ps-tabs">
+                        <div class="ps-tab active">
+                            <div class="ps-form__content">
+                                <h5 class="text-info">Register new account</h5>
+                <div class="row">
+                    <div class="col-12">
+                         <div class="form-group">
+                    <label for="name">Fullname</label>  
+                         <input class="form-control" type="text" placeholder="Enter Your Name" name="name"
+                                value="{{old('name')}}"required>
+                                @error('name')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                            </div>
+                        </div>
+                   
                 </div>
-                </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12">
+                        <div class="form-group">  
+                        <label for="email">Email</label>      
+                    <input type="email" class="form-control" placeholder="Ex: example@example.com"
+                                        name="email" value="{{old('email')}}" required><br>
+                            
+                                @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            </div>
+                            </div>    
+    <div class="row">
+        <div class="col-6">
+             <div class="form-group">
                     <label for="type_id">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter Strong password" name="password"
-                        value=""><br>
+                    <input type="password" class="form-control"  name="password"
+                        value=""required><br>
                     @error('password')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label>Confirm Password</label>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+        <label>Confirm Password</label>
                 <input type="password" name="password_confirmation" class="form-control">
-                </div>
-            
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
+            </div>
+       
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+              <div class="form-group">
                     <label for="type_id">Mobile</label>    
-                        <input type="text" class="form-control key" placeholder="Ex: 01234567890"
-                            name="mobile" value="{{old('mobile')}}">
+                        <input type="number" class="form-control key" placeholder="Ex: 01234567890"
+                            name="mobile" value="{{old('mobile')}}"required>
                     @error('mobile')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                </div>
-                
-             
-                
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+              <div class="form-group">
                             <label for="tax_id">City</label>
                             <select name="city_id" class="form-control"
-                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" id="city">
+                                style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" id="city" required>
                                 <option value="">Choose City</option>
 
                                 @foreach($cities as $city)
@@ -82,9 +84,9 @@
                             <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
+        </div>
+        <div class="col-6">
+               <div class="form-group">
                             <label for="tax_id">Area</label>
                             <select name="area_id" class="form-control"
                                 style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" id="area">
@@ -94,84 +96,63 @@
                             <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                    </div>
-                </div>
-            
-  
-          
-        
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px;">
-                <div class="form-group">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+    <div class="form-group">
                     <label>Address</label>
                     <textarea class="form-control" name="address" rows="5"
-                        cols="30">{{old('description')}}</textarea>
+                        cols="30" required>{{old('description')}}</textarea>
                     @error('address')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                </div>
-                
-            
-        
-            
-                
-                
-            
-            </div>
-        
         </div>
-                <div class="sidebar2 clearfix">
-            <h5>Select your favorite categories ( these categories appear on navbar ) <strong style="color:black; cursor:help;" class="helpme">HELP??</strong></h5>
-        
-            
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            
-                <div class="form-group">
+    </div>
+    <div class="row">
+          <h5>Select your favorite industries ( these industries will appear on navbar )</h5>
+          <div class="col-12">
+                  <div class="form-group">
                     <div class="row text-center justify-content-center">
-                        <div class="col-sm-12">
-                            <label><strong>Hint : You Have To Choose & Categories</strong></label><br>
+                        <div class="col-12" style="position: relative;">
+                            <label><strong class="text-info">Hint : You Have To Choose 7 Categories</strong></label><br>
                         </div>
-                        @foreach ($categories as $category )
-                        <div class="col-sm-6">
-                            <label><input type="checkbox" name="category_id[]" value="{{$category->id}}">{{$category->name}}</label>
+                        @foreach ($favindustries as $favindustry )
+                        <div class="col-6">
+                            <input style="position: absolute; left:30%;" type="checkbox" name="category_id[]" value="{{$favindustry->id}}" ><label>{{$favindustry->name}}</label>
                         </div>     
                         @endforeach
                       
                         
                     </div>
-                 
-
-                </div> 
-              
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-             
-                </div>
-            
-            
-        
-                
-                <div class="row text-center justify-content-center">
-                    <div class="col-sm-3 text-center">
-                        <br>
-                        <button class="btn btn-info" style="width:100%; margin-top:5px; margin-bottom:10px; margin-left:113px;">Register</button>
-                    </div>
-                   
-                </div>
-            </div>
-        
-        </div>
-
+          </div>
     </div>
-</form>
-</div>
+    </div> 
+                                <div class="form-group submtit">
+                                    <button class="ps-btn ps-btn--fullwidth">Register</button>
+                                </div>
+                            
+                            <div class="ps-form__footer mb-5">
+                                <p>Connect with:</p>
+                                <ul class="ps-list--social">
+                                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="google" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            
+            </div>
+        </div>
 
 
 @endsection
-@section('after-styles')
-
-
-@stop
-
 @section('scripts')
 <script>
     var config ={

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','Front\HomeController@index')->name('front.home');
-Route::get('/customer/login', 'Front\CustomersController@showLoginForm');
+Route::get('/customer/login', 'Front\CustomersController@showLoginForm')->name('front.loginForm');
 Route::post('/customer/login', 'Front\CustomersController@login')->name('front.login');
 Route::post('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');
 Route::get('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');

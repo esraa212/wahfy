@@ -8,14 +8,14 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Industry;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Front\Customer\CreateCustomerRequest;
 use App\Http\Requests\Front\Customer\UpdateCustomerRequest;
 
-class CustomersController extends Controller
+class CustomersController extends FrontController
 {
     protected $redirectTo = '';
 
@@ -23,13 +23,16 @@ class CustomersController extends Controller
 
     public function __construct()
     {
+            parent::__construct();
+            
+ 
         if (request()->redirectTo) {
             $this->redirectTo = request()->redirectTo;
         }
         $this->middleware('guest:customers')->except('logout');
     }
     public function showLoginForm(){
-     
+           return $this->_view('customers.login', 'Front');
     }
     public function login(Request $request){
         // dd('here');
@@ -66,8 +69,11 @@ class CustomersController extends Controller
     }
     public function registerForm(){
         $cities = City::all();
-        $categories = Industry::all();
-        return view('Front.customers.register',compact('cities','categories'));
+        $favindustries = Industry::all();
+        $this->data['cities']=$cities;
+        $this->data['favindustries']=$favindustries;
+
+           return $this->_view('customers.register', 'Front');
     }
     public function register(CreateCustomerRequest $request){
         $customer = new Customer;

@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Front;
 use App\Models\Deal;
 use App\Models\Banner;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FrontController;
 
-class HomeController extends Controller
+class HomeController extends FrontController
 {
+    // protected $industries;
+        public function __construct()
+    {
+            parent::__construct();
+    }
+
     public function index(){
         $banners=Banner::orderBy('order')->get();
         $hotdeals=Deal::join('products','deals.product_id','products.id')
@@ -17,6 +23,8 @@ class HomeController extends Controller
         ->select(['deals.id',\DB::raw('AVG(ratings.value) as rating'),
         'products.title as product_name','products.description as product_description','products.image as product_image','deals.price_after as product_price'])
        ->groupBy('deals.id')->get();
-        return view('Front.index',compact('banners','hotdeals'));
+            $this->data['banners']=$banners;
+            $this->data['hotdeals']=$hotdeals;
+      return $this->_view('index', 'Front');
     }
 }

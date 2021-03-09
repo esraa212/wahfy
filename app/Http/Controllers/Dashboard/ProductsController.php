@@ -59,6 +59,8 @@ class ProductsController extends Controller
          $product->quantity = $request->input('quantity');
          $product->active = $request->input('active');
          $product->image = $this->upload($request->file('image'));
+         $product->size = $request->input('size');       
+          $product->color = $request->input('color');
          $product->save();
          return redirect(route('admin.products.index'));
      }

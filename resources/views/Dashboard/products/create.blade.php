@@ -158,7 +158,7 @@
                         <label for="color">color</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                <span class="input-group-text"><i class="fa fa-arrow-up"></i></span>
                             </div>
                             <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
                                 name="color" value="{{old('color')}}" required><br>
