@@ -23,19 +23,22 @@
     <link rel="stylesheet" href="{{url('front/plugins/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{url('front/css/style.css')}}">
     <link rel="stylesheet" href="{{url('front/css/market-place-1.css')}}">
-	
+
 
     @stack('after-styles')
 
-   
+
 </head>
 
 <body>
 
-  
+
 
     @include('Front.layout.header')
-      @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
+
 
     @include('Front.layout.footer')
 
