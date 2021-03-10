@@ -19,6 +19,8 @@ Route::post('/customer/logout', 'Front\CustomersController@logout')->name('front
 Route::get('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');
 Route::get('/customer/register', 'Front\CustomersController@registerForm')->name('front.registerForm');
 Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
+Route::get('/shop/{industry}', 'Front\CategoriesController@show')->name('indusrty.show');
+
      /*get areas of cities ajax */
      Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');
 
@@ -82,14 +84,14 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::resource('deals','DealsController');
 
 
-    //for test hyperpay 
+    //for test hyperpay
     Route::resource('testPayments', 'CheckoutController');
     Route::get('testPayment/checkout/{price}', 'CheckoutController@checkout')->name('products.checkout');
 //    Route::get('testPayment/cardForm/{price}', 'CheckoutController@cardForm');
 
 
 
-    
+
 
 
 
@@ -104,9 +106,9 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::get('getProductSubByCategory/{product_category_id}', 'AjaxController@getProductSubByCategory')->name('getProductSubByCategory');
 
 
-    
-    
-    
+
+
+
 
     Route::any('/not-have-access', function () {
         return view('Dashboard::notAccess');

@@ -138,7 +138,7 @@
                 <div class="row">
                     @foreach ($home_industries as $home_industry )
                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                        <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{url('front/img/categories/1.jpg')}}" alt="">
+                        <div class="ps-block--category"><a class="ps-block__overlay" href="{{route('indusrty.show',['industry'=>$home_industry->name])}}"></a><img src="{{url('front/img/categories/1.jpg')}}" alt="">
                             <p>{{$home_industry->name}}</p>
                         </div>
                     </div>
