@@ -13,7 +13,11 @@
                 <ul class="nav navbar-nav">
                     <li><a href="javascript:void(0);" class="search_toggle icon-menu" title="Search Result"><i
                                 class="icon-magnifier"></i></a></li>
-                    <li><a href="{{url('/logout')}}" class="icon-menu"><i class="icon-power"></i></a>
+                    <li>
+                          <form action="{{url('/logout')}}" method="post" style="background-color:inherit">
+                               <button style="background-color:inherit" class="icon-menu btn btn-xs "><i class="icon-power"></i></button>
+                                                @csrf
+                                 </form>
                     </li>
                 </ul>
             </div>

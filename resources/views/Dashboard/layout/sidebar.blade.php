@@ -92,6 +92,9 @@
                 <li class="{{ Request::segment(2) === 'orders' ? 'active open' : null }}">
                     <a href="{{route('admin.orders.index')}}"><i class="icon-equalizer"></i><span>orders</span></a>
                 </li>
+                     <li class="{{ Request::segment(2) === 'subscriptions' ? 'active open' : null }}">
+                    <a href="{{route('admin.subscriptions.index')}}"><i class="icon-arrow-up"></i><span>subscriptions</span></a>
+                </li>
             </ul>
 
 

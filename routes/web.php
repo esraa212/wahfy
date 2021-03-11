@@ -36,10 +36,10 @@ Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
 Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'], function (): void {
     Route::get('/login', 'Auth\LoginController@showLoginForm');
     Route::post('/login', 'Auth\LoginController@login')->name('login');
-    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');;
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');;
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/', 'DashboardController@index')->name('index');
-    Route::get('/index', 'DashboardController@index');
+    Route::get('/index', 'DashboardController@index')->name('dashboard');
 //    Route::get('/profile', 'Dashboard\Auth\ProfileController@showProfile')->name('profile');
 //    Route::post('/profile', 'Dashboard\Auth\ProfileController@profile')->name('profile.post');
     //cities
@@ -80,6 +80,8 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::get('dialogs','DialogController@index')->name('dialogs.index');
     //Order
     Route::resource('orders','OrdersController');
+      //Subscription
+    Route::resource('subscriptions','SubscriptionControlller');
     //banners
     Route::resource('banners','BannersController');
     //deals
