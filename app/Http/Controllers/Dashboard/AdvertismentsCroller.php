@@ -110,7 +110,7 @@ class AdvertismentsCroller extends Controller
      {
         $advertisment=Advertisment::findOrFail($id);
         $advertisment->title = $request->input('title');
-        if($rwquest->input('city_id')){
+        if($request->input('city_id')){
             $advertisment->city_id = json_encode($request->input('city_id'));
         }
       if($request->input('area_id')){

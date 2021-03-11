@@ -51,7 +51,7 @@
                 <div class="row">
                     @foreach ($advertisings as $advertising )
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
-                        <a class="ps-collection" href="#"><img src="{{url(".$advertising->image.")}}" alt="" style="width:500px;height:250px;"></a>
+                        <a class="ps-collection" href="#"><img src="{{url("$advertising->image")}}" alt="" style="width:500px;height:250px;"></a>
                     </div>
                     @endforeach
                 </div>
@@ -82,7 +82,7 @@
                         @foreach ($hotdeals as $hotdeal )
                         <div class="ps-product ps-product--inner">
                             <div class="ps-product__thumbnail"><a href="product-default.html">
-                                <img style="width:200px;height:120px;" src="{{url(".$hotdeal->product_image.")}}" alt=""></a>
+                                <img style="width:200px;height:120px;" src="{{url("$hotdeal->product_image")}}" alt=""></a>
                                 <div class="ps-product__badge">
                                     {{--  @if ($hotdeal->discount_type=='percentage')
                                        -{{$hotdeal->discount_value}} %

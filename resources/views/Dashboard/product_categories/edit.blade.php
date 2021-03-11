@@ -12,7 +12,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.product_categories.update', ['product_category' => $category->id])}}"
-                    id="advanced-form" data-parsley-validate novalidate>
+                    id="advanced-form" data-parsley-validate novalidate class="edit">
                     @method('PUT')
                     @csrf
                     <div class="row justify-content-center">

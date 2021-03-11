@@ -12,7 +12,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.areas.store')}}" id="advanced-form" data-parsley-validate
-                    novalidate>
+                    novalidate class="confirm">
                     @csrf
                     <div class="row">
                         <div class="col-6">

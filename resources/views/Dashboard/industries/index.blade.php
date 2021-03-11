@@ -44,8 +44,8 @@
                                 <td><a href="{{url("/dashboard/industries/{$industry->id}/edit")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{url("/dashboard/industries/{$industry->id}")}}" method="post">
-                                     <button class="btn btn-danger btn-xs confirm-del"><i
+                                    <form action="{{url("/dashboard/industries/{$industry->id}")}}" method="post" class="delete">
+                                     <button class="btn btn-danger btn-xs confirm-del delete"><i
                                         class="fa fa-trash-o"></i></button>
                                                 @method('DELETE')
                                                 @csrf

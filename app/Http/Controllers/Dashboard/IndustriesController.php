@@ -5,14 +5,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Industry\CreateRequest;
 use App\Http\Requests\Admin\Industry\UpdateRequest;
-
+use App\Traits\dashbordTrait;
 class IndustriesController extends Controller
 {
+       use dashbordTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+  
     public function index()
     {
         $industries = Industry::all();
@@ -37,7 +39,9 @@ class IndustriesController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $Industry = Industry::create($request->all());
+        $data=$request->all();
+        $data['image'] = $this->upload($request->file('image'),'industries');
+        $Industry = Industry::create($data);
         return redirect(route('admin.industries.index'));
     }
 
@@ -75,7 +79,12 @@ class IndustriesController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $industry = Industry::findOrFail($id);
-        $industry->update($request->all());
+        $industry->name=$request->input('name');
+         if($request->file('image')){
+
+            $industry->image = $this->upload($request->file('image'),'industries');
+        }
+        $industry->save();
         return redirect(route('admin.industries.index'));
     }
 

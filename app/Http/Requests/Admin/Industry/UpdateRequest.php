@@ -26,7 +26,9 @@ class UpdateRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => "required|unique:industries,name," . $request->segment(3),
+            'name' => "required|unique:industries,name," .$request->segment(3),
+             'image' => "mimes:jpg,png,jpeg,gif,svg|max:2048",
+
         ];
     }
 }

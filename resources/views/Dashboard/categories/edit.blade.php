@@ -11,8 +11,8 @@
                 <h2>Edit Category</h2>
             </div>
             <div class="body">
-                <form method="POST" action="{{route('admin.categories.update', ['category' => $category->id])}}"
-                    id="advanced-form" data-parsley-validate novalidate>
+                <form method="POST"  enctype="multipart/form-data" action="{{route('admin.categories.update', ['category' => $category->id])}}"
+                    id="advanced-form" data-parsley-validate novalidate class="edit">
                     @method('PUT')
                     @csrf
                     <div class="row justify-content-center">
@@ -44,7 +44,25 @@
                             </div>
                         </div>
                     </div>
-                   
+                                  <div class="row mt-4 mb-4">
+                        <div class="col-6">
+                  
+                          <img id="preview" src="{{$category->image}}" width="50%">
+                        </div>
+                  
+                                         
+                                              <div class="form-group">
+                                                <label for="image">Category Image</label><br>
+                                                <img id="preview" style="width:150px;" src=""><br><br>
+                                                <div class="input-group">
+                                                  <div class="custom-file">
+                                                    <input name="image" type="file" class="custom-file-input" id="image">
+                                                    <label class="custom-file-label" for="image">Choose Image to Change</label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                         
+                                          </div> 
                    <div class="row justify-content-center">
                     <button type="submit" class="btn btn-primary">Update</button>
                    </div>
@@ -66,6 +84,23 @@
 <script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
 
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
+<script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#preview').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    
+    $("#image").change(function() {
+      readURL(this);
+    });
+    </script>
 <script>
     $(function() {
     // validation needs name of the element

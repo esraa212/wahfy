@@ -47,7 +47,7 @@
                                 <td><a href="{{route('admin.areas.edit',['area'=>$area->id])}}" class="btn btn-success btn-xs"><i
                                             class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{route('admin.areas.destroy',['area'=>$area->id])}}" method="post">
+                                    <form action="{{route('admin.areas.destroy',['area'=>$area->id])}}" method="post" class="delete">
                                         <button class="btn btn-danger btn-xs confirm-del"><i
                                                 class="fa fa-trash-o"></i></button>
                                         @method('DELETE')

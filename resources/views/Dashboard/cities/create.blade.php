@@ -12,7 +12,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.cities.store')}}" id="advanced-form" data-parsley-validate
-                    novalidate>
+                    novalidate class="confirm">
                     @csrf
                     <div class="form-group">
                         <label for="text-input1">City Name</label>

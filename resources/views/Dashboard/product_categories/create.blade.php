@@ -12,7 +12,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.product_categories.store')}}" id="advanced-form"
-                    data-parsley-validate novalidate>
+                    data-parsley-validate novalidate class="confirm">
                     @csrf
                     <div class="row justify-content-md-center">
                         <div class="col-6">

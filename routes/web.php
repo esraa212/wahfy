@@ -20,6 +20,8 @@ Route::get('/customer/logout', 'Front\CustomersController@logout')->name('front.
 Route::get('/customer/register', 'Front\CustomersController@registerForm')->name('front.registerForm');
 Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
 Route::get('/shop/{industry}', 'Front\CategoriesController@show')->name('indusrty.show');
+Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
+
 
      /*get areas of cities ajax */
      Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');

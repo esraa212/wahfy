@@ -9,7 +9,7 @@
          
         </div><!-- /.container-fluid -->
     </section>
-    <form method="POST" action="{{route('admin.notifications.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('admin.notifications.store')}}" enctype="multipart/form-data" class="confirm">
         @csrf
         <section class="content">
             <div class="container-fluid">

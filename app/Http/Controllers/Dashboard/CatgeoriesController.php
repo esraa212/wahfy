@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
+use App\Traits\dashbordTrait;
 
 class CatgeoriesController extends Controller
 {
+      use dashbordTrait;
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +44,9 @@ class CatgeoriesController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $category = Category::create($request->all());
+          $data=$request->all();
+        $data['image'] = $this->upload($request->file('image'),'categories');
+        $category = Category::create($data);
         return redirect(route('admin.categories.index'));
     }
 
@@ -81,7 +85,14 @@ class CatgeoriesController extends Controller
     public function update(UpdateCategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $category->name=$request->input('name');
+        $category->industry_id=$request->input('industry_id');
+
+         if($request->file('image')){
+
+            $category->image = $this->upload($request->file('image'),'categories');
+        }
+        $category->save();
         return redirect(route('admin.categories.index'));
     }
 

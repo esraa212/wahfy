@@ -26,6 +26,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => "required|unique:categories,name," . $request->segment(3),
+               'image' => 'mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];
     }
 }

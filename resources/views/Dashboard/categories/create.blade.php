@@ -11,8 +11,8 @@
                 <h2>Create New Category</h2>
             </div>
             <div class="body">
-                <form method="POST" action="{{route('admin.categories.store')}}" id="advanced-form"
-                    data-parsley-validate novalidate>
+                <form method="POST" enctype="multipart/form-data" action="{{route('admin.categories.store')}}" id="advanced-form"
+                    data-parsley-validate novalidate class="confirm">
                     @csrf
                     <div class="row justify-content-md-center">
                         <div class="col-6">
@@ -46,7 +46,15 @@
                             </div>
                         </div>
                     </div>
-                  
+                     <div class="row">
+                        <div class="col-12">
+                            <input type="file" class="dropify" name="image">
+                            @error('image')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                            <div class="mt-3"></div>
+                        </div>
+                    </div>   
     <div class="row justify-content-center">
         <button type="submit" class="btn btn-primary">Create</button>
     </div>
@@ -61,13 +69,15 @@
 
 @section('page-styles')
 <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/dropify/css/dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/parsleyjs/css/parsley.css') }}">
 @stop
 
 @section('page-script')
 <script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
-
+<script src="{{ asset('assets/vendor/dropify/js/dropify.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/forms/dropify.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script>
     $(function() {

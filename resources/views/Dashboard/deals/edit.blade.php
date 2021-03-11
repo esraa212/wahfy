@@ -23,7 +23,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.deals.update',['deal'=> $deal->id])}}" id="advanced-form" data-parsley-validate
-                    novalidate class="confirm">
+                    novalidate class="edit">
                     @csrf
                     @method('PUT')
                     <div class="row">

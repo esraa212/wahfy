@@ -116,7 +116,37 @@
     @if (trim($__env->yieldContent('page-script')))
     @yield('page-script')
     @endif
+  <script type="text/javascript">
+        (function(){
+            $(".confirm").on("submit", function(){
+        return confirm("Do you want to save the data?");
+    });
+    $(".edit").on("submit", function(){
+        return confirm("Are You Sure You Want To Update The Data?");
+    });
+    $(".delete").on("submit", function(){
+        return confirm("Are You Sure You Want To Delete This Record?");
+    });
+   if (window.history && window.history.pushState) {
+    $(window).on('popstate', function(event) {
+      confirm(">>>Before You Go<<<<Are You Sure To Save This Changes?");
+});
+   }
+   $('.print-window').click(function() {
+    window.print();
+    });
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/5e44175da89cda5a188591ec/default';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
 
+//     $('.dataTable').DataTable( {
+//     "aaSorting": [[0, 'desc']]
+// });
+    </script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         (function(){

@@ -49,7 +49,7 @@
                                 <td><a href="{{url("/dashboard/categories/{$category->id}/edit")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{url("/dashboard/categories/{$category->id}")}}" method="post">
+                                    <form action="{{url("/dashboard/categories/{$category->id}")}}" method="post" class="delete">
                                      <button class="btn btn-danger btn-xs confirm-del"><i
                                         class="fa fa-trash-o"></i></button>
                                                 @method('DELETE')

@@ -12,7 +12,7 @@
             </div>
             <div class="body">
                 <form method="POST" action="{{route('admin.areas.update', ['area' => $area->id])}}" id="advanced-form"
-                    data-parsley-validate novalidate>
+                    data-parsley-validate novalidate class="edit">
                     @method('PUT')
                     @csrf
                 <div class="row">

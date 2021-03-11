@@ -19,7 +19,7 @@
             </div>
             <div class="body">
                 <form method="POST" enctype="multipart/form-data" action="{{route('admin.banners.update',['banner'=>$banner->id])}}" id="advanced-form" data-parsley-validate
-                    novalidate class="confirm">
+                    novalidate class="edit">
                     @csrf
                     @method('PUT')
                     <div class="row">

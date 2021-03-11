@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{url('front/plugins/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{url('front/css/style.css')}}">
     <link rel="stylesheet" href="{{url('front/css/market-place-1.css')}}">
+    <link rel="stylesheet" href="{{url('front/css/toastr.css')}}">
+
 
 
     @stack('after-styles')
@@ -39,8 +41,9 @@
         @yield('content')
     </div>
 
-
+    <div class="container">
     @include('Front.layout.footer')
+    </div>
 
 
     <!-- Scripts -->
@@ -63,6 +66,17 @@
     <script src="{{url('front/plugins/gmap3.min.js')}}"></script>
     <!-- custom scripts-->
     <script src="{{url('front/js/main.js')}}"></script>
+
+<script>
+    var config ={
+        url:"{{url('/')}}",
+    }
+</script>
+<script src="{{ asset('front/pages/subscription.js') }}"></script>
+<script src="{{ asset('front/pages/toastr.js') }}"></script>
+
+    
+
 	@yield('scripts')
 </body>
 

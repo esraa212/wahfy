@@ -1,7 +1,22 @@
-   <div class="ps-newsletter">
+<div class="row">  
+     <div class="ps-newsletter">
             <div class="container">
-                <form class="ps-form--newsletter" action="http://nouthemes.net/html/martfury/do_action" method="post">
+                <form class="ps-form--newsletter" action="{{route('front.subscribe')}}" method="post" id="subscribeEmailForm">
+                    @csrf
+                    <div class="row justify-content-center">
+     @if(session()->has('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{session('success') }}
+                                        </div>
+                                        @endif
+                                        @if(session()->has('error'))
+                                        <div class="alert alert-danger" role="alert">
+                                            {{session('error') }}
+                                        </div>
+                                        @endif
+                    </div>
                     <div class="row">
+                       
                         <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
                             <div class="ps-form__left">
                                 <h3>Newsletter</h3>
@@ -10,10 +25,15 @@
                         </div>
                         <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
                             <div class="ps-form__right">
-                                <div class="form-group--nest">
-                                    <input class="form-control" type="email" placeholder="Email address">
-                                    <button class="ps-btn">Subscribe</button>
+                              
+                                <div class="form-group--nest form-group">
+                                    
+                                    <input class="form-control" type="email" placeholder="Email address" name="email">
+                                             <label for="email"></label>
+                                <span class="help-block"></span>
+                                    <button class="ps-btn submit-form'">Subscribe</button>
                                 </div>
+                              
                             </div>
                         </div>
                     </div>
@@ -21,6 +41,10 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+
+
     <footer class="ps-footer">
         <div class="container">
             <div class="ps-footer__widgets">
@@ -147,3 +171,4 @@
             </div>
         </div>
     </div>
+</div>
