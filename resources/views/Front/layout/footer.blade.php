@@ -1,6 +1,6 @@
-<div class="row">  
-     <div class="ps-newsletter">
-            <div class="container">
+
+     <div class="ps-newsletter row justify-content-center">
+    
                 <form class="ps-form--newsletter" action="{{route('front.subscribe')}}" method="post" id="subscribeEmailForm">
                     @csrf
                     <div class="row justify-content-center">
@@ -38,15 +38,15 @@
                         </div>
                     </div>
                 </form>
-            </div>
+         
         </div>
     </div>
-</div>
-<div class="row">
 
 
-    <footer class="ps-footer">
-        <div class="container">
+
+
+    <footer class="ps-footer row justify-content-center">
+
             <div class="ps-footer__widgets">
                 <aside class="widget widget_footer widget_contact-us">
                     <h4 class="widget-title">Contact us</h4>
@@ -106,10 +106,13 @@
                 </p>
             </div>
             <div class="ps-footer__copyright">
-                <p>© 2018 Martfury. All Rights Reserved</p>
-                <p><span>We Using Safe Payment For:</span><a href="#"><img src="img/payment-method/1.jpg" alt=""></a><a href="#"><img src="img/payment-method/2.jpg" alt=""></a><a href="#"><img src="img/payment-method/3.jpg" alt=""></a><a href="#"><img src="img/payment-method/4.jpg" alt=""></a><a href="#"><img src="img/payment-method/5.jpg" alt=""></a></p>
+                <p>© 2021 WAHFY BY 212Solutions. All Rights Reserved</p>
+                <p><span>We Using Safe Payment For:</span><a href="#"><img src="{{url('front/img/payment-method/1.jpg')}}" alt=""></a><a href="#"><img src="{{url('front/img/payment-method/2.jpg')}}" alt=""></a>
+                    <a href="#"><img src="{{url('front/img/payment-method/3.jpg')}}" alt=""></a>
+                    <a href="#"><img src="{{url('front/img/payment-method/4.jpg')}}" alt=""></a>
+                    <a href="#"><img src="{{url('front/img/payment-method/5.jpg')}}" alt=""></a></p>
             </div>
-        </div>
+       
     </footer>
     <div id="back2top"><i class="icon icon-arrow-up"></i></div>
     <div class="ps-site-overlay"></div>
@@ -171,4 +174,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -320,6 +320,7 @@
 				
 		@endforeach
 		@else
+        
 		@foreach ($industries as $item)
 				<li class=""><a id="{{$ids[$item->id-1]}}" href="">{{$item->name}}</a></li>
 		@endforeach

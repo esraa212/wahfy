@@ -17,17 +17,26 @@ class FrontController extends Controller
     public function __construct()
         {
             $this->data['industries']=$this->getIndustries();
+          
+
         }
 
     protected function getIndustries(){
              $industries = Industry::take(7)->get();
             return  $industries;
     }
+     
      protected function _view($main_content, $type = 'Front')
     {
         $main_content = "$type/$main_content";
         return view($main_content, $this->data);
     }
+
+     protected function error404(){
+    
+        return $this->_view('error404','Front');
+    }
+   
     public function subscribe(Request $request){
                 try {
             $validator = Validator::make($request->all(), $this->subscription_rules);

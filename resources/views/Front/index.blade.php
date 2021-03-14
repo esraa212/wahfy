@@ -2,7 +2,7 @@
 @section('content')
 
     <div id="homepage-3" class="mt-5">
-        <div class="ps-home-banner" >
+          <div class="ps-home-banner" >
             <div class="ps-carousel--nav-inside owl-slider"  data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on" data-owl-animate-in="fadeIn" data-owl-animate-out="fadeOut">
                 @foreach ($banners as $banner )
                      <div class="ps-banner--market-1"  data-background="{{url(''.$banner->image.'')}}"><img src="{{url(''.$banner->image.'')}}" alt="" style="height: 400px !important;background-size: cover !important; background-repeat: no-repeat !important; width:100%!important;">
@@ -12,6 +12,7 @@
 
             </div>
         </div>
+        <div class="row">
         <div class="ps-site-features">
             <div class="container">
                 <div class="ps-block--site-features ps-block--site-features-2">
@@ -46,12 +47,13 @@
                 </div>
             </div>
         </div>
+        </div>
         <div class="ps-promotions">
             <div class="container">
                 <div class="row">
                     @foreach ($advertisings as $advertising )
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
-                        <a class="ps-collection" href="#"><img src="{{url("$advertising->image")}}" alt="" style="width:500px;height:250px;"></a>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <a class="ps-collection" href="#"><img src="{{url("$advertising->image")}}" alt="" style="width:400px;height:250px;"></a>
                     </div>
                     @endforeach
                 </div>

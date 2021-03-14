@@ -38,13 +38,13 @@
 
     @include('Front.layout.header')
     <div class="container">
+      
         @yield('content')
-    </div>
+   </div>
 
-    <div class="container">
     @include('Front.layout.footer')
-    </div>
-
+   
+ 
 
     <!-- Scripts -->
     @stack('before-scripts')

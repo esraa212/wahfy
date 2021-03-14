@@ -49,7 +49,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect(route('dashboard.dashboard'));
+        return redirect(route('admin.dashboard'));
     }
 
 }
