@@ -21,7 +21,7 @@ Route::get('/customer/register', 'Front\CustomersController@registerForm')->name
 Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
 Route::get('/shop/{industry}', 'Front\CategoriesController@show')->name('indusrty.show');
 Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
-Route::get('/Brands', 'Front\SupplierController@index')->name('front.suppliers.index');
+Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
 
 
 

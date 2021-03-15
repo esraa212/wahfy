@@ -20,6 +20,10 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Supplier');
     }
+     public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
 
 
 }

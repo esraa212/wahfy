@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\FrontController;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Controllers\FrontController;
 
 class SupplierController extends FrontController
 {
@@ -12,7 +13,13 @@ class SupplierController extends FrontController
             parent::__construct();
     }
     
-    public function index(){
+    public function index($supplier){
+          $data=Supplier::where('name',$supplier)->first();
+         if(!$data){
+        return $this->error404();
+      }
+      $this->data['supplier']=$data;
+
       return $this->_view('suppliers.index', 'Front');
 
     }
