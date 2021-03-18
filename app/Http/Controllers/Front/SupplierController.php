@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Http\Controllers\FrontController;
 
 class SupplierController extends FrontController
@@ -18,7 +19,10 @@ class SupplierController extends FrontController
          if(!$data){
         return $this->error404();
       }
+      $categories=ProductCategory::where('supplier_id',$data->id)->get();
       $this->data['supplier']=$data;
+      $this->data['categories']=$categories;
+
 
       return $this->_view('suppliers.index', 'Front');
 
