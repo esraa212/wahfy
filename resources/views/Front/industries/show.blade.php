@@ -53,61 +53,52 @@
                 <div class="ps-section__wrapper row">
                     <div class="ps-section__left col-4">
                         <aside class="widget widget--vendor">
+                            <form action="">
+
+                            </form>
                             <h3 class="widget-title">Search</h3>
-                            <input class="form-control" type="text" placeholder="Search...">
+                            <input class="form-control" type="text" placeholder="Search..." id="search">
                         </aside>
                         <aside class="widget widget--vendor">
                             <h3 class="widget-title">Filter by Category</h3>
                             <div class="form-group">
-                                <select class="ps-select">
-                                    <option>Lighting</option>
-                                    <option>Exterior</option>
-                                    <option>Custom Grilles</option>
-                                    <option>Wheels & Tires</option>
-                                    <option>Performance</option>
+                                <select class="ps-select" id="category">
+                                    <option>Choose Category</option>
+
+                                    @foreach ($categories as $category )
+                                    
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                     
+                                    @endforeach
                                 </select>
                             </div>
                         </aside>
                         <aside class="widget widget--vendor">
                             <h3 class="widget-title">Filter by Location</h3>
                             <div class="form-group">
-                                <select class="ps-select">
-                                    <option>Chooose Location</option>
-                                    <option>Exterior</option>
-                                    <option>Custom Grilles</option>
-                                    <option>Wheels & Tires</option>
-                                    <option>Performance</option>
+                                <select class="ps-select" id="city">
+                                    <option>Chooose city</option>
+                                    @foreach ($cities as $city)
+                                    
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                     
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select class="ps-select">
-                                    <option>Chooose State</option>
-                                    <option>Exterior</option>
-                                    <option>Custom Grilles</option>
-                                    <option>Wheels & Tires</option>
-                                    <option>Performance</option>
+                                <select class="ps-select" id="area">
+                                    <option>Chooose Area</option>
+                              
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Search by City">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Search by ZIP">
-                            </div>
+                            
                         </aside>
                     </div>
                     <div class="ps-section__right col-8">
                         <section class="ps-store-box">
-                            <div class="ps-section__header">
-                                <p>Showing 1 -8 of 22 results</p>
-                                <select class="ps-select">
-                                    <option value="1">Sort by Newest: old to news</option>
-                                    <option value="2">Sort by Newest: New to old</option>
-                                    <option value="3">Sort by average rating: low to hight</option>
-                                </select>
-                            </div>
+                           
                             <div class="ps-section__content">
-                                <div class="row">
+                                <div class="row" id="supplier">
                                     @foreach ($suppliers as $supplier)
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                                         <article class="ps-block--store">
@@ -145,3 +136,19 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+<script>
+    var config ={
+        _url:"{{url('/get_areas/')}}",
+        f_url:"{{url('/get_suppliers/')}}",
+        url:"{{url('/')}}",
+        cs_url:"{{url('/get_suppliers_search/')}}",
+
+
+    }
+</script>
+<script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
+<script src="{{ asset('assets/js/pages/filters.js') }}"></script>
+
+
+@stop

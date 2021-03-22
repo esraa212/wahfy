@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\City;
 use App\Models\Category;
 use App\Models\Industry;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FrontController;
 
-class CategoriesController extends FrontController
+class IndutriesController extends FrontController
 {
     public function __construct()
     {
@@ -23,6 +24,7 @@ class CategoriesController extends FrontController
       $suppliers=Supplier::where('industry_id',$data->id)->paginate();
       $this->data['categories']=$categories;
       $this->data['suppliers']=$suppliers;
+      $this->data['cities']=City::all();
    
       $this->data['industry']=$data;
       return $this->_view('industries.show', 'Front');

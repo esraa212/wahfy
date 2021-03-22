@@ -28,11 +28,11 @@
                         <h4 class="widget-title">Categories</h4>
                         <ul class="ps-list--categories">
                             @foreach ($categories as $category )
-                                 <li class="menu-item-has-children"><a href="shop-default.html">{{$category->name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                                 <li class="menu-item-has-children"><a id="p_catgeory">{{$category->name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
                                     @if($category->product_sub_categories!=null)
                                 <ul class="sub-menu">
                                     @foreach ($category->product_sub_categories as $subCategory)
-                                        <li><a href="shop-default.html">{{$subCategory->name}}</a>
+                                        <li><a id="p_subcategory">{{$subCategory->name}}</a>
                                     </li>
                                     @endforeach
                                  
@@ -137,7 +137,7 @@
                         <div class="ps-tabs">
                             <div class="ps-tab active" id="tab-1">
                                 <div class="ps-shopping-product">
-                                    <div class="row">
+                                    <div class="row" id="products">
                                         @foreach ($supplier->products as $product) 
                                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6">
                                             <div class="ps-product">
@@ -245,6 +245,7 @@
     </div>
 @endsection
 @section('scripts')
+
 <script>
     
       $(document).ready(function() {
@@ -255,5 +256,14 @@
       @endforeach
     });
         });
+         var config ={
+
+        url:"{{url('/')}}",
+        filter_products:"{{url('/filter_products')}}",
+
+    }
 </script>
+
+<script src="{{ asset('assets/js/pages/filters.js') }}"></script>
+
 @endsection

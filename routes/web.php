@@ -19,7 +19,7 @@ Route::post('/customer/logout', 'Front\CustomersController@logout')->name('front
 Route::get('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');
 Route::get('/customer/register', 'Front\CustomersController@registerForm')->name('front.registerForm');
 Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
-Route::get('/shop/{industry}', 'Front\CategoriesController@show')->name('indusrty.show');
+Route::get('/shop/{industry}', 'Front\IndutriesController@show')->name('indusrty.show');
 Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
 Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
 
@@ -29,6 +29,14 @@ Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.
 
      /*get areas of cities ajax */
      Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');
+     Route::get('/get_suppliers/{area}', 'Front\AjaxController@getSuppliers')->name('front.getSuppliers');
+     Route::get('/get_suppliers_search/{search}', 'Front\AjaxController@getSuppliersBySearch')->name('front.getSuppliersBySearch');
+     Route::get('/filter_products', 'Front\AjaxController@filterProducts')->name('front.filterProducts');
+
+
+
+
+
 
 //get subcategory of category
     Route::get('/getSubByCategory/{category}', 'Front\AjaxController@getSubByCategory')->name('front.getSubCategories');
