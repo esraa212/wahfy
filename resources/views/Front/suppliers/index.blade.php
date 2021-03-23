@@ -28,14 +28,16 @@
                         <h4 class="widget-title">Categories</h4>
                         <ul class="ps-list--categories">
                             @foreach ($categories as $category )
-                                 <li class="menu-item-has-children"><a id="p_catgeory">{{$category->name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                                 <li class="menu-item-has-children"><a >{{$category->name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
                                     @if($category->product_sub_categories!=null)
                                 <ul class="sub-menu">
+                                     
                                     @foreach ($category->product_sub_categories as $subCategory)
-                                        <li><a id="p_subcategory">{{$subCategory->name}}</a>
+                                        <li class="p_subcategory" id="p_subcategory" value="{{$subCategory->id}}"><a  >{{$subCategory->name}}</a>
                                     </li>
                                     @endforeach
-                                 
+                                   <li class="p_catgeory" id="p_catgeory" value="{{$category->id}}"><a >View All</a>
+                                    </li>
                                 </ul>
                                 @endif
                             </li>  
@@ -53,25 +55,26 @@
                         <figure>
                             <h4 class="widget-title">By Price</h4>
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-1" name="price[]" value="100.00">
+                                <input class="form-control" type="checkbox" id="review-1" class="price" name="price[]" value="100.00">
                                 <label for="review-1">100</label>
                             </div>
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-2" name="price[]"value="200.00">
+                                <input class="form-control" type="checkbox" id="review-2" class="price" name="price[]" value="200.00">
                                 <label for="review-2">200</label>
                             </div>
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-3" name="price[]" value="300.00">
+                                <input class="form-control" type="checkbox" id="review-3" class="price" name="price[]" value="300.00">
                                 <label for="review-3">300</label>
                             </div>
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-4" name="price[]" value="500.00">
+                                <input class="form-control" type="checkbox" id="review-4" class="price" name="price[]" value="500.00">
                                 <label for="review-4">500</label>
                             </div>
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-5" name="price[]"value="1000.00">
+                                <input class="form-control" type="checkbox" id="review-5" class="price" name="price[]" value="1000.00">
                                 <label for="review-5">1000</label>
                             </div>
+                            <input type="button" id="save_value" name="save_value" style="padding:9px;a5px; !important" value="Check" class=" btn-xs ps-btn mt-3" />
                         </figure>
                         <figure>
                             <h4 class="widget-title">By Color</h4>
@@ -108,8 +111,31 @@
                                 <label for="color-8"></label>
                             </div>
                         </figure>
-                        <figure class="sizes">
-                            <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a><a href="#">S</a><a href="#">XL</a>
+                        <figure>
+                             <figure>
+                            <h4 class="widget-title">By Size</h4>
+                            <div class="ps-checkbox">
+                                <input class="form-control" id="s" type="checkbox"  class="size" name="size[]" value="s">
+                                <label for ="s">small</label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" id="m" type="checkbox"  class="size" name="size[]" value="m">
+                                <label for="m">medium</label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" id="l" type="checkbox"  class="size" name="size[]" value="l">
+                                <label for="l">Large</label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" id="xl" type="checkbox"  class="size" name="size[]" value="xl">
+                                <label for="xl" >Xlarge</label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input id="xxl" class="form-control" type="checkbox"  class="size" name="size[]" value="xxl">
+                                <label for="xxl">xxlarge</label>
+                            </div>
+                            <input type="button" id="size_value" name="size_value" style="padding:9px;a5px; !important" value="Check" class=" btn-xs ps-btn mt-3" />
+                        </figure>
                         </figure>
                     </aside>
                 </div>
@@ -215,14 +241,7 @@
                                    @endforeach
                                     </div>
                                 </div>
-                                <div class="ps-pagination">
-                                    <ul class="pagination">
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">Next Page<i class="icon-chevron-right"></i></a></li>
-                                    </ul>
-                                </div>
+                       
                             </div>
                          
                         </div>
@@ -245,25 +264,27 @@
     </div>
 @endsection
 @section('scripts')
-
 <script>
-    
-      $(document).ready(function() {
-
-@foreach($supplier->products as $product)
-        $('#product-quikviewc'+{{$product->id}}+'').on('shown.bs.modal', function(e) {
-        $('.ps-product--quickview .ps-product__images'+{{$product->id}}+'').slick('setPosition');
-      @endforeach
-    });
-        });
-         var config ={
-
+     var config ={
         url:"{{url('/')}}",
-        filter_products:"{{url('/filter_products')}}",
-
+        filter_products:"{{url('/filter_products')}}"
     }
 </script>
 
 <script src="{{ asset('assets/js/pages/filters.js') }}"></script>
+<script>
+    
+      $(document).ready(function() {
+@foreach($supplier->products as $product)
+        $('#product-quikviewc'+{{$product->id}}+'').on('shown.bs.modal', function(e){
+        $('.ps-product--quickview .ps-product__images'+{{$product->id}}+'').slick('setPosition');
+         });
+      @endforeach
+   
+        })
 
-@endsection
+    
+</script>
+
+
+@stop

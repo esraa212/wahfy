@@ -41,12 +41,31 @@ class AjaxController extends Controller
     return response()->json($suppliers);
 
   }
-  public function filterProducts(Request $request){
-    if($request->p_subcategory){
-         $products = Product::where('product_sub_category_id', '=',$request->p_subcategory)->select('*')->get()->toArray();
-    return response()->json($products);
-    }
 
+
+  public function filterProducts($id,$value){
+    $products=array();
+    //2 for product_sub_category
+    if($id==2){
+         $products = Product::where('product_sub_category_id', '=',$value)->select('*')->get()->toArray();
+    }
+    //1 for product_category
+     if($id==1){
+         $products = Product::where('product_category_id', '=',$value)->select('*')->get()->toArray();
+    }
+    //3 for price
+     if($id==3){
+       $max=max(explode(',',$value));
+       $min=min(explode(',',$value));
+         $products = Product::whereBetween('price',[$min, $max])->select('*')->get()->toArray();
+    }
+    //4 for size
+     if($id==4){
+       $sizes=  explode(',', $value);
+      //dd($sizes);
+         $products = Product::whereIn('size',$sizes)->select('*')->get()->toArray();
+    }
+  return response()->json($products);
   }
   
 }

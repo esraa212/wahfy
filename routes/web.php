@@ -31,7 +31,8 @@ Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.
      Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');
      Route::get('/get_suppliers/{area}', 'Front\AjaxController@getSuppliers')->name('front.getSuppliers');
      Route::get('/get_suppliers_search/{search}', 'Front\AjaxController@getSuppliersBySearch')->name('front.getSuppliersBySearch');
-     Route::get('/filter_products', 'Front\AjaxController@filterProducts')->name('front.filterProducts');
+     //filter inside store page for products id 1 for catgory 2 for subcategory 3 for price and 4 for colors
+     Route::get('/filter_products/{id}/{value}', 'Front\AjaxController@filterProducts')->name('front.filterProducts');
 
 
 

@@ -12,6 +12,9 @@ var Filter = function () {
         handleChangeCategory();
         handleSearch();
         handlefilterProducts();
+        handlefilterProductsbyCategory();
+        handlefilterProductsbyPrice();
+        handlefilterProductsbySize();
     };
 
  
@@ -79,37 +82,92 @@ var Filter = function () {
         });
     }
     var handlefilterProducts = function () {
-        $('#p_subcategory').on('click', function () {
-            $(this).html('<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only">Loading...</span>');
-            $.ajax({
-                url: filter_products,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-console.log(data);
-                    $('#products').html('<div class="col - xl - 2 col - lg - 4 col - md - 4 col - sm - 6 col - 6">< div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="'+config.url+item.image+'" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview'+item.id+'"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">'+item.title+'</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">'+item.title+'</a><p class="ps-product__price">'+item.price+'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">'+item.title+'</a><p class="ps-product__price">'+item.price+'LE</p></div></div></div></div >');
-                    if (data.type == 'success') {
-                        if (data.data.news != "") {
-                            $('#news-items').append(data.data.news);
-                         
-                        } else {
-                          
-                        }
+        $('li#p_subcategory').on('click', function () {
+            var value =  $(this).val();
+       
+            $.get(filter_products + 2 +'/'+value, function (data) {
+                $("#products").html("");
+                products = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price +'LE</p></div></div></div></div >';
                     }
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    $('#load-more-button').html('');
-                
-                },
-                dataType: "json",
-                type: "GET"
+                    $('#products').append(products);
+                } else {
+                    $("#products").html('<h1 class="text-center text-warning mt-5">There is no Products for this Category </h1>');
+
+                }
+            }, "json");
+        })
+    }
+    var handlefilterProductsbyCategory = function () {
+        $('li#p_catgeory').on('click', function () {
+            var value = $(this).val();
+
+            $.get(filter_products + 1 + '/' + value, function (data) {
+                $("#products").html("");
+                products = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                    }
+                    $('#products').append(products);
+                } else {
+                    $("#products").html('<h1 class="text-center text-warning mt-5">There is no Products for this Category </h1>');
+
+                }
+            }, "json");
+        })
+    }
+    var handlefilterProductsbyPrice = function () {
+        $('#save_value').on('click', function () {
+            var value = [];
+            $(':checkbox:checked').each(function (i) {
+                value[i] = $(this).val();
             });
-            return false;
+
+            $.get(filter_products + 3 + '/' + value, function (data) {
+                $("#products").html("");
+                products = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                    }
+                    $('#products').append(products);
+                } else {
+                    $("#products").html('<h1 class="text-center text-warning mt-5">There is no Products for this Category </h1>');
+
+                }
+            }, "json");
         })
     }
 
+    var handlefilterProductsbySize = function () {
+        $('#size_value').on('click', function () {
+            var value = [];
+            $(':checkbox:checked').each(function (i) {
+                value[i] = $(this).val();
+            });
+console.log(value);
+            $.get(filter_products + 4 + '/' + value, function (data) {
+                $("#products").html("");
+                products = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                    }
+                    $('#products').append(products);
+                } else {
+                    $("#products").html('<h1 class="text-center text-danger mt-5">There is no Products for this Size </h1>');
+
+                }
+            }, "json");
+        })
+    }
 
     return {
         init: function () {
