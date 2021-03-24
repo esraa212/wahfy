@@ -35,8 +35,10 @@ class ProductsController extends Controller
      {
          $categories = ProductCategory::all();
          $suppliers = Supplier::all();
+          $colors=Attribute::where('type','color')->get();
+          $sizes=Attribute::where('type','size')->get();
 
-         return view('Dashboard.products.create', compact('categories','suppliers'));
+         return view('Dashboard.products.create', compact('categories','suppliers','sizes','colors'));
      }
  
      /**

@@ -25,5 +25,8 @@ class Product extends Model
         return $this->hasMany('App\Models\Rating');
     }
 
+    public function attributes(){
+    return $this->belongsToMany('App\Models\Attribute', 'products_attributes', 'attribute_id')->withPivot('value','quantity');
+    }
 
 }

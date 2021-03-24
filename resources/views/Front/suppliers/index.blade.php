@@ -168,7 +168,7 @@
                                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6">
                                             <div class="ps-product">
                                                 <div class="ps-product__thumbnail">
-                                                    <a href="product-default.html"><img src="{{url(''.$product->image.'')}}" alt="" style="width:200px;height:80px;"></a>
+                                                    <a href="{{route('front.suppliers.product',['product'=>$product->title])}}"><img src="{{url(''.$product->image.'')}}" alt="" style="width:200px;height:80px;"></a>
                                                     <ul class="ps-product__actions">
                                                         <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li>
                                                         <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview{{$product->id}}"><i class="icon-eye"></i></a></li>
@@ -177,10 +177,10 @@
                                                     </ul>
                                                 </div>
                                                 <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{$product->title}}</a>
-                                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->title}}</a>
+                                                    <div class="ps-product__content"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$product->title])}}">{{$product->title}}</a>
                                                         <p class="ps-product__price">{{round($product->price,2)}}LE</p>
                                                     </div>
-                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">{{$product->title}}</a>
+                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$product->title])}}">{{$product->title}}</a>
                                                         <p class="ps-product__price">{{round($product->price,2)}}LE</p>
                                                     </div>
                                                 </div>

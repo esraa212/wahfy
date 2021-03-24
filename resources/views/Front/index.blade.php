@@ -101,7 +101,7 @@
                                 </ul>
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{$hotdeal->product_name}}</a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$hotdeal->product_description}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$hotdeal->product_name])}}">{{$hotdeal->product_description}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             @if($hotdeal->rating!=null)

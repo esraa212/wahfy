@@ -59,7 +59,9 @@
                     <ul>
                         <li><a href="{{route('admin.products.index')}}"> products</a></li>
 
+                        <li><a href="{{route('admin.attributes.index')}}">product Attributes</a></li>
                         <li><a href="{{route('admin.favorites.index')}}">Favorite products</a></li>
+
                         <li><a href="{{route('admin.rating.index')}}">products Rating</a></li>
 
                     </ul>

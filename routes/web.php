@@ -22,6 +22,8 @@ Route::post('/customer/register', 'Front\CustomersController@register')->name('f
 Route::get('/shop/{industry}', 'Front\IndutriesController@show')->name('indusrty.show');
 Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
 Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
+Route::get('/Products/{product}', 'Front\SupplierController@product')->name('front.suppliers.product');
+
 
 
 
@@ -99,7 +101,8 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::resource('banners','BannersController');
     //deals
     Route::resource('deals','DealsController');
-
+    //attributes for product
+    Route::resource('attributes','ProductAttributesController');
 
     //for test hyperpay
     Route::resource('testPayments', 'CheckoutController');

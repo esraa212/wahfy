@@ -3,7 +3,7 @@
     <div class="ps-breadcrumb">
         <div class="ps-container">
             <ul class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{route('front.home')}}">Home</a></li>
                 <li>{{$industry->name}}</li>
             </ul>
         </div>

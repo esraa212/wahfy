@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
@@ -13,7 +14,7 @@ class SupplierController extends FrontController
     {
             parent::__construct();
     }
-    
+   //the store Details with Products 
     public function index($supplier){
           $data=Supplier::where('name',$supplier)->first();
          if(!$data){
@@ -25,6 +26,16 @@ class SupplierController extends FrontController
 
 
       return $this->_view('suppliers.index', 'Front');
+
+    }
+    public function product($product){
+          $product=Product::where('title',$product)->first();
+         if(!$product){
+        return $this->error404();
+      }
+      $this->data['product']=$product;
+
+      return $this->_view('products.show', 'Front');
 
     }
 }
