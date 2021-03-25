@@ -34,7 +34,8 @@ class SupplierController extends FrontController
         return $this->error404();
       }
       $this->data['product']=$product;
-
+      $this->data['brands']=Supplier::where('industry_id',$product->supplier->industry_id)->get()->random(1);
+      $this->data['related_products']=Product::where('product_category_id',$product->product_category_id)->limit(5)->get();
       return $this->_view('products.show', 'Front');
 
     }

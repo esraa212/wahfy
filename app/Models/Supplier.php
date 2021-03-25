@@ -37,4 +37,8 @@ class Supplier extends Model
     {
         return $this->hasMany('App\Models\Product');
     }
+         public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
 }
