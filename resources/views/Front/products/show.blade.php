@@ -276,7 +276,7 @@
                                     <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="ps-product__container"><a class="ps-product__vendor" href="#">Robert's Store</a>
+                            <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{$product->supplier->name}}</a>
                                 <div class="ps-product__content"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$related_product->title])}}">
                                   {{$related_product->title}}</a>
                                     <div class="ps-product__rating">
