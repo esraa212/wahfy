@@ -31,7 +31,6 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Quantity</th>
                                 <th>Category</th>
                                 <th>Supplier</th>
                                 <th>Active</th>
@@ -47,7 +46,6 @@
                                 <td>{{$product->id}}</td>
                                 <td>{{$product->title}}</td>
                                 <td>{{$product->price}}</td>
-                                <td>{{$product->quantity}}</td>
                                 <td>{{$product->product_category->name}}</td>
                                 <td>{{$product->supplier->name}}</td>
                                 <td>{{$product->active==0 ?'No':'Yes'}}</td>

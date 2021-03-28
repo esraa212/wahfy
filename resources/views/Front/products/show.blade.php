@@ -89,7 +89,7 @@
                         <div class="ps-product__content ps-tab-root">
                             <ul class="ps-tab-list">
                                 <li class="active"><a href="#tab-1">Description</a></li>
-                                <li><a href="#tab-4">Reviews ({{$product->ratings->count()}})</a></li>
+                                <li><a href="#tab-4" id="count">Reviews ({{$product->ratings->count()}})</a></li>
 
                             </ul>
                             <div class="ps-tabs">
@@ -125,30 +125,50 @@
                                                         @endif
                                                     </select><span>{{$product->ratings->count()}} Review</span>
                                                 </div>
-                                                <div class="ps-block__star"><span>5 Star</span>
-                                                    <div class="ps-progress" data-value="{{$product->ratings->avg('value')*$product->ratings->count()*100/100}}"><span></span></div><span>100%</span>
+                                                @foreach ($product->ratings->groupBy('value') as $key=>$value )
+                                             
+                                                      <div class="ps-block__star">
+                                                             @if($key==5)
+                                                             <span>5 Star</span>
+                                                             @endif
+                                                            @if($key==4)
+                                                             <span>4 Star</span>
+                                                             @endif      
+                                                              @if($key==3)
+                                                             <span>3 Star</span>
+                                                             @endif      
+                                                             @if($key==2)
+                                                             <span>2 Star</span>
+                                                             @endif       
+                                                             @if($key==1)
+                                                             <span>1 Star</span>
+                                                             @endif
+                                                    <div class="ps-progress" data-value="{{round($key*$value->count()*100/100)}}"><span></span></div><span>{{round($key*$value->count()*100/100)}}%</span>
                                                 </div>
-                                                <div class="ps-block__star"><span>4 Star</span>
-                                                    <div class="ps-progress" data-value="0"><span></span></div><span>0</span>
-                                                </div>
-                                                <div class="ps-block__star"><span>3 Star</span>
-                                                    <div class="ps-progress" data-value="0"><span></span></div><span>0</span>
-                                                </div>
-                                                <div class="ps-block__star"><span>2 Star</span>
-                                                    <div class="ps-progress" data-value="0"><span></span></div><span>0</span>
-                                                </div>
-                                                <div class="ps-block__star"><span>1 Star</span>
-                                                    <div class="ps-progress" data-value="0"><span></span></div><span>0</span>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 ">
-                                            <form class="ps-form--review" action="http://nouthemes.net/html/martfury/index.html" method="get">
+                                            <form class="ps-form--review" action="{{route('front.review')}}" method="post" id="productReview">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <div class="row justify-content-center">
+                                                    @if(session()->has('success'))
+                                                                        <div class="alert alert-success" role="alert">
+                                                                            {{session('success') }}
+                                                                        </div>
+                                                                        @endif
+                                                                        @if(session()->has('error'))
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                            {{session('error') }}
+                                                                        </div>
+                                                                        @endif
+                                                    </div>
                                                 <h4>Submit Your Review</h4>
                                                 <p>Your email address will not be published. Required fields are marked<sup>*</sup></p>
                                                 <div class="form-group form-group__rating">
                                                     <label>Your rating of this product</label>
-                                                    <select class="ps-rating" data-read-only="false">
+                                                    <select class="ps-rating" data-read-only="false" name="value">
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -158,22 +178,11 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="6" placeholder="Write your review here"></textarea>
+                                                    <textarea class="form-control" rows="6" placeholder="Write your review here" name="description"></textarea>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="text" placeholder="Your Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="email" placeholder="Your Email">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        
                                                 <div class="form-group submit">
-                                                    <button class="ps-btn">Submit Review</button>
+                                                    <button class="ps-btn submit-form">Submit Review</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -293,7 +302,7 @@
                                     </div>
                                     <p class="ps-product__price">{{$related_product->price}}LE</p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$related_product->title])}}">Men’s Sports Runnning Swim Board Shorts</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{route('front.suppliers.product',['product'=>$related_product->title])}}">{{$product->title}}</a>
                                     <p class="ps-product__price">{{$related_product->price}}LE</p>
                                 </div>
                             </div>
@@ -316,3 +325,6 @@ color: #d2d2d2;
 
 @endsection
 @endif
+@section('scripts')
+<script src="{{ asset('front/pages/review.js') }}"></script>
+@endsection

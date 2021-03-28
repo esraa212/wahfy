@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="{{ Request::segment(2) === 'Product Categories' ? 'active open' : null }}">
-                    <a href="" class="has-arrow"><i class="icon-bag"></i><span>Products Categories</span></a>
+                    <a href="" class="has-arrow"><i class="icon-bag"></i><span>Supplier Categories</span></a>
                     <ul>
                         <li><a href="{{route('admin.product_categories.index')}}">Categories</a></li>
                         <li><a href="{{route('admin.product_subCategories.index')}}">Sub Categories</a></li>
@@ -58,7 +58,8 @@
                     <a href="" class="has-arrow"><i class="icon-badge"></i><span>Products </span></a>
                     <ul>
                         <li><a href="{{route('admin.products.index')}}"> products</a></li>
-
+                        <li><a href="{{route('admin.colors.index')}}">product Colors</a></li>
+                         
                         <li><a href="{{route('admin.attributes.index')}}">product Attributes</a></li>
                         <li><a href="{{route('admin.favorites.index')}}">Favorite products</a></li>
 

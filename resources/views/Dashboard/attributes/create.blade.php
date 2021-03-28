@@ -22,7 +22,10 @@
                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">Choose</option>
                                     <option value="size">size</option>
-                                    <option value="color">color</option>
+                                    <option value="material">material</option>
+                                    <option value="length">length</option>
+                                    <option value="width">width</option>
+
 
                             
                                 </select>

@@ -32,8 +32,11 @@
                         <select name="type" class="form-control select2 select2-hidden-accessible"
                             style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
          
-                            <option value="color" {{$attribute->type=='color'?'selected':''}}>color</option>
+                            <option value="material" {{$attribute->type=='material'?'selected':''}}>material</option>
                      <option value="size" {{$attribute->type=='size'?'selected':''}}>size</option>
+                     <option value="width" {{$attribute->type=='width'?'selected':''}}>width</option>
+                     <option value="length" {{$attribute->type=='length'?'selected':''}}>length</option>
+
 
                         </select>
                     </div>

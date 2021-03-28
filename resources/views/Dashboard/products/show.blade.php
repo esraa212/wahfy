@@ -157,39 +157,51 @@
                     </div>
                 </div>
                </div>
+          @foreach ($attributes as $attribute )
+                   
+            
+                <div id="add_attributes">
                <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="color">color</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-arrow-up"></i></span>
-                            </div>
-                            <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
-                                name="color" value="{{$product->color}}" disabled><br>
-                        </div>
+                     <select name="color[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" disabled>
+                         <option value="">Choose Color</option>
+                         @foreach ($colors as $color )
+                         <option value="{{$color->id}}"{{$attribute->color_id==$color->id?'selected':''}}>{{$color->name}}</option>      
+                         @endforeach
+               
+                        </select>
                         @error('color')
                         <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">size</label>
-                        <select name="size" class="form-control select2 select2-hidden-accessible"
-                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="size" disabled>
+                        <select name="size[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" disabled>
                          <option value="">Choose size</option>
-                         <option value="xs"{{$product->size=='xs'?'selected':''}}>xsmall</option> 
-                         <option value="s"{{$product->size=='s'?'selected':''}}>small</option>
-                         <option value="m"{{$product->size=='m'?'selected':''}}>medium</option> 
-                         <option value="l"{{$product->size=='l'?'selected':''}}>large</option>
-                         <option value="xl"{{$product->size=='xl'?'selected':''}}>xlarge</option>
+                       @foreach ($sizes as $size )
+                         <option value="{{$size->id}}"{{$attribute->size_id==$size->id?'selected':''}}>{{$size->value}}</option>      
+                         @endforeach
                         </select>
                      
                     </div>
                 </div>
-         
-            </div> 
+         <div class="col-4">
+                    <div class="form-group">
+                            <label for="type_id"> quantity</label>
+                        <input type="number" class="form-control" placeholder="quantity" name="quantity[]"
+                            value="{{$attribute->quantity}}" disabled>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+           @endforeach
                
                 </form>
             </div>

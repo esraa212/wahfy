@@ -2942,6 +2942,10 @@ textarea.form-control {
   background-color: #F06292;
 }
 
+.ps-variant.ps-variant--color.color--4:before {
+  background-color: #0a1177;
+}
+
 .ps-variant.ps-variant--image {
   width: auto;
   height: auto;

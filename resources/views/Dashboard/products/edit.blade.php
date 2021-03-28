@@ -156,50 +156,65 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                  <div class="col-6">
                     <div class="form-group">
-                        <label for="type_id">Product quantity</label>
-                        <input type="text" class="form-control" placeholder="quantity" name="quantity"
-                            value="{{$product->quantity}}" required>
-                        @error('quantity')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
+              <a class="btn btn-primary block" id="add_new_atribute" class="add_new_attribute mt-5"
+                        style="margin-left:40%; margin-top:5%"><i class="icon-plus"></i>Add Attributes</a>
                     </div>
                 </div>
                </div>
-               <div class="row">
-                <div class="col-6">
+                <div id="add_attributes">
+               @foreach ($attributes as $key =>$attribute)
+                   
+            
+               
+               <div class="row" id="{{$key}}">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="color">color</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-arrow-up"></i></span>
-                            </div>
-                            <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
-                                name="color" value="{{$product->color}}" required><br>
-                        </div>
+                     <select name="color[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                         <option value="">Choose Color</option>
+                         @foreach ($colors as $color )
+                         <option value="{{$color->id}}"{{$attribute->color_id==$color->id?'selected':''}}>{{$color->name}}</option>      
+                         @endforeach
+               
+                        </select>
                         @error('color')
                         <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">size</label>
-                        <select name="size" class="form-control select2 select2-hidden-accessible"
-                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="size">
+                        <select name="size[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                          <option value="">Choose size</option>
-                         <option value="xs"{{$product->size=='xs'?'selected':''}}>xsmall</option> 
-                         <option value="s"{{$product->size=='s'?'selected':''}}>small</option>
-                         <option value="m"{{$product->size=='m'?'selected':''}}>medium</option> 
-                         <option value="l"{{$product->size=='l'?'selected':''}}>large</option>
-                         <option value="xl"{{$product->size=='xl'?'selected':''}}>xlarge</option>
+                       @foreach ($sizes as $size )
+                         <option value="{{$size->id}}"{{$attribute->size_id==$size->id?'selected':''}}>{{$size->value}}</option>      
+                         @endforeach
                         </select>
                      
                     </div>
                 </div>
-         
+         <div class="col-3">
+                    <div class="form-group">
+                            <label for="type_id"> quantity</label>
+                        <input type="number" class="form-control" placeholder="quantity" name="quantity[]"
+                            value="{{$attribute->quantity}}" required>
+                   
+                    </div>
+                </div>
+                        <div class="col-1">
+                    <div class="form-group">
+                        <a class="btn btn-danger block" onClick="Delete({{$key}})" class=" mt-5"style="margin-top:28px;"><i class="icon-trash"></i></a>
+                    </div>
+                </div>
             </div>
+     
+           @endforeach
+              </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn btn-primary mx-auto">Update</button>
                     </div>
@@ -247,5 +262,35 @@
     $("#image").change(function() {
       readURL(this);
     });
+    </script>
+    <script>
+
+var i =1;
+
+$('#add_new_atribute').on('click', function (event) {
+
+$(this).data('clicked', true);
+event.preventDefault();
+var append = '<div class ="row" id="'+i+'">';
+append += '<div class="col-4"><div class="form-group"><label for="color">color</label><select name="color[]" class="form-control"style="width:100%;" tabindex="-1" aria-hidden="true" required ><option value="">Choose Color</option>';
+@foreach ($colors as $color )
+ append+='<option value="{{$color->id}}">{{$color->name}}</option>';      
+@endforeach
+append+='</select></div></div><div class="col-4"><div class="form-group"><label for="">size</label><select name="size[]" class="form-control"  style="width: 100%;" aria-hidden="true" required><option value="">Choose size</option>';
+ @foreach ($sizes as $size )
+append+='<option value="{{$size->id}}">{{$size->value}}</option>';      
+@endforeach
+append+='</select></div></div><div class="col-3"><div class="form-group"><label for="quantity"> quantity</label><input type="number" class="form-control" placeholder="quantity" name="quantity[]"value="{{old('quantity')}}" required></div></div><div class="col-1><div class="form-group"><a class="btn btn-danger block" onClick="Delete('+i+')" class=" mt-5"style="margin-top:28px;"><i class="icon-trash"></i></a></div></div>';
+append += '</div>';
+
+$("#add_attributes").last().append(append);
+i++;
+console.log(i);
+});
+
+//DElete Function
+function Delete(i){
+$('#'+i+'').remove();
+}
     </script>
 @stop

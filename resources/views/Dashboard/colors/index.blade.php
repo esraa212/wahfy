@@ -1,59 +1,55 @@
 @extends('Dashboard.layout.master')
 @section('parentPageTitle', 'Dashboard')
-@section('title', 'attributes')
+@section('title', 'colors')
 
 
 @section('content')
 <div class="row justify-content-end">
     <div class="col-3">
-        <a class="btn btn-round btn-primary buttons-html5" href="{{url('dashboard/attributes/create')}}">
-            <span>Add New Attribute</span>
+        <a class="btn btn-round btn-primary buttons-html5"href="{{url('dashboard/colors/create')}}">
+            <span>Add New Color</span>
         </a>
     </div>
-
+  
 </div>
 <div class="row clearfix">
     <div class="col-lg-12">
         <div class="card">
             <div class="header">
-
+                
                 <ul class="header-dropdown dropdown">
-
+                    
                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                   
                 </ul>
             </div>
             <div class="body">
                 <div class="table-responsive">
-
+                    
                     <table class="table table-striped table-hover dataTable js-exportable">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Attribute Value</th>
-                                <th>Attribute Type</th>
+                                <th>Color</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
-
+                      
                         <tbody>
-                            @foreach ($attributes as $attribute)
-
-
+                            @foreach ($colors as $color)
+                                
+                      
                             <tr>
-                                <td>{{$attribute->id}}</td>
-                                     <td>{{$attribute->value}}</td>
-                                <td>{{$attribute->type}}</td>
-                           
-                                <td><a href="{{route('admin.attributes.edit',['attribute'=>$attribute->id])}}" class="btn btn-success btn-xs"><i
-                                            class="fa fa-edit"></i></a></td>
+                            <td>{{$color->name}}</td>
+                                <td><a href="{{url("/dashboard/colors/{$color->id}/edit")}}"
+                                    class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{route('admin.attributes.destroy',['attribute'=>$attribute->id])}}" method="post" class="delete">
-                                        <button class="btn btn-danger btn-xs confirm-del"><i
-                                                class="fa fa-trash-o"></i></button>
-                                        @method('DELETE')
-                                        @csrf
-                                    </form>
+                                    <form action="{{url("/dashboard/colors/{$color->id}")}}" method="post" class="delete">
+                                     <button class="btn btn-danger btn-xs confirm-del delete"><i
+                                        class="fa fa-trash-o"></i></button>
+                                                @method('DELETE')
+                                                @csrf
+                                 </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -68,17 +64,14 @@
 
 @section('page-styles')
 <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendor/sweetalert/sweetalert.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/sweetalert/sweetalert.css') }}"/>
 <style>
     td.details-control {
-        background: url('../assets/images/details_open.png') no-repeat center center;
-        cursor: pointer;
-    }
-
+    background: url('../assets/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
     tr.shown td.details-control {
         background: url('../assets/images/details_close.png') no-repeat center center;
     }

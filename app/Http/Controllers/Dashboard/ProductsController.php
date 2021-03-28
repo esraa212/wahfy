@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
@@ -35,7 +37,7 @@ class ProductsController extends Controller
      {
          $categories = ProductCategory::all();
          $suppliers = Supplier::all();
-          $colors=Attribute::where('type','color')->get();
+          $colors=Color::all();
           $sizes=Attribute::where('type','size')->get();
 
          return view('Dashboard.products.create', compact('categories','suppliers','sizes','colors'));
@@ -58,12 +60,20 @@ class ProductsController extends Controller
          $product->supplier_id = $request->input('supplier_id');
          $product->product_category_id = $request->input('product_category_id');
          $product->product_sub_category_id = $request->input('product_sub_category_id');
-         $product->quantity = $request->input('quantity');
          $product->active = $request->input('active');
          $product->image = $this->upload($request->file('image'));
-         $product->size = $request->input('size');       
-          $product->color = $request->input('color');
          $product->save();
+        foreach ($request->input('color') as $key => $value) {
+         \DB::table('products_attributes')->insert(
+                array(
+                    'attribute_id' => $request->input('size')[$key],
+                    'product_id' => $product->id,
+                    'attribute' => 'size',
+                    'quantity' => $request->input('quantity')[$key],
+                    'color_id' => $value
+                )
+            );
+        }
          return redirect(route('admin.products.index'));
      }
  
@@ -79,10 +89,14 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $categories = ProductCategory::all();
         $sub_categories=ProductSubCategory::all();
+        $colors=Color::all();
+        $sizes=Attribute::where('type','size')->get();
         $suppliers=Supplier::all();
-
-
-        return view('Dashboard.products.show', compact('product', 'categories','sub_categories','suppliers'));
+       $attributes=\DB::table('products_attributes')->join('attributes','attributes.id','=','products_attributes.attribute_id')
+         ->join('colors','colors.id','=','products_attributes.color_id')
+         ->where('products_attributes.product_id',$product->id)
+         ->select('colors.name as color','colors.id as color_id','attributes.type as size_type','attributes.value as size_value','attributes.id as size_id','products_attributes.quantity')->get();
+        return view('Dashboard.products.show', compact('product', 'categories','sub_categories','suppliers','attributes','colors','sizes'));
      }
  
      /**
@@ -97,9 +111,15 @@ class ProductsController extends Controller
          $categories = ProductCategory::all();
          $sub_categories=ProductSubCategory::all();
          $suppliers=Supplier::all();
-
+               $colors=Color::all();
+          $sizes=Attribute::where('type','size')->get();
+       $attributes=\DB::table('products_attributes')->join('attributes','attributes.id','=','products_attributes.attribute_id')
+         ->join('colors','colors.id','=','products_attributes.color_id')
+         ->where('products_attributes.product_id',$product->id)
+         ->select('colors.name as color','colors.id as color_id','attributes.type as size_type','attributes.value as size_value','attributes.id as size_id','products_attributes.quantity')->get();
+       
  
-         return view('Dashboard.products.edit', compact('product', 'categories','sub_categories','suppliers'));
+         return view('Dashboard.products.edit', compact('product', 'categories','sub_categories','suppliers','colors','sizes','attributes'));
      }
  
      /**
@@ -119,13 +139,26 @@ class ProductsController extends Controller
         $product->supplier_id = $request->input('supplier_id');
         $product->product_category_id = $request->input('product_category_id');
         $product->product_sub_category_id = $request->input('product_sub_category_id');
-        $product->quantity = $request->input('quantity');
         $product->active = $request->input('active');
         if($request->file('image')){
     
             $product->image = $this->upload($request->file('image'));
         }
         $product->save();
+        if($request->input('color')||$request->input('size')||$request->input('quantity')){
+      foreach ($request->input('color') as $key => $value) {
+         \DB::table('products_attributes')->insert(
+                array(
+                    'attribute_id' => $request->input('size')[$key],
+                    'product_id' => $product->id,
+                    'attribute' => 'size',
+                    'quantity' => $request->input('quantity')[$key],
+                    'color_id' => $value
+                )
+            );
+        }
+        }
+       
         return redirect(route('admin.products.index'));
      }
  

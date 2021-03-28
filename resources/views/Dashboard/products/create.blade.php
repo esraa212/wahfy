@@ -28,7 +28,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="supplier_id">Supplier</label>
-                                <select name="supplier_id" class="form-control select2 select2-hidden-accessible"
+                                <select name="supplier_id" class="form-control"
                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="supplier">
                                     <option value="">Choose Supplier</option>
 
@@ -48,7 +48,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="category_id">Category</label>
-                                <select name="product_category_id" class="form-control select2 select2-hidden-accessible"
+                                <select name="product_category_id" class="form-control"
                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="product_category">
                                     <option value="">Choose Category</option>
 
@@ -65,7 +65,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="tax_id">SubCategory</label>
-                                <select name="product_sub_category_id" class="form-control select2 select2-hidden-accessible"
+                                <select name="product_sub_category_id" class="form-control"
                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="subCategory">
                                  <option value="">Choose SubCategory</option>
     
@@ -129,7 +129,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="tax_id">Availability</label>
-                        <select name="active" class="form-control select2 select2-hidden-accessible"
+                        <select name="active" class="form-control"
                             style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                             <option value="">Choose</option>
                             <option value="0">not available</option>
@@ -143,48 +143,55 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="type_id">Product quantity</label>
-                        <input type="text" class="form-control" placeholder="quantity" name="quantity"
-                            value="{{old('quantity')}}" required>
-                        @error('quantity')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
+              <a class="btn btn-primary block" id="add_new_atribute" class="add_new_attribute mt-5"
+                        style="margin-left:40%; margin-top:5%"><i class="icon-plus"></i>Add Attributes</a>
                     </div>
                 </div>
                </div>
+               <div id="add_attributes">
                <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="color">color</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-arrow-up"></i></span>
-                            </div>
-                            <input type="text" class="form-control money-dollar" placeholder="Ex: 99,99"
-                                name="color" value="{{old('color')}}" required><br>
-                        </div>
+                     <select name="color[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                         <option value="">Choose Color</option>
+                         @foreach ($colors as $color )
+                         <option value="{{$color->id}}">{{$color->name}}</option>      
+                         @endforeach
+               
+                        </select>
                         @error('color')
                         <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">size</label>
-                        <select name="size" class="form-control select2 select2-hidden-accessible"
-                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required id="size">
+                        <select name="size[]" class="form-control"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                          <option value="">Choose size</option>
-                         <option value="xs">xsmall</option> 
-                         <option value="s">small</option>
-                         <option value="m">medium</option> 
-                         <option value="l">large</option>
-                         <option value="xl">xlarge</option>
+                       @foreach ($sizes as $size )
+                         <option value="{{$size->id}}">{{$size->value}}</option>      
+                         @endforeach
                         </select>
                      
                     </div>
                 </div>
-         
+         <div class="col-4">
+                    <div class="form-group">
+                            <label for="type_id"> quantity</label>
+                        <input type="number" class="form-control" placeholder="quantity" name="quantity[]"
+                            value="{{old('quantity')}}" required>
+                        @error('quantity')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                     
+                    </div>
+                </div>
             </div>
+        </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn btn-primary mx-auto">Create</button>
                     </div>
@@ -193,6 +200,7 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
 @stop
 
@@ -200,14 +208,24 @@
 <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/css/dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/parsleyjs/css/parsley.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+<style>
+    .mul-select {
+        width: 100%;
+    }
+</style>
 @stop
 
 @section('page-script')
+
 <script src="{{ asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets/vendor/parsleyjs/js/parsley.min.js') }}"></script>
+
 <script src="{{ asset('assets/vendor/dropify/js/dropify.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/forms/dropify.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
     var config ={
     c_url:"{{url('/dashboard/getSubByCategory/')}}",
@@ -217,12 +235,45 @@
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
 <script>
+
+
+var i =1;
+
+$('#add_new_atribute').on('click', function (event) {
+
+$(this).data('clicked', true);
+event.preventDefault();
+var append = '<div class ="row" id="'+i+'">';
+append += '<div class="col-4"><div class="form-group"><label for="color">color</label><select name="color[]" class="form-control"style="width:100%;" tabindex="-1" aria-hidden="true" required ><option value="">Choose Color</option>';
+@foreach ($colors as $color )
+ append+='<option value="{{$color->id}}">{{$color->name}}</option>';      
+@endforeach
+append+='</select></div></div><div class="col-4"><div class="form-group"><label for="">size</label><select name="size[]" class="form-control"  style="width: 100%;" aria-hidden="true" required><option value="">Choose size</option>';
+ @foreach ($sizes as $size )
+append+='<option value="{{$size->id}}">{{$size->value}}</option>';      
+@endforeach
+append+='</select></div></div><div class="col-3"><div class="form-group"><label for="quantity"> quantity</label><input type="number" class="form-control" placeholder="quantity" name="quantity[]"value="{{old('quantity')}}" required></div></div><div class="col-1><div class="form-group"><a class="btn btn-danger block" onClick="Delete('+i+')" class=" mt-5"style="margin-top:28px;"><i class="icon-trash"></i></a></div></div>';
+append += '</div>';
+
+$("#add_attributes").last().append(append);
+i++;
+console.log(i);
+});
+
+//DElete Function
+function Delete(i){
+$('#'+i+'').remove();
+}
+
+
+</script>
+{{-- <script>
     $(function() {
-    // validation needs name of the element
-    $('#food').multiselect();
+
 
     // initialize after multiselect
-    $('#basic-form').parsley();
+
 });
-</script>
+</script> --}}
+
 @stop
