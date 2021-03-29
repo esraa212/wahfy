@@ -15,6 +15,8 @@ var Filter = function () {
         handlefilterProductsbyCategory();
         handlefilterProductsbyPrice();
         handlefilterProductsbySize();
+        handleChangeBYSUBCategory();
+        handlefilterProductsbyColor();
     };
 
  
@@ -22,7 +24,7 @@ var Filter = function () {
 
         $('#area').on('change', function () {
             var area = $('#area').val();
-            $.get(f_url + area, function (data) {
+            $.get(f_url +1+'/'+area, function (data) {
                 $("#supplier").html("");
                 suppliers='';
                 if (data.length != 0) {
@@ -38,11 +40,13 @@ var Filter = function () {
             }, "json");
         });
     }
+
+
     var handleChangeCategory = function () {
 
         $('#category').on('change', function () {
             var category = $('#category').val();
-            $.get(f_url  + category, function (data) {
+            $.get(f_url+2+'/'+category, function (data) {
                 $("#supplier").html("");
                 suppliers = '';
                 if (data.length != 0) {
@@ -58,6 +62,28 @@ var Filter = function () {
             }, "json");
         });
     }
+
+    var handleChangeBYSUBCategory = function () {
+
+        $('li#filter_BysubCategory').on('click', function () {
+            var sub =$(this).val();
+            $.get(f_url + 3 + '/' + sub, function (data) {
+                $("#supplier").html("");
+                suppliers = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        suppliers += '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"><article class="ps-block--store" ><div class="ps-block__thumbnail bg--cover" data-background=""></div><div class="ps-block__content"><div class="ps-block__author"><a class="ps-block__user" href="#"><img src="' + front_url + '/' + item.image + '" alt=""></a><a class="ps-btn" href="' + front_url + '/Brands/' + item.name + '">Visit Store</a></div><h4>' + item.name + '</h4><select class="ps-rating" data-read-only="true"><option value="1">1</option><option value="1">2</option><option value="1">3</option><option value="1">4</option><option value="2">5</option></select><p>' + item.address + '</p><div class="ps-block__inquiry"><a href="#"><i class="icon-question-circle"></i>inquiry</a></div></div></article></div >';
+                    }
+                    $('#supplier').append(suppliers);
+                } else {
+                    $("#supplier").html('<h1 class="text-center text-success mt-5">There is no stores for this Category</h1>');
+
+                }
+            }, "json");
+        });
+    }
+
     var handleSearch = function () {
         $('#search').on('keypress', function (e) {
             if (e.which == 13) {
@@ -81,6 +107,8 @@ var Filter = function () {
           
         });
     }
+
+
     var handlefilterProducts = function () {
         $('li#p_subcategory').on('click', function () {
             var value =  $(this).val();
@@ -91,7 +119,7 @@ var Filter = function () {
                 if (data.length != 0) {
                     for (var x = 0; x < data.length; x++) {
                         var item = data[x];
-                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price +'LE</p></div></div></div></div >';
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="'+front_url+'/Products'+'/'+item.title+'"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price +'LE</p></div></div></div></div >';
                     }
                     $('#products').append(products);
                 } else {
@@ -101,6 +129,7 @@ var Filter = function () {
             }, "json");
         })
     }
+
     var handlefilterProductsbyCategory = function () {
         $('li#p_catgeory').on('click', function () {
             var value = $(this).val();
@@ -111,7 +140,7 @@ var Filter = function () {
                 if (data.length != 0) {
                     for (var x = 0; x < data.length; x++) {
                         var item = data[x];
-                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="'+front_url+'/Products'+'/'+item.title+'"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
                     }
                     $('#products').append(products);
                 } else {
@@ -121,6 +150,7 @@ var Filter = function () {
             }, "json");
         })
     }
+
     var handlefilterProductsbyPrice = function () {
         $('#save_value').on('click', function () {
             var value = [];
@@ -134,7 +164,7 @@ var Filter = function () {
                 if (data.length != 0) {
                     for (var x = 0; x < data.length; x++) {
                         var item = data[x];
-                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="'+front_url+'/Products'+'/'+item.title+'"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
                     }
                     $('#products').append(products);
                 } else {
@@ -158,7 +188,28 @@ console.log(value);
                 if (data.length != 0) {
                     for (var x = 0; x < data.length; x++) {
                         var item = data[x];
-                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="product-default.html"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="'+front_url+'/Products'+'/'+item.title+'"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
+                    }
+                    $('#products').append(products);
+                } else {
+                    $("#products").html('<h1 class="text-center text-danger mt-5">There is no Products for this Size </h1>');
+
+                }
+            }, "json");
+        })
+    }
+    var handlefilterProductsbyColor = function () {
+        $('label.filterColor').on('click', function () {
+            labelID = $(this).attr('for');
+            $('#' + labelID).trigger('click');
+            console.log(labelID);
+            $.get(filter_products + 5 + '/' + labelID, function (data) {
+                $("#products").html("");
+                products = '';
+                if (data.length != 0) {
+                    for (var x = 0; x < data.length; x++) {
+                        var item = data[x];
+                        products += '<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6"><div class= "ps-product" ><div class="ps-product__thumbnail"><a href="'+front_url+'/Products'+'/'+item.title+'"><img src="' + config.url + item.image + '" alt="" style="width:200px;height:80px;"></a><ul class="ps-product__actions"><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li><li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview' + item.id + '"><i class="icon-eye"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li><li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li></ul></div><div class="ps-product__container"><a class="ps-product__vendor" href="#">' + item.title + '</a><div class="ps-product__content"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div><div class="ps-product__content hover"><a class="ps-product__title" href="'+front_url+'/Products'+'/'+item.title+'">' + item.title + '</a><p class="ps-product__price">' + item.price + 'LE</p></div></div></div></div >';
                     }
                     $('#products').append(products);
                 } else {

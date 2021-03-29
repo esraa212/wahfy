@@ -32,7 +32,7 @@
                                 <h4>{{$category->name}}</h4>
                                 <ul>
                                     @foreach ($category->sub_categories as $subCategory )
-                                    <li><a href="shop-default.html">{{$subCategory->name}}</a></li>
+                                    <li id="filter_BysubCategory" value="{{$subCategory->id}}"><a>{{$subCategory->name}}</a></li>
                                         
                                     @endforeach
                                 </ul>

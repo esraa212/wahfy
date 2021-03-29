@@ -21,10 +21,12 @@ Route::get('/customer/register', 'Front\CustomersController@registerForm')->name
 Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
 Route::get('/shop/{industry}', 'Front\IndutriesController@show')->name('indusrty.show');
 Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
-Route::post('/product_review', 'Front\SupplierController@review')->name('front.review');
+Route::post('/product_review', 'Front\ProductController@review')->name('front.review');
 
 Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
-Route::get('/Products/{product}', 'Front\SupplierController@product')->name('front.suppliers.product');
+Route::get('/Products/{product}', 'Front\ProductController@product')->name('front.suppliers.product');
+Route::get('/Products/{id}/{value}', 'Front\ProductController@index')->name('front.products.index');
+
 
 
 
@@ -33,7 +35,7 @@ Route::get('/Products/{product}', 'Front\SupplierController@product')->name('fro
 
      /*get areas of cities ajax */
      Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');
-     Route::get('/get_suppliers/{area}', 'Front\AjaxController@getSuppliers')->name('front.getSuppliers');
+     Route::get('/get_suppliers/{id}/{value}', 'Front\AjaxController@getSuppliers')->name('front.getSuppliers');
      Route::get('/get_suppliers_search/{search}', 'Front\AjaxController@getSuppliersBySearch')->name('front.getSuppliersBySearch');
      //filter inside store page for products id 1 for catgory 2 for subcategory 3 for price and 4 for colors
      Route::get('/filter_products/{id}/{value}', 'Front\AjaxController@filterProducts')->name('front.filterProducts');

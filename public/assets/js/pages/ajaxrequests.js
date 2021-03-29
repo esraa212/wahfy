@@ -42,6 +42,7 @@
              }
          })
     }
+    
     var handleChangeCategory  = function () {
         $('#category').on('change', function () {
             var category= $(this).val();
@@ -64,6 +65,7 @@
             }
         })
    }
+   
    var handleChangeCategoryProduct  = function () {
     $('#product_category').on('change', function () {
         var category= $(this).val();

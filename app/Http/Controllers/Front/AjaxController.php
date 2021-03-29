@@ -23,15 +23,20 @@ class AjaxController extends Controller
       $subCategories = SubCategory::where('category_id', '=', $category_id)->select('*')->get()->toArray();
       return response()->json($subCategories);
   }
-   public function getSuppliers(Request $request){
+
+  //get suppliers by category area or subCategory id=1 area 2 category 3 subcategory 
+   public function getSuppliers($id,$value){
      $supplier=array();
-   if($request->area){
-    $suppliers = Supplier::where('area_id', '=',$request->area)->select('*')->get()->toArray();
+   if($id==1){
+    $suppliers = Supplier::where('area_id', '=',$value)->select('*')->get()->toArray();
    
    }
      
-      if($request->category){   
-      $suppliers = Supplier::where('category_id', '=',$request->category)->select('*')->get()->toArray();
+      if($id==2){   
+      $suppliers = Supplier::where('category_id', '=',$value)->select('*')->get()->toArray();
+      }
+         if($id==3){   
+      $suppliers = Supplier::where('sub_category_id', '=',$value)->select('*')->get()->toArray();
       }
       
     return response()->json($suppliers);
@@ -63,7 +68,19 @@ class AjaxController extends Controller
      if($id==4){
        $sizes=  explode(',', $value);
       //dd($sizes);
-         $products = Product::whereIn('size',$sizes)->select('*')->get()->toArray();
+    $products = Product::leftjoin('products_attributes','products.id','=','products_attributes.product_id')
+    ->whereIn('products_attributes.attribute_id',$sizes)
+    ->select('products.*')->groupBy('products_attributes.product_id')->get()->toArray();
+
+    }
+
+     //4 for size
+     if($id==5){
+      //dd($sizes);
+    $products = Product::leftjoin('products_attributes','products.id','=','products_attributes.product_id')
+    ->where('products_attributes.color_id',$value)
+    ->select('products.*')->groupBy('products_attributes.product_id')->get()->toArray();
+
     }
   return response()->json($products);
   }

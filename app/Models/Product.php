@@ -29,4 +29,5 @@ class Product extends Model
     return $this->belongsToMany('App\Models\Attribute', 'products_attributes', 'product_id')->withPivot('value','attribute','quantity','color_id');
     }
 
+
 }

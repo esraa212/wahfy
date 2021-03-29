@@ -4,8 +4,8 @@
         <div class="ps-container">
             <ul class="breadcrumb">
                 <li><a href="{{route('front.home')}}">Home</a></li>
-                <li><a  href="{{route('indusrty.show',['industry'=>$supplier->industry->name])}}">{{$supplier->industry->name}} Brands</a></li>
-                <li>{{$supplier->name}}</li>
+                
+                <li>Products</li>
             </ul>
         </div>
     </div>
@@ -24,27 +24,7 @@
            
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
-                    <aside class="widget widget_shop">
-                        <h4 class="widget-title">Categories</h4>
-                        <ul class="ps-list--categories">
-                            @foreach ($categories as $category )
-                                 <li class="menu-item-has-children"><a >{{$category->name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
-                                    @if($category->product_sub_categories!=null)
-                                <ul class="sub-menu">
-                                     
-                                    @foreach ($category->product_sub_categories as $subCategory)
-                                        <li class="p_subcategory" id="p_subcategory" value="{{$subCategory->id}}"><a  >{{$subCategory->name}}</a>
-                                    </li>
-                                    @endforeach
-                                   <li class="p_catgeory" id="p_catgeory" value="{{$category->id}}"><a >View All</a>
-                                    </li>
-                                </ul>
-                                @endif
-                            </li>  
-                            @endforeach
-                        
-                        </ul>
-                    </aside>
+ 
                     <aside class="widget widget_shop">
                     
                         <figure>
@@ -105,7 +85,7 @@
                 <div class="ps-layout__right">
                     <div class="ps-shopping ps-tab-root">
                         <div class="ps-shopping__header">
-                            <p><strong> {{$supplier->products->count()}}</strong> Products found</p>
+                            <p><strong> {{$products->count()}}</strong> Products found</p>
                             <div class="ps-shopping__actions">
                                 <select class="ps-select" data-placeholder="Sort Items">
                                     <option>Sort by latest</option>
@@ -127,7 +107,7 @@
                             <div class="ps-tab active" id="tab-1">
                                 <div class="ps-shopping-product">
                                     <div class="row" id="products">
-                                        @foreach ($supplier->products as $product) 
+                                        @foreach ($products as $product) 
                                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6">
                                             <div class="ps-product">
                                                 <div class="ps-product__thumbnail">
@@ -164,7 +144,7 @@
                         <div class="ps-product__info">
                             <h1>{{$product->title}}</h1>
                             <div class="ps-product__meta">
-                                <p>Brand:<a href="shop-default.html">{{$supplier->name}}</a></p>
+                                <p>Brand:<a href="{{route('front.suppliers.index',['supplier'=>$product->supplier->name])}}">{{$product->supplier->name}}</a></p>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
                                      @if($product->ratings!=null)
@@ -187,7 +167,7 @@
                             </div>
                             <h4 class="ps-product__price">{{round($product->price,2)}} LE</h4>
                             <div class="ps-product__desc">
-                                <p>Sold By:<a href="shop-default.html"><strong> {{$supplier->name}}</strong></a></p>
+                                <p>Sold By:<a href="{{route('front.suppliers.index',['supplier'=>$product->supplier->name])}}"><strong> {{$product->supplier->name}}</strong></a></p>
                                 <ul class="ps-list--dot">
                                    <p>{{$product->description}}</p>
                                 </ul>
@@ -238,7 +218,7 @@
 <script>
     
       $(document).ready(function() {
-@foreach($supplier->products as $product)
+@foreach($products as $product)
         $('#product-quikviewc'+{{$product->id}}+'').on('shown.bs.modal', function(e){
         $('.ps-product--quickview .ps-product__images'+{{$product->id}}+'').slick('setPosition');
          });

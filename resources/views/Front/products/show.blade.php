@@ -57,8 +57,17 @@
                                 <div class="ps-product__variations">
                                     <figure>
                                         <figcaption>Color</figcaption>
-                                        <div class="ps-variant ps-variant--color color--1"><span class="ps-variant__tooltip">Black</span></div>
-                                        <div class="ps-variant ps-variant--color color--2"><span class="ps-variant__tooltip"> Gray</span></div>
+                                        @foreach ($attributes as $attribute )
+                                             <div class="ps-variant ps-variant--color color--{{$attribute->color_id}}"><span class="ps-variant__tooltip">{{$attribute->color}}</span></div>
+                                        @endforeach
+                                       
+                                    </figure>
+                                     <figure>
+                                        <figcaption>Sizes</figcaption>
+                                        @foreach ($attributes as $attribute )
+                                          <a>{{$attribute->size_value}}</a>
+                                        @endforeach
+                                       
                                     </figure>
                                 </div>
                                 <div class="ps-product__shopping row">
@@ -248,7 +257,7 @@
                                                             <option value="2"></option>    
 
                                                         @endif
-                                            </select><span>{{$brand->ratings->avg('value')}} Out Of 5</span>
+                                            </select><span>{{round($brand->ratings->avg('value'))}} Out Of 5</span>
                                         </div>
                                      
                                     </div>
@@ -298,7 +307,7 @@
                                                             <option value="2"></option>    
 
                                                         @endif
-                                        </select><span>{{$related_product->ratings->avg('value')}} out of 5</span>
+                                        </select><span>{{round($related_product->ratings->avg('value'))}} out of 5</span>
                                     </div>
                                     <p class="ps-product__price">{{$related_product->price}}LE</p>
                                 </div>

@@ -2345,47 +2345,47 @@ textarea.form-control {
 }
 
 .ps-checkbox--color.color-2 label:before {
-  background-color: #709abf;
+  background-color: #831530;
 }
 
 .ps-checkbox--color.color-2 input[type=checkbox]:checked~label:before {
-  background-color: #709abf;
+  background-color: #831530;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .ps-checkbox--color.color-3 label:before {
-  background-color: #ad8111;
+  background-color: #070706;
 }
 
 .ps-checkbox--color.color-3 input[type=checkbox]:checked~label:before {
-  background-color: #ad8111;
+  background-color: #070706;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .ps-checkbox--color.color-4 label:before {
-  background-color: #57d6db;
+  background-color: #3768b1;
 }
 
 .ps-checkbox--color.color-4 input[type=checkbox]:checked~label:before {
-  background-color: #57d6db;
+  background-color: #3768b1;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .ps-checkbox--color.color-5 label:before {
-  background-color: #e5ac10;
+  background-color: #d99edf;
 }
 
 .ps-checkbox--color.color-5 input[type=checkbox]:checked~label:before {
-  background-color: #e5ac10;
+  background-color: #d99edf;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .ps-checkbox--color.color-6 label:before {
-  background-color: #8ce84a;
+  background-color: #b3b3c2;
 }
 
 .ps-checkbox--color.color-6 input[type=checkbox]:checked~label:before {
-  background-color: #8ce84a;
+  background-color: #b3b3c2;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -2931,19 +2931,27 @@ textarea.form-control {
 }
 
 .ps-variant.ps-variant--color.color--1:before {
-  background-color: #000;
+  background-color: rgb(241, 232, 232);
 }
 
 .ps-variant.ps-variant--color.color--2:before {
-  background-color: #9e9e9e;
+  background-color: #912929;
 }
 
 .ps-variant.ps-variant--color.color--3:before {
-  background-color: #F06292;
+  background-color: #000000;
 }
 
 .ps-variant.ps-variant--color.color--4:before {
   background-color: #0a1177;
+}
+
+.ps-variant.ps-variant--color.color--5:before {
+  background-color: #7e165f;
+}
+
+.ps-variant.ps-variant--color.color--6:before {
+  background-color: #6d666b;
 }
 
 .ps-variant.ps-variant--image {
