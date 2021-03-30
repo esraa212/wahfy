@@ -79,7 +79,7 @@
                                             <input class="form-control" type="text" placeholder="1">
                                         </div>
                                     </figure>
-                                    <a class="ps-btn ps-btn--black " href="#">Add to cart</a>
+                                    <a class="ps-btn ps-btn--black "href="{{ url('add-to-cart/'.$product->id) }}">Add to cart</a>
                                     <a class="ps-btn" href="#">Buy Now</a>
                                     <div class="ps-product__actions col-12"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                                 </div>

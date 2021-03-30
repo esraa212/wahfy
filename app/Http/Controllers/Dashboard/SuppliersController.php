@@ -12,9 +12,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Supplier\CreateSupplierRequest;
 use App\Http\Requests\Admin\Supplier\UpdateSupplierRequest;
+use App\Traits\dashbordTrait;
+
 
 class SuppliersController extends Controller
 {
+       use dashbordTrait;
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +51,9 @@ class SuppliersController extends Controller
      */
     public function store(CreateSupplierRequest $request)
     {
-        $supplier = Supplier::create($request->all());
+         $data=$request->all();
+        $data['image'] = $this->upload($request->file('image'),'suppliers');
+        $supplier = Supplier::create($data);
         return redirect(route('admin.suppliers.index'));
     }
 
@@ -91,7 +96,18 @@ class SuppliersController extends Controller
     public function update(UpdateSupplierRequest $request, $id)
     {
         $supplier = Supplier::findOrFail($id);
-        $supplier->update($request->all());
+        $supplier->name=$request->input('name');
+        $supplier->address=$request->input('address');
+        $supplier->industry_id=$request->input('industry_id');
+        $supplier->city_id=$request->input('city_id');
+        $supplier->area_id=$request->input('area_id');
+        $supplier->category_id=$request->input('category_id');
+        $supplier->sub_category_id=$request->input('sub_category_id');
+         if($request->file('image')){
+
+            $supplier->image = $this->upload($request->file('image'),'suppliers');
+        }
+        $supplier->save();
         return redirect(route('admin.suppliers.index'));
     }
 

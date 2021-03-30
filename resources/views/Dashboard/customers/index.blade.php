@@ -61,7 +61,7 @@
                                                         class="fa fa-edit"></i>Edit</a>
                                             </div>
                                             <div class="col-12">
-                                                <form action="{{url("/customers/{$customer->id}")}}" method="post" class="delete">
+                                                <form action="{{url("/customers/{$customer->id}")}}" method="post" class="delete" type="submit">
                                                     <button style="background-color: white;border:thick;"
                                                         class="text-danger">
                                                         <i class="fa fa-trash-o"></i>Delete

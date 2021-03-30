@@ -79,7 +79,7 @@ $implode = array();
                                         <div class="dropdown-menu row">
                                             
                                             <div class="col-12">
-                                                <form action="{{route('admin.notifications.destroy',['notification'=>$notificatioon->id])}}" method="post" class="delete">
+                                                <form action="{{route('admin.notifications.destroy',['notification'=>$notificatioon->id])}}" method="post" class="delete" type="submit">
                                                     <button style="background-color: white;border:thick;"
                                                         class="text-danger">
                                                         <i class="fa fa-trash-o"></i>Delete

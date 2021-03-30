@@ -125,7 +125,13 @@
                                    
                                 </div>
                                  
-                                  
+                                          <div class="row mt-4 mb-4">
+                        <div class="col-6">
+                  
+                          <img id="preview" src="{{$supplier->image}}" width="50%">
+                        </div>
+                  
+                                          </div>
                             </div>
                         </div>
                     </div>

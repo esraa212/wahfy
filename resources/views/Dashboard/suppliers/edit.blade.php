@@ -11,7 +11,7 @@
                 <h2>Edit Supplier info</h2>
             </div>
             <div class="body">
-                <form method="POST" action="{{route('admin.suppliers.update',['supplier'=>$supplier->id])}}"
+                <form method="POST" enctype="multipart/form-data" action="{{route('admin.suppliers.update',['supplier'=>$supplier->id])}}"
                     id="advanced-form" data-parsley-validate novalidate class="edit">
                     @csrf
                     @method('PUT')
@@ -164,7 +164,25 @@
                                     </div>
                                    
                                 </div>
-                                 
+                                  <div class="row mt-4 mb-4">
+                        <div class="col-6">
+                  
+                          <img id="preview" src="{{$supplier->image}}" width="50%">
+                        </div>
+                  
+                        
+                            <div class="form-group">
+                                <label for="image">supplier Image</label><br>
+                                <img id="preview" style="width:150px;" src=""><br><br>
+                                <div class="input-group">
+                                <div class="custom-file">
+                                    <input name="image" type="file" class="custom-file-input" id="image">
+                                    <label class="custom-file-label" for="image">Choose Image to Change</label>
+                                </div>
+                                </div>
+                            </div>
+                        
+                             </div> 
                                   
                             </div>
                         </div>
@@ -198,6 +216,23 @@
     }
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
+<script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#preview').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    
+    $("#image").change(function() {
+      readURL(this);
+    });
+    </script>
 <script>
     $(function() {
     // validation needs name of the element

@@ -39,7 +39,7 @@ class CheckoutController extends Controller
         $responseData = curl_exec($ch);
         if(curl_errno($ch)) {
             return curl_error($ch);
-        }
+        } 
         curl_close($ch);
          $res=json_decode($responseData,true);
          $view =view('Dashboard.test.ajax')->with(['responseData'=>$res,'id'=>$request->id])->renderSections();

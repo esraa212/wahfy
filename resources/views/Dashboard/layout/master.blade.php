@@ -121,11 +121,15 @@
             $(".confirm").on("submit", function(){
         return confirm("Do you want to save the data?");
     });
-    $(".edit").on("submit", function(){
-        return confirm("Are You Sure You Want To Update The Data?");
+    $(".edit").on("submit", function(e){
+         if(!confirm('Do you want to Update this Record?')){
+              e.preventDefault();
+        }
     });
-    $(".delete").on("submit", function(){
-        return confirm("Are You Sure You Want To Delete This Record?");
+    $(".delete").on("submit", function(e){
+         if(!confirm('Do you want to delete this Record?')){
+              e.preventDefault();
+        }
     });
    if (window.history && window.history.pushState) {
     $(window).on('popstate', function(event) {

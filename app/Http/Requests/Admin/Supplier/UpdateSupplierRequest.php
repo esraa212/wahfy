@@ -31,6 +31,8 @@ class UpdateSupplierRequest extends FormRequest
             'city_id' => "required|exists:cities,id",
             'industry_id' => "required|exists:industries,id",
             'address'=>'required',
+            'image' => 'mimes:jpg,png,jpeg,gif,svg|max:2048',
+
 
 
         ];

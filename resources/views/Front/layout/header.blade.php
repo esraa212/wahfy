@@ -1,4 +1,3 @@
-
     <div class="ps-block--promotion-header bg--cover" data-background="{{url('front/img/promotions/header-promotion.jpg')}}">
         <div class="container">
             <div class="ps-block__left">
@@ -73,26 +72,25 @@
                 <div class="header__content-right">
 					
                     <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
-                        <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
+                        <div class="ps-cart--mini"><a class="header__extra" href="{{route('front.cart')}}"><i class="icon-bag2"></i><span><i>{{session('cart')?count(session('cart')):0}}</i></span></a>
                             <div class="ps-cart__content">
-                                <div class="ps-cart__items">
-                                    <div class="ps-product--cart-mobile">
-                                        <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a></div>
-                                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
-                                            <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                        </div>
-                                    </div>
-                                    <div class="ps-product--cart-mobile">
-                                        <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg" alt=""></a></div>
-                                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
-                                            <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ps-cart__footer">
-                                    <h3>Sub Total:<strong>$59.99</strong></h3>
-                                    <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
-                                </div>
+                                <?php $total = 0 ?>
+                             @if(session('cart'))
+                     @foreach(session('cart') as $id => $details)
+                       <?php $total += $details['price'] * $details['quantity'] ?>
+                    <div class="ps-product--cart-mobile">
+                        <div class="ps-product__thumbnail"><a href="#"><img src="{{url(''.$details['image'].'')}}" alt="{{$details['title']}}"></a></div>
+                        <div class="ps-product_content"><a class="ps-product_remove" href="#"><i class="icon-cross"></i></a><a href="{{route('front.suppliers.product',['product'=>$details['title']])}}">{{$details['title']}}</a>
+                            <p><strong>Sold by:</strong> {{$details['brand']}}</p><small>{{$details['quantity']}} x {{$details['price']}}</small>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="ps-cart__footer">
+                    <h3>Sub Total:<strong>{{$total}}</strong></h3>
+                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                </div>
+                @endif
                             </div>
                         </div>
                         <div class="ps-block--user-header">
@@ -239,26 +237,27 @@
             <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt=""></a></div>
             <div class="navigation__right">
                 <div class="header__actions">
-                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
+                    <div class="ps-cart--mini"><a class="header__extra" href="{{route('front.cart')}}"><i class="icon-bag2"></i><span><i>{{session('cart')?count(session('cart')):0}}</i></span></a>
                         <div class="ps-cart__content">
+                                <?php $total = 0 ?>
+                             @if(session('cart'))
                             <div class="ps-cart__items">
+                                
+                   @foreach(session('cart') as $id => $details)
                                 <div class="ps-product--cart-mobile">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a></div>
+                                    <div class="ps-product__thumbnail"><a href="{{route('front.suppliers.product',['product'=>$details['title']])}}"><img src="{{url(''.$details['image'].'')}}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                        <p><strong>Sold by:</strong> {{$details['brand']}}</p><small>{{$details['quantity']}} x {{$details['price']}}</small>
                                     </div>
                                 </div>
-                                <div class="ps-product--cart-mobile">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                    </div>
-                                </div>
+                                @endforeach
+                              
                             </div>
                             <div class="ps-cart__footer">
-                                <h3>Sub Total:<strong>$59.99</strong></h3>
-                                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                                <h3>Sub Total:<strong>{{$total}} LE</strong></h3>
+                                <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="ps-block--user-header">
@@ -282,20 +281,26 @@
             <h3>Shopping Cart</h3>
         </div>
         <div class="navigation__content">
+             <?php $total = 0 ?>
+             @if(session('cart'))
             <div class="ps-cart--mobile">
+                 
+                     @foreach(session('cart') as $id => $details)
                 <div class="ps-cart__content">
                     <div class="ps-product--cart-mobile">
-                        <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a></div>
-                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
-                            <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                        <div class="ps-product__thumbnail"><a href=""{{route('front.suppliers.product',['product'=>$details['title']])}}""><img src="{{url(''.$details['image'].'')}}" alt=""></a></div>
+                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="{{route('front.suppliers.product',['product'=>$details['title']])}}">{{$details['title']}}</a>
+                            <p><strong>Sold by:</strong> {{$details['brand']}}</p><small>{{$details['quantity']}} x {{$details['price']}}/small>
                         </div>
                     </div>
                 </div>
+                @endforeach
                 <div class="ps-cart__footer">
-                    <h3>Sub Total:<strong>$59.99</strong></h3>
-                    <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                    <h3>Sub Total:<strong>{{$total}} LE</strong></h3>
+                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <div class="ps-panel--sidebar" id="navigation-mobile">
@@ -304,93 +309,26 @@
         </div>
         <div class="ps-panel__content">
             <ul class="menu--mobile">
-                <li><a href="#">Hot Promotions</a>
-                </li>
-                <li class="menu-item-has-children has-mega-menu"><a href="#">Consumer Electronic</a><span class="sub-toggle"></span>
+                     @if($industry->categories->count()>0)
                     <div class="mega-menu">
+                            @foreach ($industry->categories as $i_category ) 
                         <div class="mega-menu__column">
-                            <h4>Electronic<span class="sub-toggle"></span></h4>
+                   <h4><a href="{{url('Products/1/'.$i_category->name.'')}}">{{$i_category->name}}</a><span class="sub-toggle"></span></h4>
+                                 @if($i_category->sub_categories!=null)
                             <ul class="mega-menu__list">
-                                <li><a href="#">Home Audio &amp; Theathers</a>
-                                </li>
-                                <li><a href="#">TV &amp; Videos</a>
-                                </li>
-                                <li><a href="#">Camera, Photos &amp; Videos</a>
-                                </li>
-                                <li><a href="#">Cellphones &amp; Accessories</a>
-                                </li>
-                                <li><a href="#">Headphones</a>
-                                </li>
-                                <li><a href="#">Videosgames</a>
-                                </li>
-                                <li><a href="#">Wireless Speakers</a>
-                                </li>
-                                <li><a href="#">Office Electronic</a>
-                                </li>
+                            @foreach($i_category->sub_categories as $i_sub_category)
+                            <li><a href="{{url('Products/2/'.$i_sub_category->name.'')}}">{{$i_sub_category->name}}</a>
+                            </li>
+                            @endforeach
+                
                             </ul>
+                            @endif
                         </div>
-                        <div class="mega-menu__column">
-                            <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="#">Digital Cables</a>
-                                </li>
-                                <li><a href="#">Audio &amp; Video Cables</a>
-                                </li>
-                                <li><a href="#">Batteries</a>
-                                </li>
-                            </ul>
-                        </div>
+                        @endforeach
+                       
                     </div>
-                </li>
-                <li><a href="#">Clothing &amp; Apparel</a>
-                </li>
-                <li><a href="#">Home, Garden &amp; Kitchen</a>
-                </li>
-                <li><a href="#">Health &amp; Beauty</a>
-                </li>
-                <li><a href="#">Yewelry &amp; Watches</a>
-                </li>
-                <li class="menu-item-has-children has-mega-menu"><a href="#">Computer &amp; Technology</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="#">Computer &amp; Tablets</a>
-                                </li>
-                                <li><a href="#">Laptop</a>
-                                </li>
-                                <li><a href="#">Monitors</a>
-                                </li>
-                                <li><a href="#">Networking</a>
-                                </li>
-                                <li><a href="#">Drive &amp; Storages</a>
-                                </li>
-                                <li><a href="#">Computer Components</a>
-                                </li>
-                                <li><a href="#">Security &amp; Protection</a>
-                                </li>
-                                <li><a href="#">Gaming Laptop</a>
-                                </li>
-                                <li><a href="#">Accessories</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#">Babies &amp; Moms</a>
-                </li>
-                <li><a href="#">Sport &amp; Outdoor</a>
-                </li>
-                <li><a href="#">Phones &amp; Accessories</a>
-                </li>
-                <li><a href="#">Books &amp; Office</a>
-                </li>
-                <li><a href="#">Cars &amp; Motocycles</a>
-                </li>
-                <li><a href="#">Home Improments</a>
-                </li>
-                <li><a href="#">Vouchers &amp; Services</a>
-                </li>
+                    @endif
+              
             </ul>
         </div>
     </div>
@@ -413,212 +351,22 @@
             <h3>Menu</h3>
         </div>
         <div class="ps-panel__content">
+                  @if($industry->categories->count()>0)
             <ul class="menu--mobile">
-                <li class="menu-item-has-children"><a href="index.html">Home</a><span class="sub-toggle"></span>
+               @foreach ($industry->categories as $i_category ) 
+                <li class="menu-item-has-children"><a href="{{url('Products/1/'.$i_category->name.'')}}">{{$i_category->name}}</a><span class="sub-toggle"></span>
+                           @if($i_category->sub_categories!=null)
                     <ul class="sub-menu">
-                        <li><a href="index.html">Marketplace Full Width</a>
-                        </li>
-                        <li><a href="homepage-2.html">Home Auto Parts</a>
-                        </li>
-                        <li><a href="homepage-10.html">Home Technology</a>
-                        </li>
-                        <li><a href="homepage-9.html">Home Organic</a>
-                        </li>
-                        <li><a href="homepage-3.html">Home Marketplace V1</a>
-                        </li>
-                        <li><a href="homepage-4.html">Home Marketplace V2</a>
-                        </li>
-                        <li><a href="homepage-5.html">Home Marketplace V3</a>
-                        </li>
-                        <li><a href="homepage-6.html">Home Marketplace V4</a>
-                        </li>
-                        <li><a href="homepage-7.html">Home Electronic</a>
-                        </li>
-                        <li><a href="homepage-8.html">Home Furniture</a>
-                        </li>
-                        <li><a href="homepage-kids.html">Home Kids</a>
-                        </li>
-                        <li><a href="homepage-photo-and-video.html">Home photo and picture</a>
-                        </li>
-                        <li><a href="home-medical.html">Home Medical</a>
-                        </li>
+                        @foreach($i_category->sub_categories as $i_sub_category)
+                        <li><a href="{{url('Products/2/'.$i_sub_category->name.'')}}">{{$i_sub_category->name}}</a>
+                            </li>
+                            @endforeach
+       
                     </ul>
+                    @endif
                 </li>
-                <li class="menu-item-has-children has-mega-menu"><a href="shop-default.html">Shop</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Catalog Pages<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="shop-default.html">Shop Default</a>
-                                </li>
-                                <li><a href="shop-default.html">Shop Fullwidth</a>
-                                </li>
-                                <li><a href="shop-categories.html">Shop Categories</a>
-                                </li>
-                                <li><a href="shop-sidebar.html">Shop Sidebar</a>
-                                </li>
-                                <li><a href="shop-sidebar-without-banner.html">Shop Without Banner</a>
-                                </li>
-                                <li><a href="shop-carousel.html">Shop Carousel</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Product Layout<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="product-default.html">Default</a>
-                                </li>
-                                <li><a href="product-extend.html">Extended</a>
-                                </li>
-                                <li><a href="product-full-content.html">Full Content</a>
-                                </li>
-                                <li><a href="product-box.html">Boxed</a>
-                                </li>
-                                <li><a href="product-sidebar.html">Sidebar</a>
-                                </li>
-                                <li><a href="product-default.html">Fullwidth</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Product Types<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="product-default.html">Simple</a>
-                                </li>
-                                <li><a href="product-default.html">Color Swatches</a>
-                                </li>
-                                <li><a href="product-image-swatches.html">Images Swatches</a>
-                                </li>
-                                <li><a href="product-countdown.html">Countdown</a>
-                                </li>
-                                <li><a href="product-multi-vendor.html">Multi-Vendor</a>
-                                </li>
-                                <li><a href="product-instagram.html">Instagram</a>
-                                </li>
-                                <li><a href="product-affiliate.html">Affiliate</a>
-                                </li>
-                                <li><a href="product-on-sale.html">On sale</a>
-                                </li>
-                                <li><a href="product-video.html">Video Featured</a>
-                                </li>
-                                <li><a href="product-groupped.html">Grouped</a>
-                                </li>
-                                <li><a href="product-out-stock.html">Out Of Stock</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Woo Pages<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="shopping-cart.html">Shopping Cart</a>
-                                </li>
-                                <li><a href="checkout.html">Checkout</a>
-                                </li>
-                                <li><a href="whishlist.html">Whishlist</a>
-                                </li>
-                                <li><a href="compare.html">Compare</a>
-                                </li>
-                                <li><a href="order-tracking.html">Order Tracking</a>
-                                </li>
-                                <li><a href="my-account.html">My Account</a>
-                                </li>
-                                <li><a href="checkout-2.html">Checkout 2</a>
-                                </li>
-                                <li><a href="shipping.html">Shipping</a>
-                                </li>
-                                <li><a href="payment.html">Payment</a>
-                                </li>
-                                <li><a href="payment-success.html">Payment Success</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="menu-item-has-children has-mega-menu"><a href="#">Pages</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Basic Page<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="about-us.html">About Us</a>
-                                </li>
-                                <li><a href="contact-us.html">Contact</a>
-                                </li>
-                                <li><a href="faqs.html">Faqs</a>
-                                </li>
-                                <li><a href="comming-soon.html">Comming Soon</a>
-                                </li>
-                                <li><a href="404-page.html">404 Page</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Vendor Pages<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="become-a-vendor.html">Become a Vendor</a>
-                                </li>
-                                <li><a href="vendor-store.html">Vendor Store</a>
-                                </li>
-                                <li><a href="vendor-dashboard-free.html">Vendor Dashboard Free</a>
-                                </li>
-                                <li><a href="vendor-dashboard-pro.html">Vendor Dashboard Pro</a>
-                                </li>
-                                <li><a href="store-list.html">Store List</a>
-                                </li>
-                                <li><a href="store-list.html">Store List 2</a>
-                                </li>
-                                <li><a href="store-detail.html">Store Detail</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Account Pages<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="user-information.html">User Information</a>
-                                </li>
-                                <li><a href="addresses.html">Addresses</a>
-                                </li>
-                                <li><a href="invoices.html">Invoices</a>
-                                </li>
-                                <li><a href="invoice-detail.html">Invoice Detail</a>
-                                </li>
-                                <li><a href="notifications.html">Notifications</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="menu-item-has-children has-mega-menu"><a href="#">Blogs</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Blog Layout<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="blog-grid.html">Grid</a>
-                                </li>
-                                <li><a href="blog-list.html">Listing</a>
-                                </li>
-                                <li><a href="blog-small-thumb.html">Small Thumb</a>
-                                </li>
-                                <li><a href="blog-left-sidebar.html">Left Sidebar</a>
-                                </li>
-                                <li><a href="blog-right-sidebar.html">Right Sidebar</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Single Blog<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li><a href="blog-detail.html">Single 1</a>
-                                </li>
-                                <li><a href="blog-detail-2.html">Single 2</a>
-                                </li>
-                                <li><a href="blog-detail-3.html">Single 3</a>
-                                </li>
-                                <li><a href="blog-detail-4.html">Single 4</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
+                @endforeach
             </ul>
+             @endif
         </div>
     </div>

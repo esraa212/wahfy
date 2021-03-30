@@ -46,7 +46,7 @@
                                 <td><a href="{{route('admin.cities.edit',['city'=>$city->id])}}" class="btn btn-success btn-xs"><i
                                             class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{route('admin.cities.destroy',['city'=>$city->id])}}" method="post" class="delete">
+                                    <form action="{{route('admin.cities.destroy',['city'=>$city->id])}}" method="post" class="delete" type="submit">
                                         <button class="btn btn-danger btn-xs confirm-del"><i
                                                 class="fa fa-trash-o"></i></button>
                                         @method('DELETE')

@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-12">
                                             <form action="{{url("/dashboard/suppliers/{$supplier->id}")}}" method="post" class="delete">
-                                                <button style="background-color: white;border:thick;" class="text-danger">
+                                                <button style="background-color: white;border:thick;" class="text-danger" type="submit">
                                                     <i class="fa fa-trash-o"></i>Delete
                                                 </button>
                                                     @method('DELETE')

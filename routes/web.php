@@ -26,6 +26,10 @@ Route::post('/product_review', 'Front\ProductController@review')->name('front.re
 Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
 Route::get('/Products/{product}', 'Front\ProductController@product')->name('front.suppliers.product');
 Route::get('/Products/{id}/{value}', 'Front\ProductController@index')->name('front.products.index');
+Route::get('cart', 'Front\ProductController@cart')->name('front.cart');
+Route::get('add-to-cart/{id}', 'Front\ProductController@addToCart')->name('front.addToCart');
+Route::get('cart/checkout/{price}', 'Front\ProductController@checkout')->name('front.checkout');
+
 
 
 
@@ -112,7 +116,7 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
 
     
 
-    //for test hyperpay
+    // this Cotroller for test hyperpay
     Route::resource('testPayments', 'CheckoutController');
     Route::get('testPayment/checkout/{price}', 'CheckoutController@checkout')->name('products.checkout');
 //    Route::get('testPayment/cardForm/{price}', 'CheckoutController@cardForm');

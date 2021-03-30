@@ -44,7 +44,7 @@
                                 <td><a href="{{url("/dashboard/colors/{$color->id}/edit")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a></td>
                                 <td>
-                                    <form action="{{url("/dashboard/colors/{$color->id}")}}" method="post" class="delete">
+                                    <form action="{{url("/dashboard/colors/{$color->id}")}}" method="post" class="delete" type="submit">
                                      <button class="btn btn-danger btn-xs confirm-del delete"><i
                                         class="fa fa-trash-o"></i></button>
                                                 @method('DELETE')

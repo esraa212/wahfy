@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Supplier extends Model
 {
 
-    protected $fillable=['name','city_id','area_id','category_id','sub_category_id','industry_id','address'];
+    protected $fillable=['name','city_id','area_id','category_id','sub_category_id','industry_id','address','image'];
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
