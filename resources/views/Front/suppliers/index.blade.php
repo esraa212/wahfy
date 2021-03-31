@@ -4,7 +4,7 @@
         <div class="ps-container">
             <ul class="breadcrumb">
                 <li><a href="{{route('front.home')}}">Home</a></li>
-                <li><a  href="{{route('indusrty.show',['industry'=>$supplier->industry->name])}}">{{$supplier->industry->name}} Brands</a></li>
+                <li><a  href="{{route('front.indusrty.show',['industry'=>$supplier->industry->name])}}">{{$supplier->industry->name}} Brands</a></li>
                 <li>{{$supplier->name}}</li>
             </ul>
         </div>

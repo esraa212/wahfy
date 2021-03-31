@@ -70,7 +70,15 @@
                                        
                                     </figure>
                                 </div>
+                                     <div class="row justify-content-center">
+                                            @if(session()->has('success'))
+                                            <div class="alert alert-success" role="alert">
+                                                {{session('success') }}
+                                            </div>
+                                            @endif
+                                        </div>
                                 <div class="ps-product__shopping row">
+                                          
                                     <figure>
                                         <figcaption>Quantity</figcaption>
                                         <div class="form-group--number">

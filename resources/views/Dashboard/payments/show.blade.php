@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Payment  Id</b>
-                                    <input type="text" class="form-control" value="{{$paymenet->id}}" name="id" disabled><br>
+                                    <input type="text" class="form-control" value="{{$payment->id}}" name="id" disabled><br>
                               
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Payment  Amount</b>
-                                    <input type="text" class="form-control" value="{{$paymenet->amount}}" name="amount" disabled><br>
+                                    <input type="text" class="form-control" value="{{$payment->amount}}" name="amount" disabled><br>
                               
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <b>Payment  Date</b>
-                            <input type="text" class="form-control" value="{{$paymenet->payment_date}}" name="payment_date" disabled><br>
+                            <input type="text" class="form-control" value="{{$payment->payment_date}}" name="payment_date" disabled><br>
                       
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <b>Payment  Status</b>
-                            <input type="text" class="form-control" value="{{$paymenet->status}}" name="status" disabled><br>
+                            <input type="text" class="form-control" value="{{$payment->status}}" name="status" disabled><br>
                       
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Payment  Method</b>
-                                    <input type="text" class="form-control" value="{{$paymenet->method}}" name="method" disabled><br>
+                                    <input type="text" class="form-control" value="{{$payment->method}}" name="method" disabled><br>
                               
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Payment  Customer</b>
-                                    <input type="text" class="form-control" value="{{optional($paymenet->customer)->name}}" name="customer" disabled><br>
+                                    <input type="text" class="form-control" value="{{optional($payment->customer)->name}}" name="customer" disabled><br>
                               
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <b>Payment  Transaction ID</b>
-                                    <input type="text" class="form-control" value="{{$paymenet->transaction_id}}" name="transaction_id" disabled><br>
+                                    <input type="text" class="form-control" value="{{$payment->transaction_id}}" name="transaction_id" disabled><br>
                               
                                 </div>
                             </div>

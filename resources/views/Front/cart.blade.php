@@ -5,6 +5,7 @@
                 <div class="ps-section__header">
                     <h1>Shopping Cart</h1>
                 </div>
+     
                 <div class="ps-section__content">
                     <div class="table-responsive">
                         <table class="table ps-table--shopping-cart ps-table--responsive" id="cart" >
@@ -48,16 +49,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class=" ps-section__cart-actions row justify-content-center">
-                        <div class="col-3">
-            <a class="ps-btn" onclick="window.history.back();">
-            <i class="icon-arrow-left"></i> Back to Shop</a>
-                        </div>
-                        <div class="col-3">
-<a class="ps-btn ps-btn--outline" href="shop-default.html">
-    <i class="icon-sync"></i> Update cart</a>
-                        </div>
-                    </div>
+           
                  
                 </div>
                 <div class="ps-section__footer">
@@ -83,45 +75,21 @@
                      <input type="hidden" name="id" value="{{$total}}" id="id">
 
                                 </div>
-                                @endif
-                            </div><button class="ps-btn ps-btn--fullwidth" id="Checkout"  onclick="startAjax();" >Proceed to checkout</button>
+                                
+                            </div><a class="ps-btn ps-btn--fullwidth" href="{{route('front.checkoutForm',['price'=>$total])}}">Proceed to checkout</a>
+                            @else
+                            <div class="row justify-content-center">
+                              
+                                 <h1 class="text-warning mb-5">
+                                     Your Cart Is Empty
+                                 </h1>
+                               
+                            </div>
+                            @endif
                         </div>
-                        <div class="col-4">
-                                 <div id="showPayForm">
-       
-                              </div>
-                        </div>
+                     
                     </div>
                 </div>
             </div>
         </div>
 @endsection
-@section('scripts')
- <script type="text/javascript">
-    
-    //AJAX function
-    function startAjax() {
-          price=$('#price').text();
-
-        $.ajax({
-                type:'get',
-                url:"{{route('front.checkout',"price")}}",
-                data:{
-                    price:$('#price').text(),
-                    id:$('#id').val(),
-                },
-                
-                success:function(data){
-                if(data.status==true){
-                    $('#showPayForm').empty().html(data.content);
-                }
-                }
-            });
-        };
-    
-    
-    //Call AJAX:
-    $(document).ready(startAjax);
-
-</script>
-@stop

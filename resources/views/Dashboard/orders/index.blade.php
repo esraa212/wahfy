@@ -31,10 +31,10 @@
                             <tr>
                                 <td>{{$order->id}}</td>
                                 <td>{{optional($order->customer)->name}}</td>
-                                <td>{{optiona($order->payment)->method}}</td>
+                                <td>{{optional($order->payment)->method}}</td>
                                 <td>{{$order->total_value}}
                                 </td>
-                                <td>{{$order->created_at}}</td>
+                                <td>{{$order->order_date}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-primary dropdown-toggle"
@@ -43,7 +43,7 @@
                                         </button>
                                         <div class="dropdown-menu row">
                                             <div class="col-12 ml-2">
-                                                <a href="#show"><i
+                                                <a href="#"><i
                                                         class="fa fa-camera"></i>Show</a>
                                             </div>
                                         </div>

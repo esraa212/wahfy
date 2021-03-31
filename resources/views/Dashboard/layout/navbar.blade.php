@@ -14,7 +14,7 @@
                     <li><a href="javascript:void(0);" class="search_toggle icon-menu" title="Search Result"><i
                                 class="icon-magnifier"></i></a></li>
                     <li>
-                          <form action="{{url('/logout')}}" method="post" style="background-color:inherit">
+                          <form action="{{url('/dashboard/logout')}}" method="post" style="background-color:inherit">
                                <button style="background-color:inherit" class="icon-menu btn btn-xs "><i class="icon-power"></i></button>
                                                 @csrf
                                  </form>

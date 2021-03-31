@@ -1,4 +1,4 @@
-var Review = function () {
+var Order = function () {
 
     var init = function () {
         handleSubmit();
@@ -7,9 +7,9 @@ var Review = function () {
     var handleSubmit = function () {
 
 
-        $('#productReview').submit(function () {
+        $('#orderForm').submit(function () {
 
-            var action = config.url + '/product_review';
+            var action = config.url + '/order';
             var formData = new FormData($(this)[0]);
             $.ajax({
                 url: action,
@@ -19,19 +19,27 @@ var Review = function () {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('#productReview .submit-form').prop('disabled', false);
-                    $('#productReview .submit-form').html('submit');
+                    $('#orderForm .submit-form').prop('disabled', false);
+                    $('#orderForm .submit-form').html('confirm');
                     console.log(data);
                     // toastr.success(data.message);
 
-                    if (data.message == 'Your Review  Has Been added Successfully') {
+                    if (data.message == 'Your Order  Has Been Applied Successfully') {
                         console.log(data);
                         toastr.success(data.message);
-                        $('#count').text('Review '+data.count+'');
+                        window.setTimeout(function () {
+
+                            // Move to a new location Home
+                         window.location.href = config.url+"/";
+
+                        }, 2000);
+                       
+    
                     } else {
                         toastr.warning(data.error);
-                        if (data.errors) {
+                        if(data.errors){
                             toastr.warning(data.errors);
+
                         }
                         console.log(data);
 
@@ -39,8 +47,8 @@ var Review = function () {
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    $('#productReview .submit-form').prop('disabled', false);
-                    $('#productReview .submit-form').html('submit');
+                    $('#orderForm .submit-form').prop('disabled', false);
+                    $('#orderForm .submit-form').html('confirm');
                     toastr.warning(xhr);
 
                 },
@@ -71,5 +79,5 @@ var Review = function () {
 }();
 
 jQuery(document).ready(function () {
-    Review.init();
+    Order.init();
 });

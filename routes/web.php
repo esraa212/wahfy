@@ -12,45 +12,47 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/','Front\HomeController@index')->name('front.home');
-Route::get('/customer/login', 'Front\CustomersController@showLoginForm')->name('front.loginForm');
-Route::post('/customer/login', 'Front\CustomersController@login')->name('front.login');
-Route::post('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');
-Route::get('/customer/logout', 'Front\CustomersController@logout')->name('front.logout');
-Route::get('/customer/register', 'Front\CustomersController@registerForm')->name('front.registerForm');
-Route::post('/customer/register', 'Front\CustomersController@register')->name('front.register');
-Route::get('/shop/{industry}', 'Front\IndutriesController@show')->name('indusrty.show');
+
 Route::post('/subscribe', 'FrontController@subscribe')->name('front.subscribe');
-Route::post('/product_review', 'Front\ProductController@review')->name('front.review');
 
-Route::get('/Brands/{supplier}', 'Front\SupplierController@index')->name('front.suppliers.index');
-Route::get('/Products/{product}', 'Front\ProductController@product')->name('front.suppliers.product');
-Route::get('/Products/{id}/{value}', 'Front\ProductController@index')->name('front.products.index');
-Route::get('cart', 'Front\ProductController@cart')->name('front.cart');
-Route::get('add-to-cart/{id}', 'Front\ProductController@addToCart')->name('front.addToCart');
-Route::get('cart/checkout/{price}', 'Front\ProductController@checkout')->name('front.checkout');
+Route::group(['namespace'=>'Front','as' => 'front.'], function (){
+
+Route::get('/','HomeController@index')->name('home');
+Route::get('/customer/login', 'CustomersController@showLoginForm')->name('loginForm');
+Route::post('/customer/login', 'CustomersController@login')->name('login');
+Route::post('/customer/logout', 'CustomersController@logout')->name('logout');
+Route::get('/customer/logout', 'CustomersController@logout')->name('logout');
+Route::get('/customer/register', 'CustomersController@registerForm')->name('registerForm');
+Route::post('/customer/register', 'CustomersController@register')->name('register');
+Route::get('/shop/{industry}', 'IndutriesController@show')->name('indusrty.show');
+
+Route::post('/product_review', 'ProductController@review')->name('review');
+
+Route::get('/Brands/{supplier}', 'SupplierController@index')->name('suppliers.index');
+Route::get('/Products/{product}', 'ProductController@product')->name('suppliers.product');
+Route::get('/Products/{id}/{value}', 'ProductController@index')->name('products.index');
+Route::get('cart', 'ProductController@cart')->name('cart');
+Route::get('add-to-cart/{id}', 'ProductController@addToCart')->name('addToCart');
+Route::get('cart/checkout/{price}', 'ProductController@checkout')->name('checkout');
+Route::get('payment/{price}', 'ProductController@checkoutForm')->name('checkoutForm');
+//after checkout store order details 
+Route::post('/order', 'OrderController@store')->name('order.store');
+
+/*get areas of cities ajax */
+Route::get('/get_areas/{city}', 'AjaxController@getAreas')->name('getAreas');
+Route::get('/get_suppliers/{id}/{value}', 'AjaxController@getSuppliers')->name('getSuppliers');
+Route::get('/get_suppliers_search/{search}', 'AjaxController@getSuppliersBySearch')->name('getSuppliersBySearch');
+//filter inside store page for products id 1 for catgory 2 for subcategory 3 for price and 4 for colors
+Route::get('/filter_products/{id}/{value}', 'AjaxController@filterProducts')->name('filterProducts');
+Route::get('/getSubByCategory/{category}', 'AjaxController@getSubByCategory')->name('getSubCategories');
 
 
 
 
-
-
-
-
-     /*get areas of cities ajax */
-     Route::get('/get_areas/{city}', 'Front\AjaxController@getAreas')->name('front.getAreas');
-     Route::get('/get_suppliers/{id}/{value}', 'Front\AjaxController@getSuppliers')->name('front.getSuppliers');
-     Route::get('/get_suppliers_search/{search}', 'Front\AjaxController@getSuppliersBySearch')->name('front.getSuppliersBySearch');
-     //filter inside store page for products id 1 for catgory 2 for subcategory 3 for price and 4 for colors
-     Route::get('/filter_products/{id}/{value}', 'Front\AjaxController@filterProducts')->name('front.filterProducts');
-
-
-
-
+});
 
 
 //get subcategory of category
-    Route::get('/getSubByCategory/{category}', 'Front\AjaxController@getSubByCategory')->name('front.getSubCategories');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -60,7 +62,6 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
     Route::get('/login', 'Auth\LoginController@showLoginForm');
     Route::post('/login', 'Auth\LoginController@login')->name('login');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/', 'DashboardController@index')->name('index');
     Route::get('/index', 'DashboardController@index')->name('dashboard');
 //    Route::get('/profile', 'Dashboard\Auth\ProfileController@showProfile')->name('profile');
@@ -123,23 +124,15 @@ Route::group(['namespace'=>'Dashboard','as' => 'admin.', 'prefix' => 'dashboard'
 
 
 
-
-
-
-
      /*get areas of cities ajax */
      Route::get('get_areas/{city}', 'AjaxController@getAreas')->name('getAreas');
 
-//get subcategory of category
+    //get subcategory of category
     Route::get('getSubByCategory/{category}', 'AjaxController@getSubByCategory')->name('getSubCategories');
     Route::get('getProducts/{supplier}', 'AjaxController@getProductsByCategory')->name('getProducts');
     Route::get('getCategories/{supplier}', 'AjaxController@getCategoriesBySupplier')->name('getCategories');
     Route::get('getCategoriesByIndustry/{industry}', 'AjaxController@getCategoriesByIndustry')->name('getCategoriesByIndustry');
     Route::get('getProductSubByCategory/{product_category_id}', 'AjaxController@getProductSubByCategory')->name('getProductSubByCategory');
-
-
-
-
 
 
     Route::any('/not-have-access', function () {

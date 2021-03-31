@@ -114,17 +114,7 @@ class ProductController extends FrontController
     ///cart
        public function cart()
     {
-    if(request('id')&&request('resourcePath')){
-            $payment_status=$this->getPaymentStatus(request('id'),request('resourcePath'));
-            if(isset($payment_status['id'])){
-                $showPaymentMessage=true;
-            }else{
-                $showPaymentMessage=true;
 
-            }
-            $this->data['success']=$showPaymentMessage;
-            return $this->_view('cart', 'Front');
-    }
             return $this->_view('cart', 'Front');
   }
 
@@ -141,6 +131,7 @@ class ProductController extends FrontController
   if(!$cart) {
       $cart = [
               $id => [
+                  "product_id"=>$product->id,
                   "title" => $product->title,
                   "quantity" => 1,
                   "price" => $product->price,
@@ -159,6 +150,7 @@ class ProductController extends FrontController
       }
       // if item not exist in cart then add to cart with quantity = 1
       $cart[$id] = [
+          "product_id"=>$product->id,
           "title" => $product->title,
           "quantity" => 1,
           "price" => $product->price,
@@ -169,7 +161,20 @@ class ProductController extends FrontController
       return redirect()->back()->with('success', 'Product added to cart successfully!');
   }
 
+        public function checkoutForm(){
+             if(request('id')&&request('resourcePath')){
+            $payment_status=$this->getPaymentStatus(request('id'),request('resourcePath'));
+            if(isset($payment_status['id'])){
+                $showPaymentMessage=true;
+            }else{
+                $showPaymentMessage=true;
 
+            }
+            $this->data['success']=$showPaymentMessage;
+            return $this->_view('payment.checkout', 'Front');
+    }
+            return $this->_view('payment.checkout','Front');
+        }
    
 
    public function checkout(Request $request){

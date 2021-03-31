@@ -42,7 +42,7 @@
                             <td>{{$payment->amount}}</td>
                             <td>{{$payment->payment_date}}</td>
                             <td>{{$payment->status}}</td>
-                                <td><a href="{{url("/dashboard/payments/{$payment->id}/show")}}"
+                                <td><a href="{{url("/dashboard/payments/{$payment->id}")}}"
                                     class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a></td>
                                
                             </tr>

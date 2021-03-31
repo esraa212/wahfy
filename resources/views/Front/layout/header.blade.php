@@ -73,24 +73,33 @@
 					
                     <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
                         <div class="ps-cart--mini"><a class="header__extra" href="{{route('front.cart')}}"><i class="icon-bag2"></i><span><i>{{session('cart')?count(session('cart')):0}}</i></span></a>
+                          
                             <div class="ps-cart__content">
-                                <?php $total = 0 ?>
-                             @if(session('cart'))
+                        <?php $total = 0 ?>
+                        @if(session('cart'))  
+                                  
                      @foreach(session('cart') as $id => $details)
-                       <?php $total += $details['price'] * $details['quantity'] ?>
+                       <?php $total += $details['price'] * $details['quantity'] ?>       
                     <div class="ps-product--cart-mobile">
+                            <div class="ps-cart__items">
+                  
                         <div class="ps-product__thumbnail"><a href="#"><img src="{{url(''.$details['image'].'')}}" alt="{{$details['title']}}"></a></div>
                         <div class="ps-product_content"><a class="ps-product_remove" href="#"><i class="icon-cross"></i></a><a href="{{route('front.suppliers.product',['product'=>$details['title']])}}">{{$details['title']}}</a>
                             <p><strong>Sold by:</strong> {{$details['brand']}}</p><small>{{$details['quantity']}} x {{$details['price']}}</small>
                         </div>
+                      
+                            
                     </div>
-                    @endforeach
+            
                 </div>
+                    @endforeach    
+               
                 <div class="ps-cart__footer">
-                    <h3>Sub Total:<strong>{{$total}}</strong></h3>
-                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                    <h3>Sub Total:<strong>{{$total}} LE</strong></h3>
+                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="{{route('front.checkoutForm',['price'=>$total])}}">Checkout</a></figure>
                 </div>
                 @endif
+             
                             </div>
                         </div>
                         <div class="ps-block--user-header">
@@ -188,14 +197,14 @@
 		$c_industries=App\Models\Industry::where('id',$category)->get();
 		@endphp
 	@foreach ($c_industries as $industry)
-	<li class=""><a id="{{$ids[$category-1]}}" href="{{route('indusrty.show',['industry'=>$industry->name])}}">{{$industry->name}}</a></li>
+	<li class=""><a id="{{$ids[$category-1]}}" href="{{route('front.indusrty.show',['industry'=>$industry->name])}}">{{$industry->name}}</a></li>
 	@endforeach
 				
 		@endforeach
 		@else
         
 		@foreach ($industries as $item)
-				<li class=""><a id="{{$ids[$item->id-1]}}" href="{{route('indusrty.show',['industry'=>$item->name])}}">{{$item->name}}</a></li>
+				<li class=""><a id="{{$ids[$item->id-1]}}" href="{{route('front.indusrty.show',['industry'=>$item->name])}}">{{$item->name}}</a></li>
 		@endforeach
 
 		@endif
@@ -234,35 +243,40 @@
             </div>
         </div>
         <div class="navigation--mobile">
-            <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt=""></a></div>
+            <div class="navigation__left"><a class="ps-logo" href="{{route('front.home')}}"><img src="{{url('front/img/wahfy.png')}}" alt=""></a></div>
             <div class="navigation__right">
                 <div class="header__actions">
                     <div class="ps-cart--mini"><a class="header__extra" href="{{route('front.cart')}}"><i class="icon-bag2"></i><span><i>{{session('cart')?count(session('cart')):0}}</i></span></a>
-                        <div class="ps-cart__content">
-                                <?php $total = 0 ?>
-                             @if(session('cart'))
-                            <div class="ps-cart__items">
-                                
-                   @foreach(session('cart') as $id => $details)
+                            
+                        <div class="ps-cart__content">     
+                        <?php $total = 0 ?>
+                        @if(session('cart'))       
+                     @foreach(session('cart') as $id => $details)  
+                      <?php $total += $details['price'] * $details['quantity'] ?>
                                 <div class="ps-product--cart-mobile">
+                   <div class="ps-cart__items">
                                     <div class="ps-product__thumbnail"><a href="{{route('front.suppliers.product',['product'=>$details['title']])}}"><img src="{{url(''.$details['image'].'')}}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
                                         <p><strong>Sold by:</strong> {{$details['brand']}}</p><small>{{$details['quantity']}} x {{$details['price']}}</small>
                                     </div>
+                                </div> 
+                                 
                                 </div>
-                                @endforeach
-                              
-                            </div>
+                                 @endforeach
+                            
+                          
+                             
                             <div class="ps-cart__footer">
                                 <h3>Sub Total:<strong>{{$total}} LE</strong></h3>
-                                <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                                <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="{{route('front.checkoutForm',['price'=>$total])}}">Checkout</a></figure>
                             </div>
-                            @endif
+                           @endif
                         </div>
+                     
                     </div>
                     <div class="ps-block--user-header">
                         <div class="ps-block__left"><i class="icon-user"></i></div>
-                        <div class="ps-block__right"><a href="my-account.html">Login</a><a href="my-account.html">Register</a></div>
+                        <div class="ps-block__right"><a href="{{route('front.loginForm')}}">Login</a><a href="{{route('front.registerForm')}}">Register</a></div>
                     </div>
                 </div>
             </div>
@@ -282,9 +296,9 @@
         </div>
         <div class="navigation__content">
              <?php $total = 0 ?>
-             @if(session('cart'))
+  
             <div class="ps-cart--mobile">
-                 
+                            @if(session('cart'))
                      @foreach(session('cart') as $id => $details)
                 <div class="ps-cart__content">
                     <div class="ps-product--cart-mobile">
@@ -295,12 +309,13 @@
                     </div>
                 </div>
                 @endforeach
+                 @endif
                 <div class="ps-cart__footer">
                     <h3>Sub Total:<strong>{{$total}} LE</strong></h3>
-                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                    <figure><a class="ps-btn" href="{{route('front.cart')}}">View Cart</a><a class="ps-btn" href="{{route('front.checkoutForm',['price'=>$total])}}">Checkout</a></figure>
                 </div>
             </div>
-            @endif
+           
         </div>
     </div>
     <div class="ps-panel--sidebar" id="navigation-mobile">
