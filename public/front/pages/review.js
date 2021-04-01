@@ -9,7 +9,7 @@ var Review = function () {
 
         $('#productReview').submit(function () {
 
-            var action = config.url + '/product_review';
+            var action = product.product_review;
             var formData = new FormData($(this)[0]);
             $.ajax({
                 url: action,
@@ -24,7 +24,7 @@ var Review = function () {
                     console.log(data);
                     // toastr.success(data.message);
 
-                    if (data.message == 'Your Review  Has Been added Successfully') {
+                    if (data.message) {
                         console.log(data);
                         toastr.success(data.message);
                         $('#count').text('Review '+data.count+'');

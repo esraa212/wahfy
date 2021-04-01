@@ -1,4 +1,4 @@
-var Subscribe = function () {
+var Wishlist = function () {
 
     var init = function () {
         handleSubmit();
@@ -7,10 +7,9 @@ var Subscribe = function () {
     var handleSubmit = function () {
 
 
-        $('#subscribeEmailForm').submit(function () {
+        $('#addToWishlist').submit(function () {
 
-            var action = subscribe.subscribe_route;
-            console.log(action);
+            var action = product.wishlist_url + '/' + product.product_id;
             var formData = new FormData($(this)[0]);
             $.ajax({
                 url: action,
@@ -20,8 +19,7 @@ var Subscribe = function () {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('#subscribeEmailForm .submit-form').prop('disabled', false);
-                    $('#subscribeEmailForm .submit-form').html('subscribe');
+                    $('#addToWishlist .submit-form').prop('disabled', false);
                     console.log(data);
                     // toastr.success(data.message);
 
@@ -30,7 +28,7 @@ var Subscribe = function () {
                         toastr.success(data.message);
                     } else {
                         toastr.warning(data.error);
-                        if(data.errors){
+                        if (data.errors) {
                             toastr.warning(data.errors);
                         }
                         console.log(data);
@@ -39,8 +37,8 @@ var Subscribe = function () {
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    $('#subscribeEmailForm .submit-form').prop('disabled', false);
-                    $('#subscribeEmailForm .submit-form').html('subscribe');
+                    $('#addToWishlist .submit-form').prop('disabled', false);
+                    $('#addToWishlist .submit-form').html('Added');
                     toastr.warning(xhr);
 
                 },
@@ -71,5 +69,5 @@ var Subscribe = function () {
 }();
 
 jQuery(document).ready(function () {
-    Subscribe.init();
+    Wishlist.init();
 });

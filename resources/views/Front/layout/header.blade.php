@@ -71,7 +71,7 @@
                 </div>
                 <div class="header__content-right">
 					
-                    <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                    <div class="header__actions"><a class="header__extra" href="{{route('front.wishlist')}}"><i class="icon-heart"></i><span><i>{{session('wishlist')?count(session('wishlist')):0}}</i></span></a>
                         <div class="ps-cart--mini"><a class="header__extra" href="{{route('front.cart')}}"><i class="icon-bag2"></i><span><i>{{session('cart')?count(session('cart')):0}}</i></span></a>
                           
                             <div class="ps-cart__content">

@@ -35,6 +35,8 @@ Route::get('cart', 'ProductController@cart')->name('cart');
 Route::get('add-to-cart/{id}', 'ProductController@addToCart')->name('addToCart');
 Route::get('cart/checkout/{price}', 'ProductController@checkout')->name('checkout');
 Route::get('payment/{price}', 'ProductController@checkoutForm')->name('checkoutForm');
+Route::get('wishlist', 'ProductController@wishlist')->name('wishlist');
+Route::post('/add-to-wishlist/{id}', 'ProductController@addToWishlist')->name('addTowishlist');
 //after checkout store order details 
 Route::post('/order', 'OrderController@store')->name('order.store');
 

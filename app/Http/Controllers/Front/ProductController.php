@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use Validator;
+use App\Models\Deal;
 use App\Models\Color;
 use App\Models\Rating;
 use App\Models\Product;
@@ -64,6 +65,9 @@ class ProductController extends FrontController
 
       $this->data['brands']=Supplier::where('industry_id',$product->supplier->industry_id)->get()->random(1);
       $this->data['related_products']=Product::where('product_category_id',$product->product_category_id)->limit(5)->get();
+      $deal=Deal::where('product_id',$product->id)->orderBy('created_at','DESC')->first();
+       $this->data['deal']=$deal;
+       
       return $this->_view('products.show', 'Front');
 
     }
@@ -126,6 +130,7 @@ class ProductController extends FrontController
       if(!$product) {
                 return $this->error404();
       }
+      $deal=Deal::where('product_id',$product->id)->orderBy('created_at','DESC')->first();
       $cart = session()->get('cart');
   // if cart is empty then this the first product
   if(!$cart) {
@@ -134,7 +139,7 @@ class ProductController extends FrontController
                   "product_id"=>$product->id,
                   "title" => $product->title,
                   "quantity" => 1,
-                  "price" => $product->price,
+                  "price" =>$deal !=null? $deal->price_after: $product->price,
                   "image" => $product->image,
                   "brand"=>$product->supplier->name
               ]
@@ -153,7 +158,7 @@ class ProductController extends FrontController
           "product_id"=>$product->id,
           "title" => $product->title,
           "quantity" => 1,
-          "price" => $product->price,
+          "price" =>$deal !=null? $deal->price_after: $product->price,
           "image" => $product->image,
           "brand"=>$product->supplier->name
       ];
@@ -161,6 +166,7 @@ class ProductController extends FrontController
       return redirect()->back()->with('success', 'Product added to cart successfully!');
   }
 
+  //checkout view
         public function checkoutForm(){
              if(request('id')&&request('resourcePath')){
             $payment_status=$this->getPaymentStatus(request('id'),request('resourcePath'));
@@ -227,5 +233,73 @@ class ProductController extends FrontController
 	return json_decode($responseData,true);
 
     }
+
+    public function wishlist(){
+            return $this->_view('products.wishlist', 'Front');
+
+
+    }
+
+    //add Product To Wishlist
+    public function addToWishlist(Request $request,$id){
+      try{
+          if(! \Auth::guard('customers')->user()){
+        return response()->json(['error'=>'you have to login First to Add This Product To Your WishList']);
+            }
+        $product = Product::find($id);
+      if(!$product) {
+                return $this->error404();
+      }
+      $deal=Deal::where('product_id',$product->id)->orderBy('created_at','DESC')->first();
+          $wishlist = session()->get('wishlist');
+  // if wishlist is empty then this the first product
+  if(!$wishlist) {
+      $wishlist = [
+              $id => [
+                  "product_id"=>$product->id,
+                  "title" => $product->title,
+                  "price" =>$deal !=null? $deal->price_after: $product->price,
+                  "image" => $product->image,
+                  "brand"=>$product->supplier->name
+              ]
+      ];
+      session()->put('wishlist', $wishlist);
+    if ($request->ajax()){
+                return response()->json(['message'=>'Product added to wishlist successfully!']);
+
+                } else {
+                    return redirect()->back()->with('success','Product added to wishlist successfully!');
+        }
+  }
+      // if wishlist not empty then check if this product exist then increment quantity
+      if(isset($wishlist[$id])) {
+           if ($request->ajax()) {
+                return response()->json(['error'=>'This Product Has Been added Before']);
+
+                } else {
+                    return redirect()->back()->with('success','This Product Has Been added Before');
+                }
+      }
+      // if item not exist in wishlist then add to wishlist with quantity = 1
+      $wishlist[$id] =[
+          "product_id"=>$product->id,
+          "title" => $product->title,
+          "price" =>$deal !=null? $deal->price_after: $product->price,
+          "image" => $product->image,
+          "brand"=>$product->supplier->name
+      ];
+      session()->put('wishlist', $wishlist);
+      if ($request->ajax()) {
+                return response()->json(['message'=>'Product added to wishlist successfully!']);
+
+                } else {
+                    return redirect()->back()->with('success','Product added to wishlist successfully!');
+        }
+      }catch(\Exception $ex){
+          dd($ex);
+      }
+   
+    }
+
 
 }

@@ -106,7 +106,7 @@
                                         <select class="ps-rating" data-read-only="true">
                                             @if($hotdeal->rating!=null)
                                             @for($i=0;$i<$hotdeal->rating;$i++)
-                                            <option value="1">{{(double)$hotdeal->rating}}</option>
+                                            <option value="1">{{round($hotdeal->rating)}}</option>
                                             @endfor
                                             @else
                                             <option></option>
@@ -117,13 +117,10 @@
 
                                             @endif
 
-                                        </select><span>{{$hotdeal->rating}}</span>
+                                        </select><span>{{round($hotdeal->rating)}} out Of 5</span>
                                     </div>
                                     <p class="ps-product__price sale">{{$hotdeal->product_price}}LE <del>{{$hotdeal->price_before}}LE </del></p>
-                                    <div class="ps-product__progress-bar ps-progress" data-value="78">
-                                        <div class="ps-progress__value"><span></span></div>
-                                        <p>Sold:57</p>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

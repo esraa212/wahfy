@@ -70,6 +70,10 @@
 <script>
     var config ={
         url:"{{url('/')}}",
+       
+    }
+    var subscribe={
+     subscribe_route:"{{route('front.subscribe')}}"
     }
 </script>
 <script src="{{ asset('front/pages/subscription.js') }}"></script>

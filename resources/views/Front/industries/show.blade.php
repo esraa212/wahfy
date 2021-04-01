@@ -104,7 +104,7 @@
                                         <article class="ps-block--store">
                                             <div class="ps-block__thumbnail bg--cover" data-background="{{url('front/img/vendor/store/1.jpg')}}"></div>
                                             <div class="ps-block__content">
-                                                <div class="ps-block__author"><a class="ps-block__user" href="#"><img src="img/vendor/store/user/3.jpg" alt=""></a>
+                                                <div class="ps-block__author"><a class="ps-block__user" href="{{route('front.suppliers.index',['supplier'=>$supplier->name])}}"><img src="img/vendor/store/user/3.jpg" alt=""></a>
                                                     <a class="ps-btn" href="{{route('front.suppliers.index',['supplier'=>$supplier->name])}}">Visit Store</a></div>
                                                 <h4>{{$supplier->name}}</h4>
                                                 <select class="ps-rating" data-read-only="true">

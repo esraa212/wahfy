@@ -47,7 +47,7 @@
                                         </select><span>({{$product->ratings->count()}} review)</span>
                                     </div>
                                 </div>
-                                <h4 class="ps-product__price">{{round($product->price)}} LE</h4>
+                                <h4 class="ps-product__price">{{$deal !=null? 'price after discount: '.round($deal->price_after) :round($product->price)}} LE</h4>
                                 <div class="ps-product__desc">
                                   
                                     <ul class="ps-list--dot">
@@ -87,9 +87,17 @@
                                             <input class="form-control" type="text" placeholder="1">
                                         </div>
                                     </figure>
-                                    <a class="ps-btn ps-btn--black "href="{{ url('add-to-cart/'.$product->id) }}">Add to cart</a>
-                                    <a class="ps-btn" href="#">Buy Now</a>
-                                    <div class="ps-product__actions col-12"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
+                                    <a class="ps-btn ml-5"href="{{ url('add-to-cart/'.$product->id) }}">Add to cart</a>
+                                   
+                                    <div class="ps-product__actions col-12 mt-2">
+                                        <form action="{{route('front.wishlist')}}" method="post" id="addToWishlist">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                   <button style="background-color: white;border:thick;"class="submit-form" type="submit">
+                                     <i class="icon-heart fa-3x"></i></button>
+                                        </form>
+                    
+                                    </div>
                                 </div>
                                 <div class="ps-product__specification">
                                     <p><strong>SKU:</strong> {{$product->id}}</p>
@@ -230,13 +238,12 @@
                     <aside class="widget widget_sell-on-site">
                         <p><i class="icon-store"></i> Sell on WAHFY?<a href="#"> Register Now !</a></p>
                     </aside>
-                    <aside class="widget widget_ads"><a href="#"><img src="img/ads/product-ads.png" alt=""></a></aside>
                     <aside class="widget widget_same-brand">
                         <h3>Same Brand</h3>
                         <div class="widget__content">
                             @foreach($brands as $brand)
                             <div class="ps-product">
-                                <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{url('front/img/products/shop/5.jpg')}}" alt=""></a>
+                                <div class="ps-product__thumbnail"><a href="{{route('front.suppliers.index',['supplier'=>$brand->name])}}"><img src="{{url('front/img/products/shop/5.jpg')}}" alt=""></a>
                                 
                                     <ul class="ps-product__actions">
                                         <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag2"></i></a></li>
@@ -245,8 +252,8 @@
                                         <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                     </ul>
                                 </div>
-                                <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{$brand->name}}</a>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$brand->name}}</a>
+                                <div class="ps-product__container"><a class="ps-product__vendor" href="{{route('front.suppliers.index',['supplier'=>$brand->name])}}">{{$brand->name}}</a>
+                                    <div class="ps-product__content"><a class="ps-product__title" href="{{route('front.suppliers.index',['supplier'=>$brand->name])}}">{{$brand->name}}</a>
                                         <div class="ps-product__rating">
                                             <select class="ps-rating" data-read-only="true">
                                                 @if($brand->ratings->avg('value')<5 && $brand->ratings->avg('value')>0)
@@ -343,5 +350,15 @@ color: #d2d2d2;
 @endsection
 @endif
 @section('scripts')
+<script>
+     var product ={
+        product_id:"{{$product->id}}",
+        wishlist_url:"{{url('/add-to-wishlist/')}}",
+        product_review:"{{url('/product_review')}}"
+    }
+</script>
+
 <script src="{{ asset('front/pages/review.js') }}"></script>
+<script src="{{ asset('front/pages/wishlist.js') }}"></script>
+
 @endsection
