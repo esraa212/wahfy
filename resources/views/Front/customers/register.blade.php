@@ -120,7 +120,7 @@
                         </div>
                         @foreach ($favindustries as $favindustry )
                         <div class="col-6">
-                            <input style="position: absolute; left:30%;" type="checkbox" name="category_id[]" value="{{$favindustry->id}}" ><label>{{$favindustry->name}}</label>
+                            <input style="position: absolute; left:30%;" type="checkbox" name="category_id[]" value="{{$favindustry->id}}" class="check" ><label>{{$favindustry->name}}</label>
                         </div>     
                         @endforeach
                       
@@ -160,5 +160,16 @@
     }
 </script>
 <script src="{{ asset('assets/js/pages/ajaxrequests.js') }}"></script>
+<script>
+var checks = document.querySelectorAll(".check");
+var max = 7;
+for (var i = 0; i < checks.length; i++)
+  checks[i].onclick = selectiveCheck;
+function selectiveCheck (event) {
+  var checkedChecks = document.querySelectorAll(".check:checked");
+  if (checkedChecks.length >= max + 1)
+    return false;
+}    
+</script>
 
 @stop

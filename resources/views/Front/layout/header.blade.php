@@ -192,15 +192,14 @@
 		@php
 		$c_categories=json_decode(Auth::guard('customers')->user()->categories);
 		@endphp
-		@foreach($c_categories as $category)
+	
 		@php
-		$c_industries=App\Models\Industry::where('id',$category)->get();
+		$c_industries=App\Models\Industry::whereIn('id',$c_categories)->get();
 		@endphp
-	@foreach ($c_industries as $industry)
-	<li class=""><a id="{{$ids[$category-1]}}" href="{{route('front.indusrty.show',['industry'=>$industry->name])}}">{{$industry->name}}</a></li>
+	@foreach ($c_industries as $key=> $industry)
+	<li class=""><a id="{{$ids[$key]}}" href="{{route('front.indusrty.show',['industry'=>$industry->name])}}">{{$industry->name}}</a></li>
 	@endforeach
 				
-		@endforeach
 		@else
         
 		@foreach ($industries as $item)

@@ -360,5 +360,4 @@ color: #d2d2d2;
 
 <script src="{{ asset('front/pages/review.js') }}"></script>
 <script src="{{ asset('front/pages/wishlist.js') }}"></script>
-
 @endsection
