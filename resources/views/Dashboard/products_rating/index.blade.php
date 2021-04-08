@@ -30,36 +30,27 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($ratings as $product)
+                            @foreach ($ratings as $rating)
 
 
                             <tr>
-                                <td>{{$product->id}}
+                                <td>{{$rating->id}}
                                 </td>
                                 <td>
-                                    @php $product=\App\Models\Product::where('id',$product->product_id)->first(); @endphp
+                                    @php $product=\App\Models\Product::where('id',$rating->product_id)->first(); @endphp
                                     {{$product !=null? $product->title:''}}</td>
                                 <td> 
-                                    {{$product->value}}</td>
-                                <td> @php $customer=\App\Models\Customer::where('id',$product->customer_id)->first(); @endphp
+                                    {{$rating->value}}</td>
+                                <td> @php $customer=\App\Models\Customer::where('id',$rating->customer_id)->first(); @endphp
                                     {{$customer !=null? $customer->name:''}}
                                     </td>
                         
                                 <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-primary dropdown-toggle"
-                                            data-toggle="dropdown">
-                                            Options
-                                        </button>
-                                       
-                                            <div class="col-12 ml-2">
-                                                <a href="{{route('admin.favorites.show',['product'=>$product->product_id])}}"><i
+                                  
+                                                <a href="{{route('admin.rating.show',['id'=>$rating->product_id])}}"><i
                                                         class="fa fa-eye"></i>Show</a>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
+                            
+                                
                                 </td>
 
                             </tr>

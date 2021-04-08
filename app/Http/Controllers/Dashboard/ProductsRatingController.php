@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
+use App\Http\Controllers\Controller;
 
 class ProductsRatingController extends Controller
 {
